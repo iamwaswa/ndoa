@@ -1,3 +1,9 @@
+import { Layout } from '../layout';
+
 export default function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} title="Ndoa" />
+  return (
+    <Layout>
+      <Component {...pageProps} title="Ndoa" />
+    </Layout>
+  );
 }
