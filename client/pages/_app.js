@@ -1,3 +1,5 @@
+import '../index.css';
+
 import { Grommet } from 'grommet';
 import { Layout } from '../layout';
 
@@ -6,8 +8,11 @@ export default function MyApp({ Component, pageProps }) {
     <Grommet
       theme={{
         global: {
+          colors: {
+            brand: '#228BE6',
+          },
           font: {
-            family: 'Roboto',
+            family: 'Arapey',
             size: '16px',
             height: '16px',
           },

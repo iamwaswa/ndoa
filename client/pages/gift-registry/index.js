@@ -4,7 +4,7 @@ export default function GiftRegistryPage({ title }) {
   return (
     <>
       <Head>
-        <title>{title} | Gift Registry</title>
+        <title>{title} | Gift registry</title>
       </Head>
       <section>Gift registry page goes here...</section>
     </>
