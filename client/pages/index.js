@@ -1,6 +1,7 @@
 import { Box } from 'grommet';
-import { FirstSection } from '../components/home/firstSection';
 import Head from 'next/head';
+import { Intro } from '../components/home/intro';
+import { OurStory } from '../components/home/ourStory';
 import styled from 'styled-components';
 import { useNavigationHeightContext } from '../context/navigationHeight';
 
@@ -21,8 +22,9 @@ export default function HomePage({ title }) {
         <title>{title} | Home</title>
       </Head>
       <Container navigationHeight={navigationHeight} tag="section">
-        <FirstSection />
+        <Intro />
       </Container>
+      <OurStory />
     </>
   );
 }

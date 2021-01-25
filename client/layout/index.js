@@ -33,6 +33,9 @@ export function Layout({ children }) {
         </Box>
       </Box>
       {children}
+      <Box tag="footer" justify="center" pad={{ vertical: `medium` }}>
+        <Image height="40" width="40" src="/shortcut-logo.svg" />
+      </Box>
     </Box>
   );
 }
