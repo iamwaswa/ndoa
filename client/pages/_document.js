@@ -10,9 +10,10 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <link rel="shortcut icon" href="/shortcut-logo.svg" />
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Arapey:ital@0;1&display=swap"
+            href="https://fonts.googleapis.com/css?family=Arapey&display=swap"
           />
         </Head>
         <body>

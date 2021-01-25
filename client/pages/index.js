@@ -1,28 +1,28 @@
-import { Box, Text } from 'grommet';
-
+import { Box } from 'grommet';
+import { FirstSection } from '../components/home/firstSection';
 import Head from 'next/head';
 import styled from 'styled-components';
+import { useNavigationHeightContext } from '../context/navigationHeight';
 
-const HeroImage = styled(Box)`
-  height: 50vw;
-  min-height: 300px;
+const Container = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  height: ${({ navigationHeight }) => {
+    return navigationHeight ? `calc(100vh - ${navigationHeight}px)` : `100vh`;
+  }};
 `;
 
 export default function HomePage({ title }) {
+  const { navigationHeight } = useNavigationHeightContext();
+
   return (
     <>
       <Head>
         <title>{title} | Home</title>
       </Head>
-      <Box direction="column" flex={true} tag="section">
-        <HeroImage background="black" tag="section"></HeroImage>
-        <Box background="brand" pad={{ vertical: `medium` }} tag="section">
-          <Text size="large" textAlign="center">
-            April 24th, 2021
-          </Text>
-        </Box>
-        <Box tag="section">Home page content will go here...</Box>
-      </Box>
+      <Container navigationHeight={navigationHeight} tag="section">
+        <FirstSection />
+      </Container>
     </>
   );
 }
