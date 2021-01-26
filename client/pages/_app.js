@@ -8,6 +8,10 @@ export default function MyApp({ Component, pageProps }) {
     <Grommet
       theme={{
         global: {
+          colors: {
+            brand: `#98bcdd`,
+            [`light-1`]: `#f9f9f9`,
+          },
           font: {
             family: `'Roboto', cursive`,
             size: `16px`,
