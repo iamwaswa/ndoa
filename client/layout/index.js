@@ -1,51 +1,68 @@
-import { Box, Text } from 'grommet';
-import { CircularAnchor, FlatAnchor } from './styles';
+import { Box, Nav, Text } from 'grommet';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useElementHeight } from '../hooks/elementHeight';
-import { useNavigationHeightContext } from '../context/navigationHeight';
+import styled from 'styled-components';
+import { useAtMostSize } from '../hooks/atMostSize';
+
+const Container = styled(Box)`
+  background-image: url(https://assets.awwwards.com/awards/images/2015/04/pattern.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+`;
+
+const Words = styled(Text)`
+  font-size: ${({ fontSize }) => fontSize};
+  line-height: ${({ fontSize }) => fontSize};
+`;
+
+const Navigation = styled(Nav)`
+  width: 100%;
+`
 
 export function Layout({ children }) {
-  const { setNavigationHeight } = useNavigationHeightContext();
-
-  const navigationRef = useElementHeight(setNavigationHeight);
-
+  const atMost420px = useAtMostSize(420);
+  
   return (
-    <Box tag="main">
-      <Box
-        align="center"
-        background="brand"
-        direction="row"
-        justify="between"
-        pad={{ horizontal: `medium`, vertical: `small` }}
-        ref={navigationRef}
-        tag="nav"
-      >
-        <Link href="/">
-          <CircularAnchor>
-            <Image height="40" width="40" src="/logo.svg" />
-          </CircularAnchor>
-        </Link>
-        <Box direction="row" gap="small" justify="between" tag="section">
-          <MainLink href="/gift-registry" text="Gift registry" />
-          <MainLink href="/live-stream" text="Live stream" />
-        </Box>
+    <Container direction="column">
+      <Box direction="column" align="center" flex={{ grow: 0 }} justify="stretch" pad={{ vertical: `xsmall` }}>
+        <Image height={atMost420px ? `80` : `100`} width={atMost420px ? `80` : `150`} src="/logo.svg" />
+        <Words fontSize="32px" margin={{ vertical: `small` }}>Waswa & Clare-Anne</Words>
+        <Words fontSize="20px" margin={{ bottom: `xsmall` }}>April 24th, 2021</Words>
+        <Words fontSize="20px">90 days to go!</Words>
+        <Navigation 
+          direction="row" 
+          justify="center" 
+          gap={atMost420px ? `large` : `xlarge`} 
+          margin={{ top: `large` }}
+          pad={{ bottom: `medium` }}
+        >
+          <Link href="/">
+            <a>
+              <Words fontSize={atMost420px ? `16px` : `20px`}>Home</Words>
+            </a>
+          </Link>
+          <Link href="/story">
+            <a>
+              <Words fontSize={atMost420px ? `16px` : `20px`}>Story</Words>
+            </a>
+          </Link>
+          <Link href="/registry">
+            <a>
+              <Words fontSize={atMost420px ? `16px` : `20px`}>Registry</Words>
+            </a>
+          </Link>
+          <Link href="/livestream">
+            <a>
+              <Words fontSize={atMost420px ? `16px` : `20px`}>Livestream</Words>
+            </a>
+          </Link>
+        </Navigation>
       </Box>
-      {children}
-      <Box tag="footer" justify="center" pad={{ vertical: `medium` }}>
-        <Image height="40" width="40" src="/shortcut-logo.svg" />
+      <Box flex={{ grow: 1 }}>
+        {children}
       </Box>
-    </Box>
-  );
-}
-
-function MainLink({ href, text }) {
-  return (
-    <Link href={href}>
-      <FlatAnchor tabIndex="0">
-        <Text size="medium">{text}</Text>
-      </FlatAnchor>
-    </Link>
-  );
+    </Container>
+  )
 }
