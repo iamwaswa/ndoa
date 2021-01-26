@@ -1,18 +1,16 @@
 {
   "extends": [
     "eslint:recommended",
-    "plugin:import/errors",
-    "plugin:import/warning",
     "plugin:jsx-a11y/recommended",
-    "plugin:prettier/recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"
   ],
-  "plugins": ["import", "jsx-a11y", "react", "react-hooks", "prettier"],
+  "plugins": ["simple-import-sort"],
   "env": {
+    "amd": true,
     "browser": true,
-    "jasmine": true,
-    "jest": true
+    "node": true
   },
   "rules": {
     "react/display-name": "off",
@@ -21,11 +19,9 @@
   },
   "settings": {
     "react": {
-      "pragma": "React",
       "version": "detect"
     }
   },
-  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true

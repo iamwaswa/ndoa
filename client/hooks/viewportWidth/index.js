@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export function useViewportWidth() {
   const [width, setWidth] = useState();
@@ -14,8 +14,8 @@ export function useViewportWidth() {
     return () => {
       window.removeEventListener(`load`, onWidthChange);
       window.removeEventListener(`resize`, onWidthChange);
-    }
-  }, [])
+    };
+  }, []);
 
   return width;
 }

@@ -1,9 +1,5 @@
-import { Box } from "grommet";
+import { Box } from 'grommet';
 
 export default function StoryPage() {
-  return (
-    <Box>
-      Story page will go here...
-    </Box>
-  )
+  return <Box>Story page will go here...</Box>;
 }

@@ -19,50 +19,54 @@ const Words = styled(Text)`
 
 const Navigation = styled(Nav)`
   width: 100%;
-`
+`;
 
 export function Layout({ children }) {
   const atMost420px = useAtMostSize(420);
-  
+
   return (
     <Container direction="column">
-      <Box direction="column" align="center" flex={{ grow: 0 }} justify="stretch" pad={{ vertical: `xsmall` }}>
-        <Image height={atMost420px ? `80` : `100`} width={atMost420px ? `80` : `150`} src="/logo.svg" />
-        <Words fontSize="32px" margin={{ vertical: `small` }}>Waswa & Clare-Anne</Words>
-        <Words fontSize="20px" margin={{ bottom: `xsmall` }}>April 24th, 2021</Words>
+      <Box
+        direction="column"
+        align="center"
+        flex={{ grow: 0 }}
+        justify="stretch"
+        pad={{ vertical: `xsmall` }}
+      >
+        <Image
+          height={atMost420px ? `80` : `100`}
+          width={atMost420px ? `80` : `150`}
+          src="/logo.svg"
+        />
+        <Words fontSize="32px" margin={{ vertical: `small` }}>
+          Waswa & Clare-Anne
+        </Words>
+        <Words fontSize="20px" margin={{ bottom: `xsmall` }}>
+          April 24th, 2021
+        </Words>
         <Words fontSize="20px">90 days to go!</Words>
-        <Navigation 
-          direction="row" 
-          justify="center" 
-          gap={atMost420px ? `large` : `xlarge`} 
+        <Navigation
+          direction="row"
+          justify="center"
+          gap={atMost420px ? `large` : `xlarge`}
           margin={{ top: `large` }}
           pad={{ bottom: `medium` }}
         >
           <Link href="/">
-            <a>
-              <Words fontSize={atMost420px ? `16px` : `20px`}>Home</Words>
-            </a>
+            <Words fontSize={atMost420px ? `16px` : `20px`}>Home</Words>
           </Link>
           <Link href="/story">
-            <a>
-              <Words fontSize={atMost420px ? `16px` : `20px`}>Story</Words>
-            </a>
+            <Words fontSize={atMost420px ? `16px` : `20px`}>Story</Words>
           </Link>
           <Link href="/registry">
-            <a>
-              <Words fontSize={atMost420px ? `16px` : `20px`}>Registry</Words>
-            </a>
+            <Words fontSize={atMost420px ? `16px` : `20px`}>Registry</Words>
           </Link>
           <Link href="/livestream">
-            <a>
-              <Words fontSize={atMost420px ? `16px` : `20px`}>Livestream</Words>
-            </a>
+            <Words fontSize={atMost420px ? `16px` : `20px`}>Livestream</Words>
           </Link>
         </Navigation>
       </Box>
-      <Box flex={{ grow: 1 }}>
-        {children}
-      </Box>
+      <Box flex={{ grow: 1 }}>{children}</Box>
     </Container>
-  )
+  );
 }
