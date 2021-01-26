@@ -2,7 +2,7 @@ import { Box } from 'grommet';
 import Head from 'next/head';
 import Image from 'next/image';
 import styled from 'styled-components';
-import { useAtMostSize } from '../hooks/atMostSize';
+import { useAtMostSize } from 'hooks/atMostSize';
 
 const Container = styled(Box)`
   position: relative;

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useViewportWidth } from '../viewportWidth';
+import { useViewportWidth } from 'hooks/viewportWidth';
 
 export function useAtMostSize(size) {
   const width = useViewportWidth();

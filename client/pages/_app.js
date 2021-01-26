@@ -1,7 +1,7 @@
-import '../styles/globals.css';
+import 'styles/globals.css';
 
 import { Grommet } from 'grommet';
-import { Layout } from '../layout';
+import { Layout } from 'layout';
 
 export default function MyApp({ Component, pageProps }) {
   return (

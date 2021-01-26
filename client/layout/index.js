@@ -3,7 +3,7 @@ import { Box, Nav, Text } from 'grommet';
 import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { useAtMostSize } from '../hooks/atMostSize';
+import { useAtMostSize } from 'hooks/atMostSize';
 
 const Container = styled(Box)`
   background-image: url(https://assets.awwwards.com/awards/images/2015/04/pattern.jpg);
