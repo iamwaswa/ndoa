@@ -2,11 +2,17 @@ import 'styles/globals.css';
 
 import { Grommet } from 'grommet';
 import { Layout } from 'layout';
+import { Radial } from 'grommet-icons';
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <Grommet
       theme={{
+        carousel: {
+          icons: {
+            current: Radial,
+          },
+        },
         global: {
           colors: {
             brand: `#98bcdd`,
