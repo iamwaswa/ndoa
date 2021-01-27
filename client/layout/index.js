@@ -1,5 +1,4 @@
 import { Box } from 'grommet';
-import { LoadingScreen } from './loadingScreen';
 import { Navigation } from './navigation';
 import { Title } from './title';
 import styled from 'styled-components';
@@ -23,7 +22,6 @@ export function Layout({ children }) {
 
   return (
     <>
-      <LoadingScreen />
       <Container direction="column">
         <Box
           direction="column"
