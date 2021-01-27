@@ -23,7 +23,6 @@ export default class MyDocument extends Document {
           <link href="/logo.svg" rel="apple-touch-icon" type="image/svg" />
           <link href="/logo.svg" rel="shortcut icon" type="image/svg" />
           <meta name="mobile-web-app-capable" content="yes" />
-          <meta name="viewport" content="width=device-width,initial-scale=1" />
         </Head>
         <body>
           <Main />
