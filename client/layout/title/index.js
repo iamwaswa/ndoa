@@ -11,13 +11,13 @@ export function Title({ mobile }) {
         width={mobile ? `60` : `80`}
         src="/logo.svg"
       />
-      <Text margin={{ top: `small`, bottom: `medium` }} size="xxlarge">
+      <Text margin={{ top: `small`, bottom: `small` }} size="xxlarge">
         Waswa & Clare-Anne
       </Text>
       <Text margin={{ bottom: `xsmall` }} size="xlarge">
         April 24th, 2021
       </Text>
-      <Box margin={{ top: `medium` }}>
+      <Box margin={{ top: `small` }}>
         <Countdown />
       </Box>
     </>

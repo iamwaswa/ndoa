@@ -49,7 +49,7 @@ export function Navigation({ mobile }) {
       direction="row"
       justify="center"
       gap={mobile ? `large` : `xlarge`}
-      pad={{ top: `large` }}
+      pad={{ top: `medium` }}
     >
       {routes.map(({ href, text }) => (
         <Link key={text} href={href}>
