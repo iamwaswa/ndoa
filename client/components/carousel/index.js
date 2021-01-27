@@ -24,8 +24,8 @@ const Control = styled(Button)`
     ${({ selected }) => (selected ? `var(--brand)` : `var(--white)`)};
   padding: 0px;
   position: relative;
-  height: 16px;
-  width: 16px;
+  height: 24px;
+  width: 24px;
 
   &:after {
     background-color: ${({ selected }) =>
@@ -51,7 +51,7 @@ export function Carousel({ images }) {
     <Container>
       <Image layout="fill" objectFit="cover" src={images[selectedImageIndex]} />
       <BottomContainer direction="row" justify="center">
-        <Box direction="row" gap="small">
+        <Box direction="row" gap="medium">
           {images.map((_, index) => (
             <Control
               key={index}
