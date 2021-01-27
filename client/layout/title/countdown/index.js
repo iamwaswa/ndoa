@@ -5,16 +5,16 @@ import { useTimeToGo } from 'hooks/timeToGo';
 
 function Time({ mobile, title, value }) {
   return (
-    <Box direction="column" align="center" gap={{ vertica: `xsmall` }}>
+    <Box direction="column" align="center" gap="small">
       <Text size={`${mobile ? `` : `x`}large`}>{title}</Text>
       <Text size="xxlarge">{String(value).padStart(2, `0`)}</Text>
     </Box>
   );
 }
 
-function Gap() {
+function Gap({ mobile }) {
   return (
-    <Text margin={{ horizontal: `xsmall` }} size="xlarge">
+    <Text margin={{ horizontal: `${mobile ? `x` : ``}xsmall` }} size="xlarge">
       :
     </Text>
   );
@@ -25,13 +25,13 @@ export function Countdown() {
   const { days, hours, minutes, seconds } = useTimeToGo();
 
   return (
-    <Box direction="row" gap={{ horizontal: mobile ? `xsmall` : `small` }}>
+    <Box direction="row" gap={mobile ? `xsmall` : `small`}>
       <Time mobile={mobile} title="Days" value={days} />
-      <Gap />
+      <Gap mobile={mobile} />
       <Time mobile={mobile} title="Hours" value={hours} />
-      <Gap />
+      <Gap mobile={mobile} />
       <Time mobile={mobile} title="Minutes" value={minutes} />
-      <Gap />
+      <Gap mobile={mobile} />
       <Time mobile={mobile} title="Seconds" value={seconds} />
     </Box>
   );
