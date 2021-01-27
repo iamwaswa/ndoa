@@ -27,7 +27,7 @@ export default function MyApp({ Component, pageProps }) {
       }}
     >
       <Layout>
-        <Component {...pageProps} />
+        <Component {...pageProps} title="Ndoa" />
       </Layout>
     </Grommet>
   );

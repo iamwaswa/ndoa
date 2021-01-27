@@ -10,13 +10,13 @@ const Container = styled(Box)`
   width: 100%;
 `;
 
-export default function HomePage() {
+export default function HomePage({ title }) {
   const atMost420px = useAtMostSize(900);
 
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>{title} | Home</title>
       </Head>
       <Container
         margin={{
