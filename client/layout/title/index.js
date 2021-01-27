@@ -1,15 +1,14 @@
+import { Box, Text } from 'grommet';
+
+import { Countdown } from './countdown';
 import Image from 'next/image';
-import { Text } from 'grommet';
-import { useDaysToGo } from 'hooks/daysToGo';
 
 export function Title({ mobile }) {
-  const daysToGo = useDaysToGo();
-
   return (
     <>
       <Image
-        height={mobile ? `80` : `100`}
-        width={mobile ? `80` : `150`}
+        height={mobile ? `60` : `80`}
+        width={mobile ? `60` : `80`}
         src="/logo.svg"
       />
       <Text margin={{ top: `small`, bottom: `medium` }} size="xxlarge">
@@ -18,7 +17,9 @@ export function Title({ mobile }) {
       <Text margin={{ bottom: `xsmall` }} size="xlarge">
         April 24th, 2021
       </Text>
-      <Text size="xlarge">{daysToGo}</Text>
+      <Box margin={{ top: `medium` }}>
+        <Countdown />
+      </Box>
     </>
   );
 }

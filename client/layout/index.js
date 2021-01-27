@@ -11,6 +11,12 @@ const Container = styled(Box)`
   height: 100vh;
 `;
 
+const PageContent = styled(Box)`
+  margin: 0 auto;
+  max-width: 900px;
+  width: 100%;
+`;
+
 export function Layout({ children }) {
   const atMost420px = useAtMostSize(420);
 
@@ -26,7 +32,9 @@ export function Layout({ children }) {
         <Title mobile={atMost420px} />
         <Navigation mobile={atMost420px} />
       </Box>
-      <Box flex={{ grow: 1 }}>{children}</Box>
+      <PageContent flex={{ grow: 1 }} pad={{ top: `small` }}>
+        {children}
+      </PageContent>
     </Container>
   );
 }
