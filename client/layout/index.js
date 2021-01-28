@@ -5,9 +5,6 @@ import styled from 'styled-components';
 import { useAtMostSize } from 'hooks/atMostSize';
 
 const Container = styled(Box)`
-  background-image: url(https://assets.awwwards.com/awards/images/2015/04/pattern.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
   min-height: 100vh;
 `;
 
@@ -27,7 +24,7 @@ export function Layout({ children }) {
         align="center"
         flex={{ grow: 0 }}
         justify="stretch"
-        pad={{ horizontal: `xsmall` }}
+        pad={{ horizontal: `xsmall`, vertical: `small` }}
       >
         <Title mobile={atMost420px} />
         <Navigation mobile={atMost420px} />

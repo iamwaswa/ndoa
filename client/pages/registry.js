@@ -15,11 +15,6 @@ const Grid = styled(Box)`
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(${({ count }) => Math.ceil(count / 2)}, 1fr);
   }
-
-  @media only screen and (min-width: 970px) {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(${({ count }) => Math.ceil(count / 3)}, 1fr);
-  }
 `;
 
 export default function RegistryPage({ content, title }) {
@@ -51,8 +46,10 @@ export function getStaticProps() {
           since the 1500s, when an unknown printer took a galley of type and
           scrambled it to make a type specimen book.`,
           image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
+          cashGift: true,
           link: `https://www.google.com`,
           price: 450,
+          contributed: 265,
         },
         {
           name: `Honeymoon fund`,
@@ -61,7 +58,9 @@ export function getStaticProps() {
           since the 1500s, when an unknown printer took a galley of type and
           scrambled it to make a type specimen book.`,
           image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
+          cashGift: true,
           price: 1500,
+          contributed: 1300,
         },
         {
           name: `Buy us tea!`,
@@ -70,6 +69,7 @@ export function getStaticProps() {
           since the 1500s, when an unknown printer took a galley of type and
           scrambled it to make a type specimen book.`,
           image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
+          cashGift: false,
           price: `Unlimited`,
         },
         {
@@ -79,7 +79,9 @@ export function getStaticProps() {
           since the 1500s, when an unknown printer took a galley of type and
           scrambled it to make a type specimen book.`,
           image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
+          cashGift: false,
           price: 50,
+          purchased: false,
         },
         {
           name: `Cutlery`,
@@ -88,6 +90,7 @@ export function getStaticProps() {
           since the 1500s, when an unknown printer took a galley of type and
           scrambled it to make a type specimen book.`,
           image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
+          cashGift: false,
           price: `Unlimited`,
         },
         {
@@ -97,7 +100,9 @@ export function getStaticProps() {
           since the 1500s, when an unknown printer took a galley of type and
           scrambled it to make a type specimen book.`,
           image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
+          cashGift: false,
           price: 200,
+          purchased: true,
         },
       ],
     },
