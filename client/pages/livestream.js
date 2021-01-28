@@ -1,5 +1,6 @@
-import { Box } from 'grommet';
 import Head from 'next/head';
+import { Paragraph } from 'grommet';
+import { TextPageWrapper } from 'components/textPageWrapper';
 
 export default function LivestreamPage({ title }) {
   return (
@@ -7,7 +8,19 @@ export default function LivestreamPage({ title }) {
       <Head>
         <title>{title} | Livestream</title>
       </Head>
-      <Box>Livestream page will go here...</Box>
+      <TextPageWrapper>
+        <Paragraph fill={true} textAlign="center">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industrys standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting,
+          remaining essentially unchanged. It was popularised in the 1960s with
+          the release of Letraset sheets containing Lorem Ipsum passages, and
+          more recently with desktop publishing software like Aldus PageMaker
+          including versions of Lorem Ipsum.
+        </Paragraph>
+      </TextPageWrapper>
     </>
   );
 }

@@ -8,7 +8,7 @@ const Container = styled(Box)`
   background-image: url(https://assets.awwwards.com/awards/images/2015/04/pattern.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 const PageContent = styled(Box)`
@@ -27,7 +27,7 @@ export function Layout({ children }) {
         align="center"
         flex={{ grow: 0 }}
         justify="stretch"
-        pad={{ vertical: `xsmall` }}
+        pad={{ horizontal: `xsmall` }}
       >
         <Title mobile={atMost420px} />
         <Navigation mobile={atMost420px} />
