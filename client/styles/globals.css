@@ -21,4 +21,6 @@ a {
 :root {
   --brand: #98bcdd;
   --white: #f9f9f9;
+
+  --max-width: 720px;
 }

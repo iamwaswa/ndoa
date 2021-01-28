@@ -28,7 +28,10 @@ export default function RegistryPage({ content, title }) {
       <Head>
         <title>{title} | Registry</title>
       </Head>
-      <Grid count={content.length} pad="medium">
+      <Grid
+        count={content.length}
+        pad={{ bottom: `medium`, horizontal: `medium` }}
+      >
         {content.map((item) => (
           <RegistryItem key={item.name} {...item} />
         ))}

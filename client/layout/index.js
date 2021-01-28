@@ -13,7 +13,7 @@ const Container = styled(Box)`
 
 const PageContent = styled(Box)`
   margin: 0 auto;
-  max-width: 900px;
+  max-width: var(--max-width);
   width: 100%;
 `;
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const TextPageContainer = styled(Box)`
   margin: 0 auto;
-  max-width: 720px;
+  max-width: var(--max-width);
 `;
 
 export function TextPageWrapper({ children }) {
@@ -12,7 +12,7 @@ export function TextPageWrapper({ children }) {
       align="center"
       direction="column"
       justify="center"
-      pad={{ horizontal: `medium`, vertical: `small` }}
+      pad={{ horizontal: `medium`, bottom: `medium` }}
       gap="medium"
     >
       {children}

@@ -1,8 +1,8 @@
-import { Box, Paragraph } from 'grommet';
-
+import { Box } from 'grommet';
 import { Fragment } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { ParagraphWrapper } from 'components/paragraphWrapper';
 import { TextPageWrapper } from 'components/textPageWrapper';
 
 export default function StoryPage({ content, title }) {
@@ -16,9 +16,7 @@ export default function StoryPage({ content, title }) {
           if (type === `text`) {
             return (
               <Box key={index}>
-                <Paragraph fill={true} textAlign="center">
-                  {value}
-                </Paragraph>
+                <ParagraphWrapper>{value}</ParagraphWrapper>
               </Box>
             );
           } else if (type === `image`) {
