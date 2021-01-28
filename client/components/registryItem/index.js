@@ -85,8 +85,8 @@ export function RegistryItem({
   }
 
   return (
-    <CardContainer direction="column" gap="small" pad="medium">
-      <CardHeader direction="column" align="stretch" gap="small">
+    <CardContainer direction="column" gap="xsmall" pad="medium">
+      <CardHeader direction="column" align="stretch" gap="xsmall">
         <Box direction="row" align="center" justify="between">
           <Text>{name}</Text>
           {cashGift ? null : <Text>${price}</Text>}
@@ -96,6 +96,7 @@ export function RegistryItem({
             direction="row"
             align="center"
             justify="start"
+            margin={{ bottom: `xxsmall` }}
             pad={{ horizontal: `small`, vertical: `xxsmall` }}
             progress={purchasedPercentage}
           >
