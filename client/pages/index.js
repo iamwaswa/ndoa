@@ -74,7 +74,6 @@ export default function HomePage({ images, title }) {
           showArrows={false}
           showStatus={false}
           showThumbs={false}
-          swipeable={true}
           renderIndicator={(clickHandler, isSelected) => (
             <Thumb selected={isSelected} onClick={clickHandler} />
           )}
