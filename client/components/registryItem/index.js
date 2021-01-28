@@ -26,11 +26,7 @@ const PrimaryButton = styled(Button)`
 
 export function RegistryItem({ description, image, link, name, price }) {
   return (
-    <CardContainer
-      direction="column"
-      gap="small"
-      pad={{ horizontal: `medium`, vertical: `small` }}
-    >
+    <CardContainer direction="column" gap="small" pad="medium">
       <CardHeader align="center" justify="between">
         <Text>{name}</Text>
         <Text>${price}</Text>
