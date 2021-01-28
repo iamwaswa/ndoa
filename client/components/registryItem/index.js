@@ -69,12 +69,7 @@ export function RegistryItem({
   price,
   purchased,
 }) {
-  const {
-    contributionLeft,
-    purchasedPercentage,
-    showContributionLeft,
-    toggleShowContributionLeft,
-  } = useRegistryItem({
+  const purchasedPercentage = useRegistryItem({
     contributed,
     price,
   });
@@ -92,9 +87,9 @@ export function RegistryItem({
   return (
     <CardContainer direction="column" gap="small" pad="medium">
       <CardHeader direction="column" align="stretch" gap="small">
-        <Box direction="row" align="center" gap={0} justify="between">
+        <Box direction="row" align="center" justify="between">
           <Text>{name}</Text>
-          <Text>${price}</Text>
+          {cashGift ? null : <Text>${price}</Text>}
         </Box>
         {typeof contributed === `number` ? (
           <ProgressMeter
@@ -103,16 +98,11 @@ export function RegistryItem({
             justify="start"
             pad={{ horizontal: `small`, vertical: `xxsmall` }}
             progress={purchasedPercentage}
-            onClick={toggleShowContributionLeft()}
-            onMouseEnter={toggleShowContributionLeft(true)}
-            onMouseLeave={toggleShowContributionLeft(false)}
           >
             <Text>
-              {showContributionLeft
-                ? contributionLeft
-                : `${Math.floor(purchasedPercentage)}% contributed${
-                    purchasedPercentage === 100 ? `!!!` : ``
-                  }`}
+              {`${Math.floor(purchasedPercentage)}% contributed${
+                purchasedPercentage === 100 ? `!!!` : ``
+              }`}
             </Text>
           </ProgressMeter>
         ) : null}
