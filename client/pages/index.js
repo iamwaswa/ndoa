@@ -6,6 +6,7 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 const Container = styled(Box)`
+  flex-grow: 1;
   position: relative;
   height: 100%;
   width: 100%;
@@ -17,10 +18,18 @@ const Container = styled(Box)`
 
   & .carousel-root,
   .carousel.carousel-slider,
+  .carousel .slider-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .carousel-root,
+  .carousel.carousel-slider,
   .carousel .slider-wrapper,
   .carousel .slider.animated {
     height: 100%;
     width: 100%;
+    flex-grow: 1;
   }
 
   & .carousel .control-dots {
@@ -81,8 +90,6 @@ export default function HomePage({ images, title }) {
           {images.map((image, index) => (
             <Image
               key={index}
-              // height={400}
-              // width={800}
               layout="fill"
               objectFit="cover"
               objectPosition="center center"
