@@ -15,6 +15,14 @@ const Container = styled(Box)`
     margin-bottom: 32px;
   }
 
+  & .carousel-root,
+  .carousel.carousel-slider,
+  .carousel .slider-wrapper,
+  .carousel .slider.animated {
+    height: 100%;
+    width: 100%;
+  }
+
   & .carousel .control-dots {
     display: flex;
     justify-content: center;
@@ -74,9 +82,9 @@ export default function HomePage({ images, title }) {
           {images.map((image, index) => (
             <Image
               key={index}
-              height={400}
-              width={800}
-              layout="responsive"
+              // height={400}
+              // width={800}
+              layout="fill"
               objectFit="cover"
               objectPosition="center center"
               src={image}
