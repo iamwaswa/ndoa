@@ -6,9 +6,7 @@
   "author": "Waswa Olunga <olungaw@gmail.com>",
   "scripts": {
     "start": "sanity start",
-    "graphql:dev": "sanity graphql deploy --dataset development --playground",
-    "graphql:prod": "sanity graphql deploy --dataset production --no-playground",
-    "graphql": "run-p graphql:**",
+    "graphql": "sanity graphql deploy --dataset production --playground --generation gen3",
     "deploy:graphql": "npm run graphql",
     "deploy:sanity": "sanity deploy",
     "deploy": "run-p deploy:**",
