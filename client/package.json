@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "lint": "eslint './**/*.js'",
-    "lint:fix": "eslint --fix './**/*.js'",
-    "prettier": "prettier --write './**/*.js'",
+    "lint": "eslint ./**/*.js",
+    "lint:fix": "eslint --fix ./**/*.js",
+    "prettier": "prettier --write ./**/*.js",
     "check": "npm run lint && npm run prettier",
     "format": "npm run lint:fix && npm run prettier",
     "start:dev": "next dev --port 8080",
