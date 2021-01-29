@@ -6,8 +6,20 @@
   "author": "Waswa Olunga <olungaw@gmail.com>",
   "scripts": {
     "start": "sanity start",
+    "graphql:dev": "sanity graphql deploy --dataset development --playground",
+    "graphql:prod": "sanity graphql deploy --dataset production --no-playground",
+    "graphql": "run-p graphql:**",
+    "deploy:graphql": "npm run graphql",
+    "deploy:sanity": "sanity deploy",
+    "deploy": "run-p deploy:**",
+    "install": "sanity install",
+    "undeploy": "sanity undeploy",
     "test": "sanity check",
-    "build": "sanity build"
+    "upgrade": "sanity upgrade",
+    "prettier": "prettier --write ./**/*.{ts,tsx}",
+    "lint": "eslint ./**/*.{ts,tsx}",
+    "lint:fix": "eslint ./**/*.{ts,tsx} --fix",
+    "format": "npm run prettier && npm run lint:fix"
   },
   "dependencies": {
     "@sanity/base": "^2.2.5",
@@ -21,10 +33,12 @@
     "prop-types": "^15.7",
     "react": "^17.0",
     "react-dom": "^17.0",
+    "react-icons": "^4.1.0",
     "sanity-plugin-asset-source-unsplash": "^0.1.3",
     "sanity-plugin-media": "^1.0.1"
   },
   "devDependencies": {
+    "@types/react-icons": "^3.0.0",
     "typescript": "^4.1.3"
   }
 }

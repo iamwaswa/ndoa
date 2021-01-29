@@ -25,15 +25,15 @@
   "parts": [
     {
       "implements": "part:@sanity/form-builder/input/image/asset-sources",
-      "path": "./imageAssetSources"
+      "path": "./imageAssetSources/index"
     },
     {
       "name": "part:@sanity/base/schema",
-      "path": "./schemas"
+      "path": "./schemas/index"
     },
     {
       "name": "part:@sanity/desk-tool/structure",
-      "path": "./structures"
+      "path": "./structures/index"
     }
   ]
 }

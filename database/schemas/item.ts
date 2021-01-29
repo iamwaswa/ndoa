@@ -1,4 +1,4 @@
-export const registryItemSchema = {
+export const itemSchema = {
   fields: [
     {
       layout: `checkbox`,
@@ -13,8 +13,8 @@ export const registryItemSchema = {
       of: [{ type: `block` }],
     },
     {
-      name: `photo`,
-      title: `Image`,
+      name: `picture`,
+      title: `Picture`,
       type: `picture`,
     },
     {
@@ -44,6 +44,30 @@ export const registryItemSchema = {
       type: `url`,
     },
   ],
-  name: `registryItem`,
-  title: `Registry Item`,
+  name: `item`,
+  title: `Item`,
+  type: `object`,
+  preview: {
+    select: {
+      title: `name`,
+      picture: `picture`,
+      price: `price`,
+      cashGift: `cashGift`,
+      contribution: `contribution`,
+      purchased: `purchased`,
+    },
+    prepare({ title, picture, price, cashGift, contribution, purchased }) {
+      const cashGiftBalance = cashGift ? price - contribution : 0;
+
+      return {
+        media: picture,
+        subtitle: cashGift
+          ? `$${cashGiftBalance} left to pay${
+              cashGiftBalance === 0 ? `!!!` : ``
+            }`
+          : `${purchased ? `Purchased!!!` : `$${price}`}`,
+        title,
+      };
+    },
+  },
 };
