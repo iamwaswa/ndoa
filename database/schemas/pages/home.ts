@@ -1,6 +1,7 @@
 export const homePageSchema = {
   fields: [
     {
+      codegen: { required: true },
       of: [
         {
           type: `picture`,
@@ -9,6 +10,7 @@ export const homePageSchema = {
       name: `pictures`,
       title: `Pictures`,
       type: `array`,
+      validation: Rule => Rule.required(),
     },
   ],
   name: `home`,

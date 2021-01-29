@@ -1,31 +1,41 @@
 export const itemSchema = {
   fields: [
     {
+      codegen: { required: true },
       layout: `checkbox`,
       name: `cashGift`,
       title: `This is a cash gift`,
       type: `boolean`,
+      validation: Rule => Rule.required(),
     },
     {
+      codegen: { required: true },
       name: `description`,
       title: `Description`,
       type: `array`,
       of: [{ type: `block` }],
+      validation: Rule => Rule.required(),
     },
     {
+      codegen: { required: true },
       name: `picture`,
       title: `Picture`,
       type: `picture`,
+      validation: Rule => Rule.required(),
     },
     {
+      codegen: { required: true },
       name: `name`,
       title: `Name`,
       type: `string`,
+      validation: Rule => Rule.required(),
     },
     {
+      codegen: { required: true },
       name: `price`,
       title: `Price`,
       type: `number`,
+      validation: Rule => Rule.required(),
     },
     {
       layout: `checkbox`,
@@ -39,9 +49,11 @@ export const itemSchema = {
       type: `number`,
     },
     {
+      codegen: { required: true },
       name: `link`,
       title: `External link`,
       type: `url`,
+      validation: Rule => Rule.required(),
     },
   ],
   name: `item`,

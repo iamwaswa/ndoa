@@ -1,6 +1,7 @@
 export const registryPageSchema = {
   fields: [
     {
+      codegen: { required: true },
       of: [
         {
           type: `item`,
@@ -9,6 +10,7 @@ export const registryPageSchema = {
       name: `gifts`,
       title: `Gifts`,
       type: `array`,
+      validation: Rule => Rule.required(),
     },
   ],
   name: `registry`,

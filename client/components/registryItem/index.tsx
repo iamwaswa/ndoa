@@ -81,7 +81,9 @@ export function RegistryItem({
     price,
   });
 
-  function purchaseItem() {}
+  function purchaseItem(): void {
+    return;
+  }
 
   function openLink() {
     window.open(

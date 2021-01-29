@@ -1,3 +1,4 @@
+import { ChildrenProps } from 'types';
 import { Paragraph } from 'grommet';
 import styled from 'styled-components';
 
@@ -7,7 +8,7 @@ const ParagraphContainer = styled(Paragraph)`
   padding-bottom: 0;
 `;
 
-export function ParagraphWrapper({ children }): JSX.Element {
+export function ParagraphWrapper({ children }: ChildrenProps): JSX.Element {
   return (
     <ParagraphContainer fill={true} textAlign="center">
       {children}

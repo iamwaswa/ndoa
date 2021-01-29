@@ -12,6 +12,7 @@
     "deploy:graphql": "npm run graphql",
     "deploy:sanity": "sanity deploy",
     "deploy": "run-p deploy:**",
+    "gen:types": "npx sanity-codegen && cd ../client && prettier --write types/database/index.ts && cd ../database",
     "install": "sanity install",
     "undeploy": "sanity undeploy",
     "test": "sanity check",
@@ -38,9 +39,9 @@
     "sanity-plugin-media": "^1.0.1"
   },
   "devDependencies": {
-    "@types/react-icons": "^3.0.0",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
+    "@types/react-icons": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
     "eslint": "^7.10.0",
@@ -50,7 +51,8 @@
     "eslint-plugin-react": "^7.21.2",
     "eslint-plugin-react-hooks": "^4.1.2",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.1.2",
+    "prettier": "^2.2.1",
+    "sanity-codegen": "^0.8.3",
     "typescript": "^4.1.3"
   }
 }

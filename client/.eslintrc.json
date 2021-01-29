@@ -4,9 +4,11 @@
     "plugin:jsx-a11y/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint"
   ],
-  "plugins": ["simple-import-sort"],
+  "plugins": ["simple-import-sort", "@typescript-eslint"],
   "env": {
     "amd": true,
     "browser": true,
@@ -22,6 +24,7 @@
       "version": "detect"
     }
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true

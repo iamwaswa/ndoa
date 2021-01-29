@@ -28,7 +28,9 @@ const Grid = styled<FC<IGridProps>>(Box)`
 export default function RegistryPage({
   content,
   title,
-}: PageProps<InferGetServerSidePropsType<typeof getServerSideProps>>) {
+}: PageProps<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+>): JSX.Element {
   return (
     <>
       <Head>

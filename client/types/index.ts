@@ -5,7 +5,7 @@ export type ChildrenProps = {
 };
 
 export type FunctionType<TArgs = void, TReturn = void> = (
-  ...args: TArgs extends Array<any> ? TArgs : [TArgs]
+  ...args: TArgs extends Array<unknown> ? TArgs : [TArgs]
 ) => TReturn;
 
 export type TimeToGo = {
