@@ -1,8 +1,8 @@
 import { Box, BoxTypes } from 'grommet';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { GiftRegistryItem, PageProps } from 'types';
 
 import { FC } from 'react';
-import { GetStaticPropsResult } from 'next';
 import Head from 'next/head';
 import { RegistryItem } from 'components/registryItem';
 import styled from 'styled-components';
@@ -25,14 +25,10 @@ const Grid = styled<FC<IGridProps>>(Box)`
   }
 `;
 
-interface IRegistryPageGetStaticPropsResult {
-  content: Array<GiftRegistryItem>;
-}
-
 export default function RegistryPage({
   content,
   title,
-}: PageProps<IRegistryPageGetStaticPropsResult>) {
+}: PageProps<InferGetServerSidePropsType<typeof getServerSideProps>>) {
   return (
     <>
       <Head>
@@ -50,7 +46,11 @@ export default function RegistryPage({
   );
 }
 
-export function getStaticProps(): GetStaticPropsResult<IRegistryPageGetStaticPropsResult> {
+interface IRegistryPageProps {
+  content: Array<GiftRegistryItem>;
+}
+
+export const getServerSideProps: GetServerSideProps<IRegistryPageProps> = async () => {
   return {
     props: {
       content: [
@@ -132,4 +132,4 @@ export function getStaticProps(): GetStaticPropsResult<IRegistryPageGetStaticPro
       ],
     },
   };
-}
+};

@@ -1,5 +1,5 @@
 import { Box, Button, ButtonType } from 'grommet';
-import { GetStaticProps, GetStaticPropsResult } from 'next';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 
 import { Carousel } from 'react-responsive-carousel';
 import { FC } from 'react';
@@ -76,17 +76,10 @@ const Thumb = styled<FC<IThumbProps>>(Button)`
   }
 `;
 
-interface IHomePageGetStaticPropsResult {
-  images: Array<{
-    id: string;
-    url: string;
-  }>;
-}
-
 export default function HomePage({
   images,
   title,
-}: PageProps<IHomePageGetStaticPropsResult>): JSX.Element {
+}: PageProps<InferGetStaticPropsType<typeof getStaticProps>>): JSX.Element {
   return (
     <>
       <Head>
@@ -120,7 +113,14 @@ export default function HomePage({
   );
 }
 
-export function getStaticProps(): GetStaticPropsResult<IHomePageGetStaticPropsResult> {
+interface IHomePageProps {
+  images: Array<{
+    id: string;
+    url: string;
+  }>;
+}
+
+export const getStaticProps: GetStaticProps<IHomePageProps> = async () => {
   return {
     props: {
       images: [
@@ -159,4 +159,4 @@ export function getStaticProps(): GetStaticPropsResult<IHomePageGetStaticPropsRe
       ],
     },
   };
-}
+};

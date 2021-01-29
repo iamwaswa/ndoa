@@ -1,24 +1,16 @@
 import { Box } from 'grommet';
 import { Fragment } from 'react';
-import { GetStaticPropsResult } from 'next';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { PageProps } from 'types';
 import { ParagraphWrapper } from 'components/paragraphWrapper';
 import { TextPageWrapper } from 'components/textPageWrapper';
 
-interface IStoryPageGetStaticPropsResult {
-  content: Array<{
-    id: string;
-    type: `image` | `text`;
-    value: string;
-  }>;
-}
-
 export default function StoryPage({
   content,
   title,
-}: PageProps<IStoryPageGetStaticPropsResult>): JSX.Element {
+}: PageProps<IStoryPageProps>): JSX.Element {
   return (
     <>
       <Head>
@@ -52,7 +44,15 @@ export default function StoryPage({
   );
 }
 
-export function getStaticProps(): GetStaticPropsResult<IStoryPageGetStaticPropsResult> {
+interface IStoryPageProps {
+  content: Array<{
+    id: string;
+    type: `image` | `text`;
+    value: string;
+  }>;
+}
+
+export const getStaticProps: GetStaticProps<IStoryPageProps> = async () => {
   return {
     props: {
       content: [
@@ -89,4 +89,4 @@ export function getStaticProps(): GetStaticPropsResult<IStoryPageGetStaticPropsR
       ],
     },
   };
-}
+};
