@@ -1,7 +1,7 @@
-import { GrBook, GrGift, GrHome } from "react-icons/gr";
+import { GrBook, GrGift, GrHome } from 'react-icons/gr';
 
-import { IconType } from "react-icons";
-import StructureBuilder from "@sanity/desk-tool/structure-builder";
+import { IconType } from 'react-icons';
+import StructureBuilder from '@sanity/desk-tool/structure-builder';
 
 type Page = {
   documentId: string;
@@ -37,7 +37,7 @@ const pageSchemaTypes: Array<string> = pages.map(
 
 export default function buildStructure() {
   return StructureBuilder.list()
-    .title("Pages")
+    .title('Pages')
     .items([
       ...pages.map(({ documentId, Icon, schemaType, title }) =>
         StructureBuilder.listItem()
