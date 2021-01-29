@@ -1,17 +1,18 @@
+import { FunctionType, TimeToGo } from 'types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-export function useTimeToGo() {
-  const weddingDate = useRef(new Date(2021, 3, 24, 11, 0, 0));
+export function useTimeToGo(): TimeToGo {
+  const weddingDate = useRef<Date>(new Date(2021, 3, 24, 11, 0, 0));
 
-  const dayInMilliseconds = useRef(1000 * 60 * 60 * 24);
+  const dayInMilliseconds = useRef<number>(1000 * 60 * 60 * 24);
 
-  const hourInMilliseconds = useRef(1000 * 60 * 60);
+  const hourInMilliseconds = useRef<number>(1000 * 60 * 60);
 
-  const minuteInMilliseconds = useRef(1000 * 60);
+  const minuteInMilliseconds = useRef<number>(1000 * 60);
 
-  const secondInMilliseconds = useRef(1000);
+  const secondInMilliseconds = useRef<number>(1000);
 
-  const calculateTime = useCallback(() => {
+  const calculateTime = useCallback<FunctionType<void, TimeToGo>>(() => {
     const millisecondsToWedding =
       weddingDate.current.getTime() - new Date().getTime();
 
@@ -32,14 +33,14 @@ export function useTimeToGo() {
     };
   }, []);
 
-  const [time, setTime] = useState(calculateTime());
+  const [time, setTime] = useState<TimeToGo>(calculateTime());
 
   useEffect(() => {
     const currentInterval = setInterval(() => {
       setTime(calculateTime());
     }, 1000);
 
-    return () => {
+    return (): void => {
       clearInterval(currentInterval);
     };
   }, [calculateTime]);

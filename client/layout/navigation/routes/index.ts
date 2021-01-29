@@ -1,4 +1,6 @@
-export const routes = [
+import { ApplicationRoute } from 'types';
+
+export const routes: Array<ApplicationRoute> = [
   {
     href: `/`,
     text: `Home`,

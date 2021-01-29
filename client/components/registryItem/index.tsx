@@ -1,5 +1,6 @@
 import {
   Box,
+  BoxTypes,
   Button,
   Card,
   CardBody,
@@ -9,6 +10,8 @@ import {
   Text,
 } from 'grommet';
 
+import { FC } from 'react';
+import { GiftRegistryItem } from 'types';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { useRegistryItem } from './hooks';
@@ -17,7 +20,11 @@ const CardContainer = styled(Card)`
   max-width: 300px;
 `;
 
-const ProgressMeter = styled(Box)`
+interface IProgressMeterProps extends BoxTypes {
+  progress?: number;
+}
+
+const ProgressMeter = styled<FC<IProgressMeterProps>>(Box)`
   background-color: var(--gray);
   border-radius: 20px;
   position: relative;
@@ -68,7 +75,7 @@ export function RegistryItem({
   name,
   price,
   purchased,
-}) {
+}: GiftRegistryItem): JSX.Element {
   const purchasedPercentage = useRegistryItem({
     contributed,
     price,

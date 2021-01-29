@@ -1,4 +1,5 @@
 import { Box } from 'grommet';
+import { ChildrenProps } from 'types';
 import styled from 'styled-components';
 
 const TextPageContainer = styled(Box)`
@@ -6,7 +7,7 @@ const TextPageContainer = styled(Box)`
   max-width: var(--max-width);
 `;
 
-export function TextPageWrapper({ children }) {
+export function TextPageWrapper({ children }: ChildrenProps): JSX.Element {
   return (
     <TextPageContainer
       align="center"

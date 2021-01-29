@@ -1,8 +1,9 @@
 import Head from 'next/head';
+import { PageProps } from 'types';
 import { ParagraphWrapper } from 'components/paragraphWrapper';
 import { TextPageWrapper } from 'components/textPageWrapper';
 
-export default function LivestreamPage({ title }) {
+export default function LivestreamPage({ title }: PageProps): JSX.Element {
   return (
     <>
       <Head>

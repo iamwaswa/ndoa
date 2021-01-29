@@ -1,7 +1,8 @@
 import Head from 'next/head';
+import { PageProps } from 'types';
 import { ParagraphWrapper } from 'components/paragraphWrapper';
 
-export default function NotFoundPage({ title }) {
+export default function NotFoundPage({ title }: PageProps): JSX.Element {
   return (
     <>
       <Head>

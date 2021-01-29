@@ -1,4 +1,5 @@
 import { Box } from 'grommet';
+import { ChildrenProps } from 'types';
 import { Navigation } from './navigation';
 import { Title } from './title';
 import styled from 'styled-components';
@@ -14,7 +15,7 @@ const PageContent = styled(Box)`
   width: 100%;
 `;
 
-export function Layout({ children }) {
+export function Layout({ children }: ChildrenProps): JSX.Element {
   const atMost420px = useAtMostSize(420);
 
   return (

@@ -3,7 +3,11 @@ import { Box, Text } from 'grommet';
 import { Countdown } from './countdown';
 import Image from 'next/image';
 
-export function Title({ mobile }) {
+interface ITitleProps {
+  mobile: boolean;
+}
+
+export function Title({ mobile }: ITitleProps): JSX.Element {
   return (
     <>
       <Image

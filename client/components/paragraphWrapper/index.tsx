@@ -7,7 +7,7 @@ const ParagraphContainer = styled(Paragraph)`
   padding-bottom: 0;
 `;
 
-export function ParagraphWrapper({ children }) {
+export function ParagraphWrapper({ children }): JSX.Element {
   return (
     <ParagraphContainer fill={true} textAlign="center">
       {children}

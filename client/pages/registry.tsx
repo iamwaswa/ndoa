@@ -1,9 +1,17 @@
-import { Box } from 'grommet';
+import { Box, BoxTypes } from 'grommet';
+import { GiftRegistryItem, PageProps } from 'types';
+
+import { FC } from 'react';
+import { GetStaticPropsResult } from 'next';
 import Head from 'next/head';
 import { RegistryItem } from 'components/registryItem';
 import styled from 'styled-components';
 
-const Grid = styled(Box)`
+interface IGridProps extends BoxTypes {
+  count: number;
+}
+
+const Grid = styled<FC<IGridProps>>(Box)`
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: repeat(${({ count }) => count}, 1fr);
@@ -17,7 +25,14 @@ const Grid = styled(Box)`
   }
 `;
 
-export default function RegistryPage({ content, title }) {
+interface IRegistryPageGetStaticPropsResult {
+  content: Array<GiftRegistryItem>;
+}
+
+export default function RegistryPage({
+  content,
+  title,
+}: PageProps<IRegistryPageGetStaticPropsResult>) {
   return (
     <>
       <Head>
@@ -28,18 +43,19 @@ export default function RegistryPage({ content, title }) {
         pad={{ bottom: `medium`, horizontal: `medium` }}
       >
         {content.map((item) => (
-          <RegistryItem key={item.name} {...item} />
+          <RegistryItem key={item.id} {...item} />
         ))}
       </Grid>
     </>
   );
 }
 
-export function getStaticProps() {
+export function getStaticProps(): GetStaticPropsResult<IRegistryPageGetStaticPropsResult> {
   return {
     props: {
       content: [
         {
+          id: `1`,
           name: `Engagement pictures`,
           description: `Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industrys standard dummy text ever
@@ -50,8 +66,10 @@ export function getStaticProps() {
           link: `https://www.google.com`,
           price: 450,
           contributed: 265,
+          purchased: false,
         },
         {
+          id: `2`,
           name: `Honeymoon fund`,
           description: `Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industrys standard dummy text ever
@@ -61,8 +79,10 @@ export function getStaticProps() {
           cashGift: true,
           price: 1500,
           contributed: 1300,
+          purchased: false,
         },
         {
+          id: `3`,
           name: `Buy us tea!`,
           description: `Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industrys standard dummy text ever
@@ -70,9 +90,11 @@ export function getStaticProps() {
           scrambled it to make a type specimen book.`,
           image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
           cashGift: false,
-          price: `Unlimited`,
+          price: 20,
+          purchased: false,
         },
         {
+          id: `4`,
           name: `Wok`,
           description: `Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industrys standard dummy text ever
@@ -84,6 +106,7 @@ export function getStaticProps() {
           purchased: false,
         },
         {
+          id: `5`,
           name: `Cutlery`,
           description: `Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industrys standard dummy text ever
@@ -91,9 +114,11 @@ export function getStaticProps() {
           scrambled it to make a type specimen book.`,
           image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
           cashGift: false,
-          price: `Unlimited`,
+          price: 500,
+          purchased: false,
         },
         {
+          id: `6`,
           name: `Bedding`,
           description: `Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industrys standard dummy text ever

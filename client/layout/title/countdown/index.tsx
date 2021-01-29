@@ -3,7 +3,16 @@ import { Box, Text } from 'grommet';
 import { useAtMostSize } from 'hooks/atMostSize';
 import { useTimeToGo } from 'hooks/timeToGo';
 
-function Time({ mobile, title, value }) {
+interface IMobileProps {
+  mobile: boolean;
+}
+
+interface ITimeProps extends IMobileProps {
+  title: string;
+  value: number;
+}
+
+function Time({ mobile, title, value }: ITimeProps): JSX.Element {
   return (
     <Box direction="column" align="center" gap="small">
       <Text size={`${mobile ? `` : `x`}large`}>{title}</Text>
@@ -12,7 +21,7 @@ function Time({ mobile, title, value }) {
   );
 }
 
-function Gap({ mobile }) {
+function Gap({ mobile }: IMobileProps): JSX.Element {
   return (
     <Text margin={{ horizontal: `${mobile ? `x` : ``}xsmall` }} size="xlarge">
       :
@@ -20,7 +29,7 @@ function Gap({ mobile }) {
   );
 }
 
-export function Countdown() {
+export function Countdown(): JSX.Element {
   const mobile = useAtMostSize(400);
   const { days, hours, minutes, seconds } = useTimeToGo();
 

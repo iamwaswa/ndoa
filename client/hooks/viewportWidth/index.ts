@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-export function useViewportWidth() {
-  const [width, setWidth] = useState();
+export function useViewportWidth(): number | undefined {
+  const [width, setWidth] = useState<number | undefined>();
 
   useEffect(() => {
     function onWidthChange() {

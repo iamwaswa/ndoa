@@ -1,5 +1,6 @@
-import { Nav, Text } from 'grommet';
+import { Nav, Text, TextProps } from 'grommet';
 
+import { FC } from 'react';
 import Link from 'next/link';
 import { routes } from './routes';
 import styled from 'styled-components';
@@ -9,7 +10,13 @@ const NavBar = styled(Nav)`
   width: 100%;
 `;
 
-const NavBarLink = styled(Text)`
+type BaseTextProps = TextProps & Omit<JSX.IntrinsicElements['span'], 'color'>;
+
+interface INavBarLinkProps extends BaseTextProps {
+  current: boolean;
+}
+
+const NavBarLink = styled<FC<INavBarLinkProps>>(Text)`
   color: ${({ current }) => (current ? `var(--brand)` : `initial`)};
   cursor: pointer;
   position: relative;
@@ -41,7 +48,11 @@ const NavBarLink = styled(Text)`
   }
 `;
 
-export function Navigation({ mobile }) {
+interface INavigationProps {
+  mobile: boolean;
+}
+
+export function Navigation({ mobile }: INavigationProps): JSX.Element {
   const { pathname } = useRouter();
 
   return (
@@ -56,7 +67,6 @@ export function Navigation({ mobile }) {
           <NavBarLink
             current={href === pathname}
             size={mobile ? `medium` : `large`}
-            tabIndex="0"
           >
             {text}
           </NavBarLink>

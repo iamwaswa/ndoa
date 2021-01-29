@@ -1,11 +1,12 @@
 import 'styles/globals.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
+import { AppProps } from 'next/app';
 import { Grommet } from 'grommet';
 import { Layout } from 'layout';
 import { Radial } from 'grommet-icons';
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <Grommet
       theme={{
