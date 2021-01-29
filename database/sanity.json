@@ -19,21 +19,25 @@
   ],
   "env": {
     "development": {
-      "plugins": ["@sanity/vision"]
+      "plugins": ["@sanity/vision", "dashboard-widget-vercel"]
     }
   },
   "parts": [
     {
+      "implements": "part:@sanity/dashboard/config",
+      "path": "./dashboardConfig"
+    },
+    {
       "implements": "part:@sanity/form-builder/input/image/asset-sources",
-      "path": "./imageAssetSources/index"
+      "path": "./imageAssetSources"
     },
     {
       "name": "part:@sanity/base/schema",
-      "path": "./schemas/index"
+      "path": "./schemas"
     },
     {
       "name": "part:@sanity/desk-tool/structure",
-      "path": "./structures/index"
+      "path": "./structures"
     }
   ]
 }
