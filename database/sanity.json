@@ -10,21 +10,30 @@
   "plugins": [
     "@sanity/base",
     "@sanity/components",
+    "@sanity/dashboard",
     "@sanity/default-layout",
     "@sanity/default-login",
-    "@sanity/desk-tool"
+    "@sanity/desk-tool",
+    "media",
+    "asset-source-unsplash"
   ],
   "env": {
     "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
+      "plugins": ["@sanity/vision"]
     }
   },
   "parts": [
     {
+      "implements": "part:@sanity/form-builder/input/image/asset-sources",
+      "path": "./imageAssetSources"
+    },
+    {
       "name": "part:@sanity/base/schema",
-      "path": "./schemas/schema"
+      "path": "./schemas"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./structures"
     }
   ]
 }

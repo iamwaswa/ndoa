@@ -1,7 +1,8 @@
 {
   "name": "client",
-  "version": "0.1.0",
   "private": true,
+  "version": "0.1.0",
+  "author": "Waswa Olunga <olungaw@gmail.com>",
   "scripts": {
     "build": "next build",
     "lint": "eslint ./**/*.js",
