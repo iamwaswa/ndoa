@@ -1,11 +1,14 @@
 import { Box, Button, ButtonType } from 'grommet';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { Picture, SanityKeyed } from 'types/database';
 
 import { Carousel } from 'react-responsive-carousel';
 import { FC } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { ImageWrapper } from 'components/imageWrapper';
 import { PageProps } from 'types';
+import { api } from 'api';
 import styled from 'styled-components';
 
 const Container = styled(Box)`
@@ -77,7 +80,7 @@ const Thumb = styled<FC<IThumbProps>>(Button)`
 `;
 
 export default function HomePage({
-  images,
+  pictures,
   title,
 }: PageProps<InferGetStaticPropsType<typeof getStaticProps>>): JSX.Element {
   return (
@@ -97,13 +100,14 @@ export default function HomePage({
             <Thumb selected={isSelected} onClick={clickHandler} />
           )}
         >
-          {images.map(({ id, url }) => (
-            <Image
-              key={id}
+          {pictures.map(({ _key, ...picture }) => (
+            <ImageWrapper
+              key={_key}
               layout="fill"
               objectFit="cover"
               objectPosition="center center"
-              src={url}
+              picture={picture}
+              priority={true}
               quality={100}
             />
           ))}
@@ -114,49 +118,15 @@ export default function HomePage({
 }
 
 interface IHomePageProps {
-  images: Array<{
-    id: string;
-    url: string;
-  }>;
+  pictures: Array<SanityKeyed<Picture>>;
 }
 
 export const getStaticProps: GetStaticProps<IHomePageProps> = async () => {
+  const pictures = await api.getHomePageAsync();
+
   return {
     props: {
-      images: [
-        {
-          id: `1`,
-          url: `https://images.unsplash.com/photo-1494774157365-9e04c6720e47?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjF8fGNvdXBsZXxlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=720&h=400&q=100`,
-        },
-        {
-          id: `2`,
-          url: `https://images.unsplash.com/photo-1501631259223-89d4e246ed23?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTh8fGNvdXBsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&h=400&q=100`,
-        },
-        {
-          id: `3`,
-          url: `https://images.unsplash.com/photo-1521145239174-279dc2227166?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTJ8fGNvdXBsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&h=400&q=100`,
-        },
-        {
-          id: `4`,
-          url: `https://images.unsplash.com/photo-1531747056595-07f6cbbe10ad?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvdXBsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&h=400&q=100`,
-        },
-        {
-          id: `5`,
-          url: `https://images.unsplash.com/photo-1513279922550-250c2129b13a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&h=400&q=100`,
-        },
-        {
-          id: `6`,
-          url: `https://images.unsplash.com/reserve/Af0sF2OS5S5gatqrKzVP_Silhoutte.jpg?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&h=400&q=100`,
-        },
-        {
-          id: `7`,
-          url: `https://images.unsplash.com/photo-1490723186985-6d7672633c86?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&h=400&q=100`,
-        },
-        {
-          id: `8`,
-          url: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&h=400&q=100`,
-        },
-      ],
+      pictures,
     },
   };
 };

@@ -1,3 +1,5 @@
+import { Picture, Registry, SanityKeyed, Story } from './database';
+
 import { ReactNode } from 'react';
 
 export type ChildrenProps = {
@@ -8,11 +10,14 @@ export type FunctionType<TArgs = void, TReturn = void> = (
   ...args: TArgs extends Array<unknown> ? TArgs : [TArgs]
 ) => TReturn;
 
-export type TimeToGo = {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
+export type API = {
+  getHomePageAsync: FunctionType<[], Promise<Array<SanityKeyed<Picture>>>>;
+  getStoryPageAsync: FunctionType<[], Promise<Story>>;
+  getRegistryPageAsync: FunctionType<[], Promise<Registry>>;
+};
+
+export type PageProps<TExtraProps = void> = TExtraProps & {
+  title: string;
 };
 
 export type ApplicationRoute = {
@@ -20,8 +25,11 @@ export type ApplicationRoute = {
   text: string;
 };
 
-export type PageProps<TExtraProps = void> = TExtraProps & {
-  title: string;
+export type TimeToGo = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
 };
 
 export type GiftRegistryItem = {

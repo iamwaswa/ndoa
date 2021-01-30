@@ -24,10 +24,6 @@
   },
   "parts": [
     {
-      "implements": "part:@sanity/dashboard/config",
-      "path": "./dashboardConfig"
-    },
-    {
       "implements": "part:@sanity/form-builder/input/image/asset-sources",
       "path": "./imageAssetSources"
     },
