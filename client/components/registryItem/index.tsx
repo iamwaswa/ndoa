@@ -10,9 +10,10 @@ import {
   Text,
 } from 'grommet';
 
+import BlockContent from '@sanity/block-content-to-react';
 import { FC } from 'react';
-import { GiftRegistryItem } from 'types';
 import Image from 'next/image';
+import { Item } from 'types/database';
 import styled from 'styled-components';
 import { useRegistryItem } from './hooks';
 
@@ -67,7 +68,7 @@ const PrimaryButton = styled(Button)`
 `;
 
 export function RegistryItem({
-  contributed,
+  contribution,
   description,
   image,
   cashGift,
@@ -75,9 +76,11 @@ export function RegistryItem({
   name,
   price,
   purchased,
-}: GiftRegistryItem): JSX.Element {
+}: Omit<Item, 'picture'> & {
+  image: { id: string; url: string };
+}): JSX.Element {
   const purchasedPercentage = useRegistryItem({
-    contributed,
+    contribution,
     price,
   });
 
@@ -100,7 +103,7 @@ export function RegistryItem({
           <Text>{name}</Text>
           {cashGift ? null : <Text>${price}</Text>}
         </Box>
-        {typeof contributed === `number` ? (
+        {typeof contribution === `number` ? (
           <ProgressMeter
             direction="row"
             align="center"
@@ -118,8 +121,16 @@ export function RegistryItem({
         ) : null}
       </CardHeader>
       <CardBody direction="column" gap="xsmall">
-        <Image layout="responsive" height={200} width={275} src={image} />
-        <Description>{description}</Description>
+        <Image
+          layout="responsive"
+          height={200}
+          width={275}
+          priority={true}
+          src={image.url}
+        />
+        <Description>
+          <BlockContent blocks={description} />
+        </Description>
       </CardBody>
       <CardFooter justify="end">
         <PrimaryButton

@@ -74,8 +74,6 @@ export interface Story extends SanityDocument {
   text: RichText;
 }
 
-export type Content = SanityBlock;
-
 export type Item = {
   _type: 'item';
   /**
@@ -142,6 +140,14 @@ export type Picture = {
   hotspot?: SanityImageHotspot;
 };
 
-export type RichText = Array<SanityKeyed<Content> | SanityKeyed<Picture>>;
+export type RichText = Array<
+  | SanityKeyed<SanityBlock>
+  | SanityKeyed<{
+      _type: 'image';
+      asset: SanityAsset;
+      crop?: SanityImageCrop;
+      hotspot?: SanityImageHotspot;
+    }>
+>;
 
 export type Documents = Home | Registry | Story;

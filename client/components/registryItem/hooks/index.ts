@@ -1,17 +1,17 @@
 import { useMemo } from 'react';
 
 interface IUseRegistryItemArgs {
-  contributed: number;
+  contribution: number;
   price: number;
 }
 
 export function useRegistryItem({
-  contributed,
+  contribution,
   price,
 }: IUseRegistryItemArgs): number {
   const purchasedPercentage = useMemo<number>(() => {
-    return Math.min((contributed / price) * 100, 100);
-  }, [contributed, price]);
+    return Math.min((contribution / price) * 100, 100);
+  }, [contribution, price]);
 
   return purchasedPercentage;
 }

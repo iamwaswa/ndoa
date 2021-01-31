@@ -6,10 +6,7 @@
   "author": "Waswa Olunga <olungaw@gmail.com>",
   "scripts": {
     "start": "sanity start",
-    "graphql": "sanity graphql deploy --dataset production --playground --generation gen3",
-    "deploy:graphql": "npm run graphql",
-    "deploy:sanity": "sanity deploy",
-    "deploy": "run-p deploy:**",
+    "deploy": "sanity deploy",
     "gen:types": "npx sanity-codegen && cd ../client && prettier --write types/database/index.ts && cd ../database",
     "install": "sanity install",
     "undeploy": "sanity undeploy",

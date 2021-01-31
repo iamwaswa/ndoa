@@ -1,10 +1,13 @@
 import { Box, BoxTypes } from 'grommet';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { GiftRegistryItem, PageProps } from 'types';
+import { Item, Registry, SanityKeyed } from 'types/database';
 
 import { FC } from 'react';
 import Head from 'next/head';
+import { PageProps } from 'types';
 import { RegistryItem } from 'components/registryItem';
+import SanityClient from '@sanity/client';
+import { buildImageUrl } from 'utils/buildImageUrl';
 import styled from 'styled-components';
 
 interface IGridProps extends BoxTypes {
@@ -26,7 +29,7 @@ const Grid = styled<FC<IGridProps>>(Box)`
 `;
 
 export default function RegistryPage({
-  content,
+  gifts,
   title,
 }: PageProps<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -37,11 +40,11 @@ export default function RegistryPage({
         <title>{title} | Registry</title>
       </Head>
       <Grid
-        count={content.length}
+        count={gifts.length}
         pad={{ bottom: `medium`, horizontal: `medium` }}
       >
-        {content.map((item) => (
-          <RegistryItem key={item.id} {...item} />
+        {gifts.map(({ _key, ...gift }) => (
+          <RegistryItem key={_key} {...gift} />
         ))}
       </Grid>
     </>
@@ -49,89 +52,43 @@ export default function RegistryPage({
 }
 
 interface IRegistryPageProps {
-  content: Array<GiftRegistryItem>;
+  gifts: Array<
+    SanityKeyed<
+      Omit<Item, 'picture'> & {
+        image: {
+          id: string;
+          url: string;
+        };
+      }
+    >
+  >;
 }
 
 export const getServerSideProps: GetServerSideProps<IRegistryPageProps> = async () => {
+  const client = SanityClient({
+    dataset: process.env.SANITY_DATASET,
+    projectId: process.env.SANITY_PROJECT_ID,
+    useCdn: false,
+  });
+
+  const { gifts } = await client.fetch<Pick<Registry, 'gifts'>>(
+    `*[_type == 'registry'][0]{
+      gifts
+    }`
+  );
+
   return {
     props: {
-      content: [
-        {
-          id: `1`,
-          name: `Engagement pictures`,
-          description: `Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.`,
-          image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
-          cashGift: true,
-          link: `https://www.google.com`,
-          price: 450,
-          contributed: 265,
-          purchased: false,
+      gifts: gifts.map(({ picture, ...gift }) => ({
+        ...gift,
+        image: {
+          id: gift._key,
+          url: buildImageUrl(client, picture)
+            .maxHeight(200)
+            .maxWidth(275)
+            .url(),
         },
-        {
-          id: `2`,
-          name: `Honeymoon fund`,
-          description: `Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.`,
-          image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
-          cashGift: true,
-          price: 1500,
-          contributed: 1300,
-          purchased: false,
-        },
-        {
-          id: `3`,
-          name: `Buy us tea!`,
-          description: `Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.`,
-          image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
-          cashGift: false,
-          price: 20,
-          purchased: false,
-        },
-        {
-          id: `4`,
-          name: `Wok`,
-          description: `Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.`,
-          image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
-          cashGift: false,
-          price: 50,
-          purchased: false,
-        },
-        {
-          id: `5`,
-          name: `Cutlery`,
-          description: `Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.`,
-          image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
-          cashGift: false,
-          price: 500,
-          purchased: false,
-        },
-        {
-          id: `6`,
-          name: `Bedding`,
-          description: `Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.`,
-          image: `https://images.unsplash.com/photo-1505150099521-fde7970bcc3a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y291cGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=275&h=200&q=100`,
-          cashGift: false,
-          price: 200,
-          purchased: true,
-        },
-      ],
+      })),
     },
   };
 };

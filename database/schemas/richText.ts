@@ -25,7 +25,6 @@ export const richTextSchema = {
           { title: `Strong`, value: `strong` },
         ],
       },
-      name: `content`,
       styles: [
         { title: `Normal`, value: `normal` },
         { title: `H1`, value: `h1` },
@@ -39,7 +38,6 @@ export const richTextSchema = {
     },
     {
       accept: `image/*`,
-      name: `picture`,
       storeOriginalFilename: true,
       title: `Picture`,
       type: `image`,
