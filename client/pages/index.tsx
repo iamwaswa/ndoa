@@ -108,7 +108,6 @@ export default function HomePage({
               objectPosition="center center"
               priority={true}
               quality={100}
-              rel="preload"
               src={url}
             />
           ))}
