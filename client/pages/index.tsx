@@ -1,8 +1,9 @@
-import { Box, Button, ButtonType } from 'grommet';
+import Box, { BoxProps } from '@material-ui/core/Box';
+import Button, { ButtonProps } from '@material-ui/core/Button';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 
 import { Carousel } from 'react-responsive-carousel';
-import { FC } from 'react';
+import { ComponentType } from 'react';
 import Head from 'next/head';
 import { Home } from 'types/database';
 import Image from 'next/image';
@@ -10,16 +11,19 @@ import { PageProps } from 'types';
 import SanityClient from '@sanity/client';
 import { buildImageUrl } from 'utils/buildImageUrl';
 import styled from 'styled-components';
+import { theme } from 'theme';
 
-const Container = styled(Box)`
+const Container = styled<ComponentType<BoxProps>>(Box)`
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   position: relative;
   height: 100%;
   width: 100%;
   margin: 0 auto;
 
-  @media and (min-width: 900px) {
-    margin-bottom: 32px;
+  ${theme.breakpoints.up(`md`)} {
+    margin-bottom: ${theme.spacing(2)}px;
   }
 
   & .carousel-root,
@@ -43,24 +47,25 @@ const Container = styled(Box)`
     justify-content: center;
 
     & > * + * {
-      margin-left: 8px;
+      margin-left: ${theme.spacing()}px;
     }
   }
 `;
 
-interface IThumbProps extends ButtonType {
+interface IThumbProps extends ButtonProps {
   selected: boolean;
 }
 
-const Thumb = styled<FC<IThumbProps>>(Button)`
+const Thumb = styled<ComponentType<IThumbProps>>(Button)`
   background-color: transparent;
   border-radius: 50%;
-  border: 2px solid
+  border: ${theme.spacing(0.25)}px solid
     ${({ selected }) => (selected ? `var(--brand)` : `var(--white)`)};
   padding: 0px;
   position: relative;
-  height: 18px;
-  width: 18px;
+  height: ${theme.spacing(3)}px;
+  width: ${theme.spacing(3)}px;
+  min-width: 0;
 
   &:after {
     background-color: ${({ selected }) =>
@@ -68,10 +73,10 @@ const Thumb = styled<FC<IThumbProps>>(Button)`
     border-radius: 50%;
     content: '';
     position: absolute;
-    top: 2px;
-    bottom: 2px;
-    left: 2px;
-    right: 2px;
+    top: ${theme.spacing(0.25)}px;
+    bottom: ${theme.spacing(0.25)}px;
+    left: ${theme.spacing(0.25)}px;
+    right: ${theme.spacing(0.25)}px;
     opacity: ${({ selected }) => (selected ? 1 : 0)};
     transform: scale(${({ selected }) => (selected ? 1 : 0)});
     transform-origin: center;
