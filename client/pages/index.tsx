@@ -1,14 +1,14 @@
 import { Box, Button, ButtonType } from 'grommet';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { Picture, SanityKeyed } from 'types/database';
 
 import { Carousel } from 'react-responsive-carousel';
 import { FC } from 'react';
 import Head from 'next/head';
+import { Home } from 'types/database';
 import Image from 'next/image';
-import { ImageWrapper } from 'components/imageWrapper';
 import { PageProps } from 'types';
-import { api } from 'api';
+import SanityClient from '@sanity/client';
+import { buildImageUrl } from 'utils/buildImageUrl';
 import styled from 'styled-components';
 
 const Container = styled(Box)`
@@ -80,7 +80,7 @@ const Thumb = styled<FC<IThumbProps>>(Button)`
 `;
 
 export default function HomePage({
-  pictures,
+  images,
   title,
 }: PageProps<InferGetStaticPropsType<typeof getStaticProps>>): JSX.Element {
   return (
@@ -100,15 +100,16 @@ export default function HomePage({
             <Thumb selected={isSelected} onClick={clickHandler} />
           )}
         >
-          {pictures.map(({ _key, ...picture }) => (
-            <ImageWrapper
-              key={_key}
+          {images.map(({ id, url }) => (
+            <Image
+              key={id}
               layout="fill"
               objectFit="cover"
               objectPosition="center center"
-              picture={picture}
               priority={true}
               quality={100}
+              rel="preload"
+              src={url}
             />
           ))}
         </Carousel>
@@ -117,16 +118,36 @@ export default function HomePage({
   );
 }
 
+type HomePageImage = {
+  id: string;
+  url: string;
+};
+
 interface IHomePageProps {
-  pictures: Array<SanityKeyed<Picture>>;
+  images: Array<HomePageImage>;
 }
 
 export const getStaticProps: GetStaticProps<IHomePageProps> = async () => {
-  const pictures = await api.getHomePageAsync();
+  const client = SanityClient({
+    dataset: process.env.SANITY_DATASET,
+    projectId: process.env.SANITY_PROJECT_ID,
+    useCdn: true,
+  });
+
+  const { pictures } = await client.fetch<Pick<Home, 'pictures'>>(
+    `*[_type == 'home'][0]{
+      pictures
+    }`
+  );
 
   return {
     props: {
-      pictures,
+      images: pictures.map(
+        (picture): HomePageImage => ({
+          id: picture._key,
+          url: buildImageUrl(client, picture).width(720).minWidth(320).url(),
+        })
+      ),
     },
   };
 };
