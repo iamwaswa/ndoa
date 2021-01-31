@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
+  :root {
+    --max-width: 720px;
+  }
+
   html,
   body {
     min-width: 320px;
@@ -15,16 +19,5 @@ export const GlobalStyles = createGlobalStyle`
   *::after,
   *::before {
     box-sizing: border-box;
-  }
-
-  :root {
-    --primary: #98bcdd;
-    --white: #f9f9f9;
-    --gray: #e4e4e4;
-    --red: #ff4040;
-    --yellow: #ffaa15;
-    --green: #00c753;
-
-    --max-width: 720px;
   }
 `;

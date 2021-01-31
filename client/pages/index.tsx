@@ -60,7 +60,8 @@ const Thumb = styled<ComponentType<IThumbProps>>(Button)`
   background-color: transparent;
   border-radius: 50%;
   border: ${theme.spacing(0.25)}px solid
-    ${({ selected }) => (selected ? `var(--brand)` : `var(--white)`)};
+    ${({ selected }) =>
+      selected ? theme.palette.primary.main : theme.palette.grey[300]};
   padding: 0px;
   position: relative;
   height: ${theme.spacing(3)}px;
@@ -69,7 +70,7 @@ const Thumb = styled<ComponentType<IThumbProps>>(Button)`
 
   &:after {
     background-color: ${({ selected }) =>
-      selected ? `var(--brand)` : `transparent`};
+      selected ? theme.palette.primary.main : `transparent`};
     border-radius: 50%;
     content: '';
     position: absolute;
