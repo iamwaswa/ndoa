@@ -1,22 +1,25 @@
-import { Nav, Text, TextProps } from 'grommet';
+import Typography, { TypographyProps } from '@material-ui/core/Typography';
 
+import Box from '@material-ui/core/Box';
 import { FC } from 'react';
 import Link from 'next/link';
 import { routes } from './routes';
 import styled from 'styled-components';
+import { theme } from 'theme';
 import { useRouter } from 'next/router';
 
-const NavBar = styled(Nav)`
+const NavBar = styled(Box)`
+  display: flex;
+  justify-content: center;
+  padding-top: ${theme.spacing(2)}px;
   width: 100%;
 `;
 
-type BaseTextProps = TextProps & Omit<JSX.IntrinsicElements['span'], 'color'>;
-
-interface INavBarLinkProps extends BaseTextProps {
+interface INavBarLinkProps extends TypographyProps {
   current: boolean;
 }
 
-const NavBarLink = styled<FC<INavBarLinkProps>>(Text)`
+const NavBarLink = styled<FC<INavBarLinkProps>>(Typography)`
   color: ${({ current }) => (current ? `var(--brand)` : `initial`)};
   cursor: pointer;
   position: relative;
@@ -56,20 +59,10 @@ export function Navigation({ mobile }: INavigationProps): JSX.Element {
   const { pathname } = useRouter();
 
   return (
-    <NavBar
-      direction="row"
-      justify="center"
-      gap={mobile ? `large` : `xlarge`}
-      pad={{ top: `large` }}
-    >
+    <NavBar>
       {routes.map(({ href, text }) => (
         <Link key={text} href={href}>
-          <NavBarLink
-            current={href === pathname}
-            size={mobile ? `medium` : `large`}
-          >
-            {text}
-          </NavBarLink>
+          <NavBarLink current={href === pathname}>{text}</NavBarLink>
         </Link>
       ))}
     </NavBar>

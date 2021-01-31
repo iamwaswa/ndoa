@@ -1,44 +1,56 @@
-import {
-  Box,
-  BoxTypes,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Paragraph,
-  Text,
-} from 'grommet';
+import Box, { BoxProps } from '@material-ui/core/Box';
+import { green, red, yellow } from '@material-ui/core/colors';
 
 import BlockContent from '@sanity/block-content-to-react';
-import { FC } from 'react';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import { ComponentType } from 'react';
+import Fab from '@material-ui/core/Fab';
 import Image from 'next/image';
 import { Item } from 'types/database';
+import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
+import { theme } from 'theme';
 import { useRegistryItem } from './hooks';
 
 const CardContainer = styled(Card)`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   max-width: 300px;
+  padding: ${theme.spacing()}px;
+
+  & > * {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
-interface IProgressMeterProps extends BoxTypes {
+interface IProgressMeterProps extends BoxProps {
   progress?: number;
 }
 
-const ProgressMeter = styled<FC<IProgressMeterProps>>(Box)`
+const ProgressMeter = styled<ComponentType<IProgressMeterProps>>(Box)`
+  display: flex;
+  align-items: center;
   background-color: var(--gray);
   border-radius: 20px;
+  margin-bottom: ${theme.spacing()}px;
+  padding: ${theme.spacing()}px ${theme.spacing(2)}px;
   position: relative;
 
   &:after {
     background-color: ${({ progress }) => {
       if (progress < 50) {
-        return `var(--red)`;
+        return red[500];
       } else if (progress < 75) {
-        return `var(--yellow)`;
+        return yellow[500];
       }
 
-      return `var(--green)`;
+      return green[500];
     }};
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -59,12 +71,8 @@ const ProgressMeter = styled<FC<IProgressMeterProps>>(Box)`
   }
 `;
 
-const Description = styled(Paragraph)`
+const Description = styled(Typography)`
   margin: 0;
-`;
-
-const PrimaryButton = styled(Button)`
-  color: var(--white);
 `;
 
 export function RegistryItem({
@@ -97,30 +105,23 @@ export function RegistryItem({
   }
 
   return (
-    <CardContainer direction="column" gap="xsmall" pad="medium">
-      <CardHeader direction="column" align="stretch" gap="xsmall">
-        <Box direction="row" align="center" justify="between">
-          <Text>{name}</Text>
-          {cashGift ? null : <Text>${price}</Text>}
+    <CardContainer>
+      <CardHeader>
+        <Box>
+          <Typography>{name}</Typography>
+          {cashGift ? null : <Typography>${price}</Typography>}
         </Box>
         {typeof contribution === `number` ? (
-          <ProgressMeter
-            direction="row"
-            align="center"
-            justify="start"
-            margin={{ bottom: `xxsmall` }}
-            pad={{ horizontal: `small`, vertical: `xxsmall` }}
-            progress={purchasedPercentage}
-          >
-            <Text>
+          <ProgressMeter progress={purchasedPercentage}>
+            <Typography>
               {`${Math.floor(purchasedPercentage)}% contributed${
                 purchasedPercentage === 100 ? `!!!` : ``
               }`}
-            </Text>
+            </Typography>
           </ProgressMeter>
         ) : null}
       </CardHeader>
-      <CardBody direction="column" gap="xsmall">
+      <CardContent>
         <Image
           layout="responsive"
           height={200}
@@ -131,19 +132,19 @@ export function RegistryItem({
         <Description>
           <BlockContent blocks={description} />
         </Description>
-      </CardBody>
-      <CardFooter justify="end">
-        <PrimaryButton
+      </CardContent>
+      <CardActions>
+        <Fab
+          color="primary"
           disabled={purchased}
-          primary={true}
-          label={
-            cashGift
-              ? `Contribute${purchased ? `d!` : ``}`
-              : `${purchased ? `Purchased!` : `Buy`}`
-          }
+          variant="extended"
           onClick={link ? openLink : purchaseItem}
-        />
-      </CardFooter>
+        >
+          {cashGift
+            ? `Contribute${purchased ? `d!` : ``}`
+            : `${purchased ? `Purchased!` : `Buy`}`}
+        </Fab>
+      </CardActions>
     </CardContainer>
   );
 }

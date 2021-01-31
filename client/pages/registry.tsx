@@ -1,28 +1,28 @@
-import { Box, BoxTypes } from 'grommet';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { Item, Registry, SanityKeyed } from 'types/database';
 
-import { FC } from 'react';
 import Head from 'next/head';
 import { PageProps } from 'types';
 import { RegistryItem } from 'components/registryItem';
 import SanityClient from '@sanity/client';
 import { buildImageUrl } from 'utils/buildImageUrl';
 import styled from 'styled-components';
+import { theme } from 'theme';
 
-interface IGridProps extends BoxTypes {
+interface IGridProps {
   count: number;
 }
 
-const Grid = styled<FC<IGridProps>>(Box)`
+const Grid = styled.div<IGridProps>`
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: repeat(${({ count }) => count}, 1fr);
-  grid-gap: 24px;
+  grid-gap: ${theme.spacing(3)}px;
   margin: 0 auto;
   max-width: 1200px;
+  padding: 0 ${theme.spacing(2)};
 
-  @media only screen and (min-width: 640px) {
+  ${theme.breakpoints.up(`sm`)} {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(${({ count }) => Math.ceil(count / 2)}, 1fr);
   }
@@ -39,10 +39,7 @@ export default function RegistryPage({
       <Head>
         <title>{title} | Registry</title>
       </Head>
-      <Grid
-        count={gifts.length}
-        pad={{ bottom: `medium`, horizontal: `medium` }}
-      >
+      <Grid count={gifts.length}>
         {gifts.map(({ _key, ...gift }) => (
           <RegistryItem key={_key} {...gift} />
         ))}

@@ -1,17 +1,14 @@
 import { ChildrenProps } from 'types';
-import { Paragraph } from 'grommet';
+import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 
-const ParagraphContainer = styled(Paragraph)`
+const ParagraphContainer = styled(Typography)`
   margin: 0;
   padding-top: 0;
   padding-bottom: 0;
+  text-align: center;
 `;
 
 export function ParagraphWrapper({ children }: ChildrenProps): JSX.Element {
-  return (
-    <ParagraphContainer fill={true} textAlign="center">
-      {children}
-    </ParagraphContainer>
-  );
+  return <ParagraphContainer>{children}</ParagraphContainer>;
 }

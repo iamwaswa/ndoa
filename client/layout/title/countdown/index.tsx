@@ -1,7 +1,14 @@
-import { Box, Text } from 'grommet';
-
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import styled from 'styled-components';
 import { useAtMostSize } from 'hooks/atMostSize';
 import { useTimeToGo } from 'hooks/timeToGo';
+
+const TimeContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 interface IMobileProps {
   mobile: boolean;
@@ -12,21 +19,17 @@ interface ITimeProps extends IMobileProps {
   value: number;
 }
 
-function Time({ mobile, title, value }: ITimeProps): JSX.Element {
+function Time({ title, value }: ITimeProps): JSX.Element {
   return (
-    <Box direction="column" align="center" gap="small">
-      <Text size={`${mobile ? `` : `x`}large`}>{title}</Text>
-      <Text size="xxlarge">{String(value).padStart(2, `0`)}</Text>
-    </Box>
+    <TimeContainer>
+      <Typography>{title}</Typography>
+      <Typography>{String(value).padStart(2, `0`)}</Typography>
+    </TimeContainer>
   );
 }
 
 function Gap({ mobile }: IMobileProps): JSX.Element {
-  return (
-    <Text margin={{ horizontal: `${mobile ? `x` : ``}xsmall` }} size="xlarge">
-      :
-    </Text>
-  );
+  return <Typography>:</Typography>;
 }
 
 export function Countdown(): JSX.Element {
@@ -34,7 +37,7 @@ export function Countdown(): JSX.Element {
   const { days, hours, minutes, seconds } = useTimeToGo();
 
   return (
-    <Box direction="row" gap={mobile ? `xsmall` : `small`}>
+    <Box>
       <Time mobile={mobile} title="Days" value={days} />
       <Gap mobile={mobile} />
       <Time mobile={mobile} title="Hours" value={hours} />
