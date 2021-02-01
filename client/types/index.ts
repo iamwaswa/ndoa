@@ -1,3 +1,6 @@
+import { SanityBlock, SanityImageHotspot, SanityKeyed } from './database';
+
+import { ImageUrlBuilderOptions } from '@sanity/image-url/lib/types/types';
 import { ReactNode } from 'react';
 
 export type ChildrenProps = {
@@ -35,3 +38,13 @@ export type GiftRegistryItem = {
   contributed?: number;
   link?: string;
 };
+
+export type Content = Array<
+  | SanityKeyed<SanityBlock>
+  | {
+      _type: 'image';
+      height: number;
+      maxWidth: number;
+      url: string;
+    }
+>;

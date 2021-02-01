@@ -18,9 +18,9 @@ const Grid = styled.div<IGridProps>`
   grid-template-columns: auto;
   grid-template-rows: repeat(${({ count }) => count}, 1fr);
   grid-gap: ${theme.spacing(3)}px;
-  margin: 0 auto;
+  margin: ${theme.spacing()}px auto 0;
   max-width: 1200px;
-  padding: 0 ${theme.spacing(2)};
+  padding: 0 ${theme.spacing(2)}px ${theme.spacing(2)}px;
 
   ${theme.breakpoints.up(`sm`)} {
     grid-template-columns: repeat(2, 1fr);

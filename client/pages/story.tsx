@@ -1,14 +1,15 @@
-import { RichText, Story } from 'types/database';
+import { Content, PageProps } from 'types';
 
-import BlockContent from '@sanity/block-content-to-react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { PageProps } from 'types';
+import { SanityBlockContent } from 'components/blockContent';
 import SanityClient from '@sanity/client';
+import { Story } from 'types/database';
 import { TextPageWrapper } from 'components/textPageWrapper';
+import { buildImageUrl } from 'utils/buildImageUrl';
 
 export default function StoryPage({
-  text,
+  content,
   title,
 }: PageProps<IStoryPageProps>): JSX.Element {
   return (
@@ -17,14 +18,14 @@ export default function StoryPage({
         <title>{title} | Story</title>
       </Head>
       <TextPageWrapper>
-        <BlockContent blocks={text} imageOptions={{ w: 720, h: 360 }} />
+        <SanityBlockContent content={content} />
       </TextPageWrapper>
     </>
   );
 }
 
 interface IStoryPageProps {
-  text: RichText;
+  content: Content;
 }
 
 export const getStaticProps: GetStaticProps<IStoryPageProps> = async () => {
@@ -36,18 +37,30 @@ export const getStaticProps: GetStaticProps<IStoryPageProps> = async () => {
 
   const { text } = await client.fetch<Pick<Story, 'text'>>(
     `*[_type == 'story'][0]{
-      text[]{
-        ...,
-        asset->{
-          url
-        }
-      }
+      text
     }`
   );
 
+  const height = 360;
+
+  const maxWidth = 640;
+
   return {
     props: {
-      text,
+      content: text.map((content) => {
+        return content._type === `image`
+          ? {
+              _type: content._type,
+              height,
+              maxWidth,
+              url: buildImageUrl(client, content)
+                .minWidth(320)
+                .width(maxWidth)
+                .height(height)
+                .url(),
+            }
+          : content;
+      }),
     },
   };
 };
