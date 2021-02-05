@@ -1,6 +1,5 @@
-import { CountdownContainer, GapText, TimeContainer } from './styles';
+import { CountdownContainer, GapText, TimeContainer, TimeText } from './styles';
 
-import Typography from '@material-ui/core/Typography';
 import { useTimeToGo } from 'hooks/timeToGo';
 
 interface ITimeProps {
@@ -11,8 +10,8 @@ interface ITimeProps {
 function Time({ title, value }: ITimeProps): JSX.Element {
   return (
     <TimeContainer>
-      <Typography>{title}</Typography>
-      <Typography>{String(value).padStart(2, `0`)}</Typography>
+      <TimeText>{title}</TimeText>
+      <TimeText>{String(value).padStart(2, `0`)}</TimeText>
     </TimeContainer>
   );
 }

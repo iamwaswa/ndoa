@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { theme } from 'theme';
 
 const TitleText = styled(Typography)`
+  font-family: var(--title-font);
   font-size: ${theme.typography.h3.fontSize};
   margin: ${theme.spacing()}px 0;
 

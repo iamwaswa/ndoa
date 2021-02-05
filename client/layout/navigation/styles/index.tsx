@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { theme } from 'theme';
 
 export const NavBar = styled(Box)`
+  font-family: var(--title-font);
   display: flex;
   justify-content: center;
   padding: ${theme.spacing(2)}px ${theme.spacing(2)}px 0 ${theme.spacing(2)}px;
