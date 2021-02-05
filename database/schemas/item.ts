@@ -31,11 +31,9 @@ export const itemSchema = {
       validation: Rule => Rule.required(),
     },
     {
-      codegen: { required: true },
       name: `price`,
       title: `Price`,
       type: `number`,
-      validation: Rule => Rule.required(),
     },
     {
       layout: `checkbox`,
@@ -69,15 +67,20 @@ export const itemSchema = {
       purchased: `purchased`,
     },
     prepare({ title, picture, price, cashGift, contribution, purchased }) {
-      const cashGiftBalance = cashGift ? price - contribution : 0;
+      const showLeftToPay = price !== undefined;
+
+      const cashGiftBalance =
+        cashGift && showLeftToPay ? price - contribution : 0;
 
       return {
         media: picture,
-        subtitle: cashGift
-          ? `$${cashGiftBalance} left to pay${
-              cashGiftBalance === 0 ? `!!!` : ``
-            }`
-          : `${purchased ? `Purchased!!!` : `$${price}`}`,
+        subtitle: showLeftToPay
+          ? cashGift
+            ? `$${cashGiftBalance} left to pay${
+                cashGiftBalance === 0 ? `!!!` : ``
+              }`
+            : `${purchased ? `Purchased!!!` : `$${price}`}`
+          : null,
         title,
       };
     },
