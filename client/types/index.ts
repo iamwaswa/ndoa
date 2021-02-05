@@ -1,5 +1,6 @@
-import { Picture, Registry, SanityKeyed, Story } from './database';
+import { SanityBlock, SanityImageHotspot, SanityKeyed } from './database';
 
+import { ImageUrlBuilderOptions } from '@sanity/image-url/lib/types/types';
 import { ReactNode } from 'react';
 
 export type ChildrenProps = {
@@ -9,12 +10,6 @@ export type ChildrenProps = {
 export type FunctionType<TArgs = void, TReturn = void> = (
   ...args: TArgs extends Array<unknown> ? TArgs : [TArgs]
 ) => TReturn;
-
-export type API = {
-  getHomePageAsync: FunctionType<[], Promise<Array<SanityKeyed<Picture>>>>;
-  getStoryPageAsync: FunctionType<[], Promise<Story>>;
-  getRegistryPageAsync: FunctionType<[], Promise<Registry>>;
-};
 
 export type PageProps<TExtraProps = void> = TExtraProps & {
   title: string;
@@ -43,3 +38,13 @@ export type GiftRegistryItem = {
   contributed?: number;
   link?: string;
 };
+
+export type Content = Array<
+  | SanityKeyed<SanityBlock>
+  | {
+      _type: 'image';
+      height: number;
+      maxWidth: number;
+      url: string;
+    }
+>;

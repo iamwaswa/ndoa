@@ -1,25 +1,29 @@
-import { Box, Button, ButtonType } from 'grommet';
+import Box, { BoxProps } from '@material-ui/core/Box';
+import Button, { ButtonProps } from '@material-ui/core/Button';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { Picture, SanityKeyed } from 'types/database';
 
 import { Carousel } from 'react-responsive-carousel';
-import { FC } from 'react';
+import { ComponentType } from 'react';
 import Head from 'next/head';
+import { Home } from 'types/database';
 import Image from 'next/image';
-import { ImageWrapper } from 'components/imageWrapper';
 import { PageProps } from 'types';
-import { api } from 'api';
+import SanityClient from '@sanity/client';
+import { buildImageUrl } from 'utils/buildImageUrl';
 import styled from 'styled-components';
+import { theme } from 'theme';
 
-const Container = styled(Box)`
+const Container = styled<ComponentType<BoxProps>>(Box)`
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   position: relative;
   height: 100%;
   width: 100%;
   margin: 0 auto;
 
-  @media and (min-width: 900px) {
-    margin-bottom: 32px;
+  ${theme.breakpoints.up(`md`)} {
+    margin-bottom: ${theme.spacing(2)}px;
   }
 
   & .carousel-root,
@@ -43,35 +47,37 @@ const Container = styled(Box)`
     justify-content: center;
 
     & > * + * {
-      margin-left: 8px;
+      margin-left: ${theme.spacing()}px;
     }
   }
 `;
 
-interface IThumbProps extends ButtonType {
+interface IThumbProps extends ButtonProps {
   selected: boolean;
 }
 
-const Thumb = styled<FC<IThumbProps>>(Button)`
+const Thumb = styled<ComponentType<IThumbProps>>(Button)`
   background-color: transparent;
   border-radius: 50%;
-  border: 2px solid
-    ${({ selected }) => (selected ? `var(--brand)` : `var(--white)`)};
+  border: ${theme.spacing(0.25)}px solid
+    ${({ selected }) =>
+      selected ? theme.palette.primary.main : theme.palette.grey[300]};
   padding: 0px;
   position: relative;
-  height: 18px;
-  width: 18px;
+  height: ${theme.spacing(3)}px;
+  width: ${theme.spacing(3)}px;
+  min-width: 0;
 
   &:after {
     background-color: ${({ selected }) =>
-      selected ? `var(--brand)` : `transparent`};
+      selected ? theme.palette.primary.main : `transparent`};
     border-radius: 50%;
     content: '';
     position: absolute;
-    top: 2px;
-    bottom: 2px;
-    left: 2px;
-    right: 2px;
+    top: ${theme.spacing(0.25)}px;
+    bottom: ${theme.spacing(0.25)}px;
+    left: ${theme.spacing(0.25)}px;
+    right: ${theme.spacing(0.25)}px;
     opacity: ${({ selected }) => (selected ? 1 : 0)};
     transform: scale(${({ selected }) => (selected ? 1 : 0)});
     transform-origin: center;
@@ -80,7 +86,7 @@ const Thumb = styled<FC<IThumbProps>>(Button)`
 `;
 
 export default function HomePage({
-  pictures,
+  images,
   title,
 }: PageProps<InferGetStaticPropsType<typeof getStaticProps>>): JSX.Element {
   return (
@@ -100,15 +106,15 @@ export default function HomePage({
             <Thumb selected={isSelected} onClick={clickHandler} />
           )}
         >
-          {pictures.map(({ _key, ...picture }) => (
-            <ImageWrapper
-              key={_key}
+          {images.map(({ id, url }) => (
+            <Image
+              key={id}
               layout="fill"
               objectFit="cover"
               objectPosition="center center"
-              picture={picture}
               priority={true}
               quality={100}
+              src={url}
             />
           ))}
         </Carousel>
@@ -117,16 +123,36 @@ export default function HomePage({
   );
 }
 
+type HomePageImage = {
+  id: string;
+  url: string;
+};
+
 interface IHomePageProps {
-  pictures: Array<SanityKeyed<Picture>>;
+  images: Array<HomePageImage>;
 }
 
 export const getStaticProps: GetStaticProps<IHomePageProps> = async () => {
-  const pictures = await api.getHomePageAsync();
+  const client = SanityClient({
+    dataset: process.env.SANITY_DATASET,
+    projectId: process.env.SANITY_PROJECT_ID,
+    useCdn: true,
+  });
+
+  const { pictures } = await client.fetch<Pick<Home, 'pictures'>>(
+    `*[_type == 'home'][0]{
+      pictures
+    }`
+  );
 
   return {
     props: {
-      pictures,
+      images: pictures.map(
+        (picture): HomePageImage => ({
+          id: picture._key,
+          url: buildImageUrl(client, picture).width(720).minWidth(320).url(),
+        })
+      ),
     },
   };
 };
