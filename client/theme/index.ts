@@ -8,7 +8,7 @@ export const theme = responsiveFontSizes(
       },
     },
     typography: {
-      fontFamily: `'Josefin Sans', sans-serif`,
+      fontFamily: `'Abhaya Libre', serif`,
     },
   })
 );

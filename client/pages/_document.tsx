@@ -40,7 +40,7 @@ export default class MyDocument extends Document {
           <link href="/logo.svg" rel="shortcut icon" type="image/svg" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Playfair+Display:ital@1&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Abhaya+Libre&family=Playfair+Display:ital@1&display=swap"
             rel="stylesheet"
           />
           <meta name="mobile-web-app-capable" content="yes" />
