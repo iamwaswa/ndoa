@@ -1,4 +1,5 @@
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import { AppProps } from 'next/app';
 import CssBaseline from '@material-ui/core/CssBaseline';
