@@ -1,5 +1,5 @@
 import Fab, { FabProps } from '@material-ui/core/Fab';
-import { green, red, yellow } from '@material-ui/core/colors';
+import { deepOrange, green, red } from '@material-ui/core/colors';
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -61,7 +61,7 @@ export const ProgressMeter = styled.div<IProgressMeterProps>`
       if (progress < 50) {
         return red[500];
       } else if (progress < 75) {
-        return yellow[500];
+        return deepOrange[500];
       }
 
       return green[500];
@@ -80,7 +80,7 @@ export const ProgressMeter = styled.div<IProgressMeterProps>`
   }
 
   & > * {
-    color: var(--gold);
+    color: ${theme.palette.grey[200]};
     font-family: var(--title-font);
     position: relative;
     z-index: 1;
