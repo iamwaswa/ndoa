@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import { theme } from 'theme';
 
 export const RegistryItemContainer = styled(Card)`
+  color: var(--dark-blue);
   background-color: var(--gold);
   display: flex;
   flex-direction: column;

@@ -1,9 +1,8 @@
 import Box, { BoxProps } from '@material-ui/core/Box';
-import Button, { ButtonProps } from '@material-ui/core/Button';
-import { ComponentType, ReactNode } from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 
-import Carousel from 'react-slick';
+import Carousel from 'react-bootstrap/Carousel';
+import { ComponentType } from 'react';
 import Head from 'next/head';
 import { Home } from 'types/database';
 import Image from 'next/image';
@@ -25,42 +24,25 @@ const Container = styled<ComponentType<BoxProps>>(Box)`
   ${theme.breakpoints.up(`md`)} {
     margin-bottom: ${theme.spacing(2)}px;
   }
-`;
 
-const ThumbContainer = styled.ul`
-  list-style: none;
-`;
+  .carousel.slide {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 
-interface IThumbProps extends ButtonProps {
-  selected?: boolean;
-}
+    .carousel-inner {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
 
-const Thumb = styled<ComponentType<IThumbProps>>(Button)`
-  background-color: transparent;
-  border-radius: 50%;
-  border: ${theme.spacing(0.25)}px solid
-    ${({ selected }) =>
-      selected ? theme.palette.primary.main : theme.palette.grey[300]};
-  padding: 0px;
-  position: relative;
-  height: ${theme.spacing(3)}px;
-  width: ${theme.spacing(3)}px;
-  min-width: 0;
-
-  &:after {
-    background-color: ${({ selected }) =>
-      selected ? theme.palette.primary.main : `transparent`};
-    border-radius: 50%;
-    content: '';
-    position: absolute;
-    top: ${theme.spacing(0.25)}px;
-    bottom: ${theme.spacing(0.25)}px;
-    left: ${theme.spacing(0.25)}px;
-    right: ${theme.spacing(0.25)}px;
-    opacity: ${({ selected }) => (selected ? 1 : 0)};
-    transform: scale(${({ selected }) => (selected ? 1 : 0)});
-    transform-origin: center;
-    transition: all 300ms ease-in-out;
+      .carousel-item {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    }
   }
 `;
 
@@ -74,27 +56,18 @@ export default function HomePage({
         <title>{title} | Home</title>
       </Head>
       <Container>
-        <Carousel
-          appendDots={(dots: ReactNode): JSX.Element => (
-            <ThumbContainer>{dots}</ThumbContainer>
-          )}
-          arrows={false}
-          autoplay={true}
-          autoplaySpeed={5000}
-          dots={true}
-          speed={500}
-          slidesToShow={1}
-          slidesToScroll={1}
-          customPaging={() => <Thumb />}
-        >
+        <Carousel>
           {images.map(({ id, url }) => (
-            <Image
-              key={id}
-              layout="fill"
-              priority={true}
-              quality={100}
-              src={url}
-            />
+            <Carousel.Item key={id}>
+              <Image
+                key={id}
+                layout="fill"
+                objectFit="cover"
+                priority={true}
+                quality={100}
+                src={url}
+              />
+            </Carousel.Item>
           ))}
         </Carousel>
       </Container>
