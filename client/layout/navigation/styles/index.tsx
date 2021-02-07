@@ -30,5 +30,5 @@ interface INavBarLinkProps extends AnchorHTMLAttributes<unknown> {
 
 export const NavBarAnchor = styled(Anchor)<INavBarLinkProps>`
   color: ${({ current }) =>
-    current === `true` ? theme.palette.primary.main : `initial`};
+    current === `true` ? theme.palette.grey[100] : `var(--gold)`};
 `;

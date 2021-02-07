@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { theme } from 'theme';
 
 export const LayoutContainer = styled(Box)`
+  color: var(--gold);
   display: flex;
   flex-direction: column;
   min-height: 100vh;

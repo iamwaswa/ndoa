@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import { theme } from 'theme';
 
 export const RegistryItemContainer = styled(Card)`
+  background-color: var(--gold);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -44,7 +45,7 @@ interface IProgressMeterProps {
 export const ProgressMeter = styled.div<IProgressMeterProps>`
   display: flex;
   align-items: center;
-  background-color: ${theme.palette.grey[200]};
+  background-color: var(--dark-blue);
   border-radius: 20px;
   padding: ${theme.spacing()}px ${theme.spacing(2)}px;
   position: relative;
@@ -73,7 +74,7 @@ export const ProgressMeter = styled.div<IProgressMeterProps>`
   }
 
   & > * {
-    color: ${theme.palette.grey[900]};
+    color: var(--gold);
     position: relative;
     z-index: 1;
   }
@@ -96,6 +97,8 @@ export const RegistryItemAction = styled(CardActions)`
   padding: 0 ${theme.spacing(3)}px ${theme.spacing(2)}px;
 
   & > * {
+    background-color: var(--dark-blue);
+    color: var(--gold);
     font-size: ${theme.typography.h6.fontSize};
     text-transform: initial;
   }
