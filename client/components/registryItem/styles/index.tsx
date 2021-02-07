@@ -29,6 +29,11 @@ export const RegistryItemHeader = styled(CardHeader)`
   & .title {
     display: flex;
     justify-content: space-between;
+
+    & > * {
+      font-family: var(--title-font);
+      font-size: ${theme.typography.h5.fontSize};
+    }
   }
 
   & > * {
@@ -75,6 +80,7 @@ export const ProgressMeter = styled.div<IProgressMeterProps>`
 
   & > * {
     color: var(--gold);
+    font-family: var(--title-font);
     position: relative;
     z-index: 1;
   }
@@ -111,4 +117,6 @@ interface IRegistryItemLinkProps extends FabProps {
 
 export const RegistryItemLink = styled<ComponentType<IRegistryItemLinkProps>>(
   Fab
-)``;
+)`
+  font-family: var(--title-font);
+`;

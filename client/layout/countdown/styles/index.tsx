@@ -18,7 +18,11 @@ export const TimeContainer = styled(Box)`
   }
 `;
 
-export const GapText = styled(Typography)`
+export const TimeText = styled(Typography)`
+  font-family: var(--title-font);
+`;
+
+export const GapText = styled(TimeText)`
   display: flex;
   justify-content: center;
   margin-top: ${theme.spacing(0.75)}px;

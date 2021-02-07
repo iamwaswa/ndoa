@@ -1,9 +1,9 @@
 import Box, { BoxProps } from '@material-ui/core/Box';
 import Button, { ButtonProps } from '@material-ui/core/Button';
+import { ComponentType, ReactNode } from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 
-import { Carousel } from 'react-responsive-carousel';
-import { ComponentType } from 'react';
+import Carousel from 'react-slick';
 import Head from 'next/head';
 import { Home } from 'types/database';
 import Image from 'next/image';
@@ -25,35 +25,14 @@ const Container = styled<ComponentType<BoxProps>>(Box)`
   ${theme.breakpoints.up(`md`)} {
     margin-bottom: ${theme.spacing(2)}px;
   }
+`;
 
-  & .carousel-root,
-  .carousel.carousel-slider,
-  .carousel .slider-wrapper {
-    display: flex;
-    flex-direction: column;
-  }
-
-  & .carousel-root,
-  .carousel.carousel-slider,
-  .carousel .slider-wrapper,
-  .carousel .slider.animated {
-    height: 100%;
-    width: 100%;
-    flex-grow: 1;
-  }
-
-  & .carousel .control-dots {
-    display: flex;
-    justify-content: center;
-
-    & > * + * {
-      margin-left: ${theme.spacing()}px;
-    }
-  }
+const ThumbContainer = styled.ul`
+  list-style: none;
 `;
 
 interface IThumbProps extends ButtonProps {
-  selected: boolean;
+  selected?: boolean;
 }
 
 const Thumb = styled<ComponentType<IThumbProps>>(Button)`
@@ -96,22 +75,22 @@ export default function HomePage({
       </Head>
       <Container>
         <Carousel
-          autoPlay={true}
-          infiniteLoop={true}
-          interval={5000}
-          showArrows={false}
-          showStatus={false}
-          showThumbs={false}
-          renderIndicator={(clickHandler, isSelected) => (
-            <Thumb selected={isSelected} onClick={clickHandler} />
+          appendDots={(dots: ReactNode): JSX.Element => (
+            <ThumbContainer>{dots}</ThumbContainer>
           )}
+          arrows={false}
+          autoplay={true}
+          autoplaySpeed={5000}
+          dots={true}
+          speed={500}
+          slidesToShow={1}
+          slidesToScroll={1}
+          customPaging={() => <Thumb />}
         >
           {images.map(({ id, url }) => (
             <Image
               key={id}
               layout="fill"
-              objectFit="cover"
-              objectPosition="center center"
               priority={true}
               quality={100}
               src={url}

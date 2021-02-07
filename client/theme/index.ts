@@ -8,7 +8,7 @@ export const theme = responsiveFontSizes(
       },
     },
     typography: {
-      fontFamily: `'Roboto', cursive`,
+      fontFamily: `'Abhaya Libre', serif`,
     },
   })
 );

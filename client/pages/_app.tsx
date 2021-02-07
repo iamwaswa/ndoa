@@ -1,9 +1,11 @@
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import { AppProps } from 'next/app';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { GlobalStyles } from 'styles';
 import { Layout } from 'layout';
+import { LoadingScreen } from 'components/loadingScreen';
 import { StylesProvider } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from 'theme';
@@ -24,6 +26,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <GlobalStyles />
+        <LoadingScreen />
         <Layout>
           <Component {...pageProps} title="W&C" />
         </Layout>

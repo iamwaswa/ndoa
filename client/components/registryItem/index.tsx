@@ -41,7 +41,7 @@ export function RegistryItem({
             </section>
           }
           subheader={
-            cashGift ? (
+            cashGift && price !== undefined ? (
               <ProgressMeter progress={purchasedPercentage}>
                 <Typography>
                   {`${Math.floor(purchasedPercentage)}% contributed${

@@ -109,7 +109,7 @@ export type Item = {
    *
    *
    */
-  price: number;
+  price?: number;
 
   /**
    * This item has been purchased — `boolean`

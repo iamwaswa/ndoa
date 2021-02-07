@@ -6,11 +6,14 @@ export const GlobalStyles = createGlobalStyle`
     --light-blue: #98bcdd;
     --dark-blue: #212738;
     --gold: #d6b069;
+    --title-font: 'Playfair Display', serif;
+    --base-font: 'Josefin Sans', sans-serif;
   }
 
   html,
   body {
     background-color: var(--dark-blue);
+    font-family: var(--base-font);
     min-width: 320px;
   }
 

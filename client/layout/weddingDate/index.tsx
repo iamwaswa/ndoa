@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { theme } from 'theme';
 
 const SubtitleText = styled(Typography)`
+  font-family: var(--title-font);
   font-size: ${theme.typography.h4.fontSize};
   margin-bottom: ${theme.spacing()}px;
 `;

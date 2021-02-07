@@ -1,16 +1,14 @@
+import { Item } from 'types/database';
 import { useMemo } from 'react';
-
-interface IUseRegistryItemArgs {
-  contribution: number;
-  price: number;
-}
 
 export function useRegistryItem({
   contribution,
   price,
-}: IUseRegistryItemArgs): number {
+}: Pick<Item, 'contribution' | 'price'>): number {
   const purchasedPercentage = useMemo<number>(() => {
-    return Math.min((contribution / price) * 100, 100);
+    return price === undefined
+      ? 0
+      : Math.min((contribution / price) * 100, 100);
   }, [contribution, price]);
 
   return purchasedPercentage;
