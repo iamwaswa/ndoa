@@ -2,9 +2,13 @@ import styled from 'styled-components';
 import { theme } from 'theme';
 
 export const Anchor = styled.a`
-  color: initial;
+  color: var(--light-blue);
   cursor: pointer;
   position: relative;
+
+  &:hover {
+    color: var(--light-blue);
+  }
 
   &:after {
     content: '';
