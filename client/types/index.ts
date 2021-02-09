@@ -1,6 +1,6 @@
-import { SanityBlock, SanityImageHotspot, SanityKeyed } from './database';
+import { SanityBlock, SanityKeyed } from './database';
 
-import { ImageUrlBuilderOptions } from '@sanity/image-url/lib/types/types';
+import { ProductNameEnum } from 'enums';
 import { ReactNode } from 'react';
 
 export type ChildrenProps = {
@@ -48,3 +48,8 @@ export type Content = Array<
       url: string;
     }
 >;
+
+export type Product = {
+  name: ProductNameEnum;
+  price: number;
+};

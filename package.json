@@ -1,0 +1,13 @@
+{
+  "name": "root",
+  "private": true,
+  "version": "0.1.0",
+  "author": "Waswa Olunga <olungaw@gmail.com>",
+  "scripts": {
+    "deploy:preview": "vercel",
+    "deploy:prod": "vercel --prod"
+  },
+  "devDependencies": {
+    "vercel": "^21.2.3"
+  }
+}

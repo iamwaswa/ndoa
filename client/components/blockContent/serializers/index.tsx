@@ -1,14 +1,10 @@
 import { Anchor } from 'styles/anchor';
 import { ChildrenProps } from 'types';
 import Image from 'next/image';
+import { Text } from 'styles/text';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import { theme } from 'theme';
-
-const Block = styled(Typography)`
-  padding: 0 ${theme.spacing(2)}px ${theme.spacing()}px;
-  text-align: justify;
-`;
 
 const Em = styled(Typography)`
   font-style: italic;
@@ -34,7 +30,7 @@ interface IImageContainerProps {
 const ImageContainer = styled.section<IImageContainerProps>`
   height: ${({ height }) => `${height}px`};
   width: calc(100% - ${theme.spacing(4)}px);
-  margin: 0 auto ${theme.spacing()}px auto;
+  margin: 0 auto ${theme.spacing(3)}px auto;
   max-width: ${({ maxWidth }) => `${maxWidth}px`};
   position: relative;
 `;
@@ -73,7 +69,7 @@ export const serializers = {
   },
   types: {
     block({ children }: ChildrenProps): JSX.Element {
-      return <Block>{children}</Block>;
+      return <Text>{children}</Text>;
     },
     image({ node }: IImage): JSX.Element {
       return (

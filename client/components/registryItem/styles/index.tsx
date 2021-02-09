@@ -1,11 +1,10 @@
-import Fab, { FabProps } from '@material-ui/core/Fab';
 import { deepOrange, green, red } from '@material-ui/core/colors';
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import { ComponentType } from 'react';
+import Fab from '@material-ui/core/Fab';
 import styled from 'styled-components';
 import { theme } from 'theme';
 
@@ -76,7 +75,7 @@ export const ProgressMeter = styled.div<IProgressMeterProps>`
     top: 0;
     bottom: 0;
     left: 0;
-    width: ${({ progress }) => `${progress}%`};
+    width: ${({ progress }) => `${progress < 6 ? 0 : progress}%`};
   }
 
   & > * {
@@ -111,13 +110,6 @@ export const RegistryItemAction = styled(CardActions)`
   }
 `;
 
-interface IRegistryItemLinkProps extends FabProps {
-  rel: string;
-  target: string;
-}
-
-export const RegistryItemLink = styled<ComponentType<IRegistryItemLinkProps>>(
-  Fab
-)`
+export const RegistryItemButton = styled(Fab)`
   font-family: var(--title-font);
 `;
