@@ -47,7 +47,7 @@ interface IProgressMeterProps {
   progress?: number;
 }
 
-export const ProgressMeter = styled.div<IProgressMeterProps>`
+export const RegistryItemProgressMeter = styled.div<IProgressMeterProps>`
   display: flex;
   align-items: center;
   background-color: var(--dark-blue);
@@ -97,6 +97,15 @@ export const RegistryItemContent = styled(CardContent)`
   & > p {
     margin-top: ${theme.spacing(2)}px;
   }
+`;
+
+export const RegistryItemContribute = styled.fieldset`
+  border: none;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-column-gap: ${theme.spacing()}px;
+  margin: 0;
+  padding: 0;
 `;
 
 export const RegistryItemAction = styled(CardActions)`

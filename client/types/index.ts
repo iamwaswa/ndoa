@@ -53,3 +53,8 @@ export type Product = {
   name: ProductNameEnum;
   price: number;
 };
+
+export type SelectOption = {
+  label: string;
+  value: string;
+};

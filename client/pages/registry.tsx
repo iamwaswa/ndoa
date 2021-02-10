@@ -6,8 +6,13 @@ import { PageProps } from 'types';
 import { RegistryItem } from 'components/registryItem';
 import SanityClient from '@sanity/client';
 import { buildImageUrl } from 'utils/buildImageUrl';
+import { loadStripe } from '@stripe/stripe-js';
 import styled from 'styled-components';
 import { theme } from 'theme';
+
+export const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+);
 
 interface IGridProps {
   count: number;
