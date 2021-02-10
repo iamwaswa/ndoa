@@ -11,7 +11,7 @@ import { Item } from 'types/database';
 import { SanityBlockContent } from 'components/blockContent';
 import { SupportedCurrenciesEnum } from 'enums';
 import TextField from '@material-ui/core/TextField';
-import { useSubmitContributionContext } from 'context/submitContribution';
+import { useSubmitContributionContext } from 'context';
 
 export function Content({
   amount,

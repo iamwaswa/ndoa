@@ -6,7 +6,7 @@ import { SupportedCurrenciesEnum } from 'enums';
 import { stripePromise } from 'pages/registry';
 import { toast } from 'react-toastify';
 import { useMemo } from 'react';
-import { useSubmitContributionContext } from 'context/submitContribution';
+import { useSubmitContributionContext } from 'context';
 
 export function Action({
   amount,

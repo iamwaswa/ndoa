@@ -13,8 +13,11 @@ export function useTimeToGo(): TimeToGo {
   const secondInMilliseconds = useRef<number>(1000);
 
   const calculateTime = useCallback<FunctionType<void, TimeToGo>>(() => {
-    const millisecondsToWedding =
-      weddingDate.current.getTime() - new Date().getTime();
+    const weddingTime = weddingDate.current.getTime();
+
+    const currentTime = new Date().getTime();
+
+    const millisecondsToWedding = Math.max(0, weddingTime - currentTime);
 
     return {
       days: Math.floor(millisecondsToWedding / dayInMilliseconds.current),
