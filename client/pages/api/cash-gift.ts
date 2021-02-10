@@ -33,9 +33,6 @@ export default async function handler(
         },
       ],
       mode: `payment`,
-      shipping_address_collection: {
-        allowed_countries: [`AU`, `CA`, `GB`, `KE`, `US`, `ZA`, `ZM`],
-      },
       submit_type: `pay`,
       success_url: `${process.env.BASE_URL}/registry?success=true`,
       cancel_url: `${process.env.BASE_URL}/registry`,
