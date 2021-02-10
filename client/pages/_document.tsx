@@ -7,28 +7,46 @@ import Document, {
   NextScript,
 } from 'next/document';
 
-import { ReactElement } from 'react';
-import { RenderPageResult } from 'next/dist/next-server/lib/utils';
+import { Fragment } from 'react';
 import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheets } from '@material-ui/core/styles';
 
 export default class MyDocument extends Document {
-  static getInitialProps({
-    renderPage,
-  }: DocumentContext): Promise<DocumentInitialProps> {
-    const sheet = new ServerStyleSheet();
+  static async getInitialProps(
+    context: DocumentContext
+  ): Promise<DocumentInitialProps> {
+    // * Instantiate server stylesheets
+    const materialUISheets = new ServerStyleSheets();
+    const styledComponentsSheets = new ServerStyleSheet();
 
-    const page: RenderPageResult = renderPage((App) => {
-      return (props) => {
-        return sheet.collectStyles(<App {...props} />);
+    const originalRenderPage = context.renderPage;
+
+    try {
+      // * Collect all styles from components
+      context.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) =>
+            styledComponentsSheets.collectStyles(
+              materialUISheets.collect(<App {...props} />)
+            ),
+        });
+
+      const initialProps = await Document.getInitialProps(context);
+
+      // * Create style tag from styles and pass to HTML template styles
+      return {
+        ...initialProps,
+        styles: [
+          <Fragment key="styles">
+            {initialProps.styles}
+            {materialUISheets.getStyleElement()}
+            {styledComponentsSheets.getStyleElement()}
+          </Fragment>,
+        ],
       };
-    }) as RenderPageResult;
-
-    const styles: Array<ReactElement> = sheet.getStyleElement();
-
-    return Promise.resolve<DocumentInitialProps>({
-      ...page,
-      styles,
-    });
+    } finally {
+      styledComponentsSheets.seal();
+    }
   }
 
   render(): JSX.Element {
