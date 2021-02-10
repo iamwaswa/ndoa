@@ -1,15 +1,46 @@
-import { Item } from 'types/database';
-import { useMemo } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { FunctionType, SelectOption } from 'types';
 
-export function useRegistryItem({
-  contribution,
-  price,
-}: Pick<Item, 'contribution' | 'price'>): number {
-  const purchasedPercentage = useMemo<number>(() => {
-    return price === undefined
-      ? 0
-      : Math.min((contribution / price) * 100, 100);
-  }, [contribution, price]);
+import { SupportedCurrenciesEnum } from 'enums';
 
-  return purchasedPercentage;
+interface IUseCashGiftAmount {
+  amount: number;
+  updateAmount: FunctionType<{ target: { value: string } }, void>;
+  currency: SupportedCurrenciesEnum;
+  updateCurrency: FunctionType<[ChangeEvent, SelectOption], void>;
+}
+
+export function useCashGiftAmount(): IUseCashGiftAmount {
+  const [amount, setAmount] = useState<number>(15);
+  const [currency, setCurrency] = useState<SupportedCurrenciesEnum>(
+    SupportedCurrenciesEnum.CANADA
+  );
+
+  function updateAmount(event: { target: { value: string } }): void {
+    const value = Number(event.target.value);
+    if (value > 0) {
+      setAmount(value);
+    }
+  }
+
+  function updateCurrency(_: ChangeEvent, option: SelectOption): void {
+    if (isSupportedCurrency(option.value)) {
+      setCurrency(option.value);
+    }
+  }
+
+  return {
+    amount,
+    updateAmount,
+    currency,
+    updateCurrency,
+  };
+}
+
+function isSupportedCurrency(
+  currency: unknown
+): currency is SupportedCurrenciesEnum {
+  return (Object.values(SupportedCurrenciesEnum) as Array<string>).includes(
+    currency as string
+  );
 }
