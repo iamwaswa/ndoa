@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { FunctionType, SelectOption } from 'types';
 
 import { SupportedCurrenciesEnum } from 'enums';
@@ -16,11 +16,12 @@ export function useCashGiftAmount(): IUseCashGiftAmount {
     SupportedCurrenciesEnum.CANADA
   );
 
+  useEffect((): void => {
+    setAmount(getMinimumAmountForCurrency(amount, currency));
+  }, [amount, currency]);
+
   function updateAmount(event: { target: { value: string } }): void {
-    const value = Number(event.target.value);
-    if (value > 0) {
-      setAmount(value);
-    }
+    setAmount(Number(event.target.value));
   }
 
   function updateCurrency(_: ChangeEvent, option: SelectOption): void {
@@ -43,4 +44,19 @@ function isSupportedCurrency(
   return (Object.values(SupportedCurrenciesEnum) as Array<string>).includes(
     currency as string
   );
+}
+
+function getMinimumAmountForCurrency(
+  amount: number,
+  currency: SupportedCurrenciesEnum
+): number {
+  switch (currency) {
+    case SupportedCurrenciesEnum.KENYA:
+      return Math.max(50, amount);
+    case SupportedCurrenciesEnum.SOUTH_AFRICA:
+    case SupportedCurrenciesEnum.ZAMBIA:
+      return Math.max(10, amount);
+    default:
+      return Math.max(1, amount);
+  }
 }

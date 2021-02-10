@@ -28,7 +28,7 @@ export function RegistryItem({
   return (
     <>
       <RegistryItemContainer>
-        <section>
+        <section className="item">
           <Header
             cashGift={cashGift}
             contribution={contribution}

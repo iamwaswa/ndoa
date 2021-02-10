@@ -4,6 +4,6 @@ import { theme } from 'theme';
 
 export const Text = styled(Typography)`
   font-size: ${theme.typography.h6.fontSize};
-  padding: ${theme.spacing(0, 2, 3, 2)};
+  padding: ${theme.spacing(0, 0, 3, 0)};
   text-align: justify;
 `;

@@ -5,11 +5,15 @@ import { ChangeEvent, useMemo } from 'react';
 import { FunctionType, SelectOption } from 'types';
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { RegistryItemContent, RegistryItemContribute } from './styles';
+import {
+  SupportedCurrenciesDescriptionEnum,
+  SupportedCurrenciesEnum,
+  SupportedCurrenciesSymbolEnum,
+} from 'enums';
 
 import Image from 'next/image';
 import { Item } from 'types/database';
 import { SanityBlockContent } from 'components/blockContent';
-import { SupportedCurrenciesEnum } from 'enums';
 import TextField from '@material-ui/core/TextField';
 import { useSubmitContributionContext } from 'context';
 
@@ -38,24 +42,30 @@ export function Content({
 
   return (
     <RegistryItemContent>
-      <Image
-        layout="responsive"
-        height={200}
-        width={275}
-        priority={true}
-        src={image.url}
-      />
-      <SanityBlockContent content={description} />
+      <section className="content">
+        <Image
+          layout="responsive"
+          height={200}
+          width={275}
+          priority={true}
+          src={image.url}
+        />
+        <SanityBlockContent content={description} />
+      </section>
       {cashGift ? (
         <RegistryItemContribute disabled={disableActions}>
           <Autocomplete
+            disableClearable={true}
             options={Object.values(SupportedCurrenciesEnum).map(
               (value: SupportedCurrenciesEnum) => ({
-                label: value,
+                label: `${SupportedCurrenciesDescriptionEnum[value]}`,
                 value,
               })
             )}
-            value={{ label: currency, value: currency }}
+            value={{
+              label: `${SupportedCurrenciesSymbolEnum[currency]}`,
+              value: currency,
+            }}
             getOptionLabel={(option: SelectOption): string => option.label}
             getOptionSelected={(
               option: SelectOption,

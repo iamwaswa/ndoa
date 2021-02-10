@@ -11,7 +11,9 @@ export const RegistryItemContainer = styled(Card)`
   max-width: 300px;
   padding: ${theme.spacing()}px;
 
-  & :first-child {
+  & .item {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
   }
 `;

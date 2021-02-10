@@ -21,6 +21,26 @@ export enum SupportedCurrenciesEnum {
   GREAT_BRITAIN = 'gbp',
   KENYA = 'kes',
   UNITED_STATES = 'usd',
-  SOUTH_AFRICE = 'zar',
-  ZAMBIA = 'zmk',
+  SOUTH_AFRICA = 'zar',
+  ZAMBIA = 'zmw',
+}
+
+export enum SupportedCurrenciesDescriptionEnum {
+  aud = 'A$ (Australian dollar)',
+  cad = 'CA$ (Canadian dollar)',
+  gbp = '£ (Pound sterling)',
+  kes = 'KES (Kenyan shilling)',
+  usd = '$ (United States dollar)',
+  zar = 'ZAR (South African rand)',
+  zmw = 'ZMW (Zambian kwacha)',
+}
+
+export enum SupportedCurrenciesSymbolEnum {
+  aud = 'A$',
+  cad = 'CA$',
+  gbp = '£',
+  kes = 'KES',
+  usd = '$',
+  zar = 'ZAR',
+  zmw = 'ZMW',
 }

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { theme } from 'theme';
 
 export const RegistryItemAction = styled(CardActions)`
-  padding: 0 ${theme.spacing(3)}px ${theme.spacing(2)}px;
+  padding: 0 ${theme.spacing(2)}px ${theme.spacing(2)}px;
 
   & > * {
     background-color: var(--dark-blue);
