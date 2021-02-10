@@ -11,7 +11,10 @@ import styled from 'styled-components';
 import { theme } from 'theme';
 
 export const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+  {
+    apiVersion: `2020-08-27`,
+  }
 );
 
 interface IGridProps {
