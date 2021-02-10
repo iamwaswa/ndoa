@@ -9,6 +9,9 @@ import { buildImageUrl } from 'utils/buildImageUrl';
 import { loadStripe } from '@stripe/stripe-js';
 import styled from 'styled-components';
 import { theme } from 'theme';
+import { toast } from 'react-toastify';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
@@ -42,6 +45,14 @@ export default function RegistryPage({
 }: PageProps<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >): JSX.Element {
+  const router = useRouter();
+
+  useEffect((): void => {
+    if (router.query.success) {
+      toast.success(`Your contribution was successful!`);
+    }
+  }, [router]);
+
   return (
     <>
       <Head>

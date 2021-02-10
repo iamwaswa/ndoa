@@ -7,6 +7,7 @@ import { GlobalStyles } from 'styles';
 import { Layout } from 'layout';
 import { LoadingScreen } from 'components/loadingScreen';
 import { StylesProvider } from '@material-ui/core/styles';
+import { SubmitContributionContextProvider } from 'context/submitContribution';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { ToastContainer } from 'react-toastify';
 import { theme } from 'theme';
@@ -39,9 +40,11 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           draggable={true}
           pauseOnHover={true}
         />
-        <Layout>
-          <Component {...pageProps} title="W&C" />
-        </Layout>
+        <SubmitContributionContextProvider>
+          <Layout>
+            <Component {...pageProps} title="W&C" />
+          </Layout>
+        </SubmitContributionContextProvider>
       </ThemeProvider>
     </StylesProvider>
   );

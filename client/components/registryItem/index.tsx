@@ -23,6 +23,7 @@ import { stripePromise } from 'pages/registry';
 import { toast } from 'react-toastify';
 import { useCashGiftAmount } from './hooks/cashGiftAmount';
 import { useRegistryItem } from './hooks';
+import { useSubmitContributionContext } from 'context/submitContribution';
 
 export function RegistryItem({
   contribution,
@@ -48,35 +49,39 @@ export function RegistryItem({
     price,
   });
 
+  const { submitting, toggleSubmitting } = useSubmitContributionContext();
+
   async function contributeToCashGift(): Promise<void> {
-    if (amount) {
-      try {
-        const { error, success } = await fetch(`/api/cash-gift`, {
-          body: JSON.stringify({
-            amount,
-            currency,
-            name: name.toLowerCase().replace(/\s/g, ``),
-          }),
-          method: `POST`,
-        }).then((response) => response.json());
+    toggleSubmitting();
 
-        if (error) {
-          throw new Error(error);
-        }
+    try {
+      const { error, success } = await fetch(`/api/cash-gift`, {
+        body: JSON.stringify({
+          amount,
+          currency,
+          name: name.toLowerCase().replace(/\s/g, ``),
+        }),
+        method: `POST`,
+      }).then((response) => response.json());
 
-        const stripe = await stripePromise;
-
-        const checkoutResponse = await stripe.redirectToCheckout({
-          sessionId: success,
-        });
-
-        if (checkoutResponse.error) {
-          throw new Error(checkoutResponse.error.message);
-        }
-      } catch (error) {
-        console.error(error);
-        toast.error(error.message);
+      if (error) {
+        throw new Error(error);
       }
+
+      const stripe = await stripePromise;
+
+      const checkoutResponse = await stripe.redirectToCheckout({
+        sessionId: success,
+      });
+
+      if (checkoutResponse.error) {
+        throw new Error(checkoutResponse.error.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message);
+    } finally {
+      toggleSubmitting();
     }
   }
 
@@ -113,7 +118,9 @@ export function RegistryItem({
             />
             <SanityBlockContent content={description} />
             {cashGift ? (
-              <RegistryItemContribute disabled={purchased}>
+              <RegistryItemContribute
+                disabled={purchased || (cashGift && submitting)}
+              >
                 <Autocomplete
                   options={Object.values(SupportedCurrenciesEnum).map(
                     (value: SupportedCurrenciesEnum) => ({
@@ -137,12 +144,14 @@ export function RegistryItem({
                       inputProps={{
                         ...params.inputProps,
                       }}
+                      label="Currency"
                       variant="outlined"
                     />
                   )}
                   onChange={updateCurrency}
                 />
                 <TextField
+                  label="Amount"
                   type="number"
                   variant="outlined"
                   value={amount}
@@ -156,7 +165,7 @@ export function RegistryItem({
           {cashGift ? (
             <RegistryItemButton
               color="primary"
-              disabled={purchased || !amount}
+              disabled={purchased || (cashGift && submitting)}
               variant="extended"
               onClick={contributeToCashGift}
             >

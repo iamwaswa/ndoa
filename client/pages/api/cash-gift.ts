@@ -19,14 +19,14 @@ export default async function handler(
       return res.status(405).json({ error: `Method not allowed!` });
     }
 
-    const { amount, currency, name } = req.body;
+    const { amount, currency, name } = JSON.parse(req.body);
 
     const session = await stripe.checkout.sessions.create({
       billing_address_collection: `required`,
       payment_method_types: [`card`],
       line_items: [
         {
-          amount: Number(amount) * 100,
+          amount: amount * 100,
           currency: currency,
           name: ProductTitleEnum[name],
           quantity: 1,
@@ -37,8 +37,8 @@ export default async function handler(
         allowed_countries: [`AU`, `CA`, `GB`, `KE`, `US`, `ZA`, `ZM`],
       },
       submit_type: `pay`,
-      success_url: `/registry?success=true`,
-      cancel_url: `/registry?canceled=true`,
+      success_url: `${process.env.BASE_URL}/registry?success=true`,
+      cancel_url: `${process.env.BASE_URL}/registry`,
     });
 
     return res.status(200).json({ success: session.id });

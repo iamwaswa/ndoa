@@ -1,13 +1,13 @@
 import { ChangeEvent, useState } from 'react';
+import { FunctionType, SelectOption } from 'types';
 
-import { FunctionType } from 'types';
 import { SupportedCurrenciesEnum } from 'enums';
 
 interface IUseCashGiftAmount {
   amount: number;
-  updateAmount: FunctionType<ChangeEvent, void>;
+  updateAmount: FunctionType<{ target: { value: string } }, void>;
   currency: SupportedCurrenciesEnum;
-  updateCurrency: FunctionType<ChangeEvent, void>;
+  updateCurrency: FunctionType<[ChangeEvent, SelectOption], void>;
 }
 
 export function useCashGiftAmount(): IUseCashGiftAmount {
@@ -16,13 +16,16 @@ export function useCashGiftAmount(): IUseCashGiftAmount {
     SupportedCurrenciesEnum.CANADA
   );
 
-  function updateAmount(event: ChangeEvent): void {
-    setAmount(Number(event.target.value));
+  function updateAmount(event: { target: { value: string } }): void {
+    const value = Number(event.target.value);
+    if (value > 0) {
+      setAmount(value);
+    }
   }
 
-  function updateCurrency(event: ChangeEvent): void {
-    if (isSupportedCurrency(event.target.value)) {
-      setCurrency(event.target.value);
+  function updateCurrency(_: ChangeEvent, option: SelectOption): void {
+    if (isSupportedCurrency(option.value)) {
+      setCurrency(option.value);
     }
   }
 
