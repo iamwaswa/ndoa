@@ -21,7 +21,7 @@ export function Header({
       title={
         <section className="title">
           <Typography>{name}</Typography>
-          {cashGift ? null : <Typography>${price}</Typography>}
+          {cashGift ? null : <Typography>CA${price}</Typography>}
         </section>
       }
       subheader={

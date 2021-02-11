@@ -7,16 +7,20 @@ import {
 
 import { ChildrenProps } from 'types';
 import { Countdown } from './countdown';
+import Fade from '@material-ui/core/Fade';
+import { Grow } from '@material-ui/core';
 import { Logo } from './logo';
 import { Names } from './names';
 import { Navigation } from './navigation';
 import { WeddingDate } from './weddingDate';
-import Fade from '@material-ui/core/Fade';
+import { useRouter } from 'next/router';
 
 export function Layout({ children }: ChildrenProps): JSX.Element {
+  const router = useRouter();
+
   return (
     <LayoutContainer as="main">
-      <Fade in={true}>
+      <Grow in={true}>
         <LayoutHeader as="header">
           <Logo />
           <Names />
@@ -26,8 +30,10 @@ export function Layout({ children }: ChildrenProps): JSX.Element {
           </LayoutMiddleContainer>
           <Navigation />
         </LayoutHeader>
+      </Grow>
+      <Fade key={router.asPath} in={true}>
+        <LayoutContent as="section">{children}</LayoutContent>
       </Fade>
-      <LayoutContent as="section">{children}</LayoutContent>
     </LayoutContainer>
   );
 }

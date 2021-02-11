@@ -32,6 +32,7 @@ export default async function handler(
           quantity: 1,
         },
       ],
+      metadata: { amount, currency, name },
       mode: `payment`,
       submit_type: `pay`,
       success_url: `${process.env.BASE_URL}/registry?success=true`,
