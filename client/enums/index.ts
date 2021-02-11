@@ -44,3 +44,9 @@ export enum SupportedCurrenciesSymbolEnum {
   zar = 'ZAR',
   zmw = 'ZMW',
 }
+
+export enum BreathingRoomSpacingEnum {
+  BOTH,
+  HORIZONTAL,
+  VERTICAL,
+}

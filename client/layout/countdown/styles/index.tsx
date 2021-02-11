@@ -7,7 +7,7 @@ export const TimeContainer = styled(Box)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: ${theme.typography.h5.fontSize};
+  font-size: ${theme.typography.h6.fontSize};
 
   ${theme.breakpoints.up(`sm`)} {
     font-size: ${theme.typography.h4.fontSize};

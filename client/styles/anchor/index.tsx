@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { theme } from 'theme';
 
 export const Anchor = styled.a`
   color: var(--light-blue);
@@ -12,11 +11,11 @@ export const Anchor = styled.a`
 
   &:after {
     content: '';
-    border-bottom: 3px solid ${theme.palette.primary.main};
+    border-bottom: 3px solid var(--light-blue);
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: -2px;
     opacity: 0;
     transform: translateX(-10px);
     transition: all 300ms ease-in-out;

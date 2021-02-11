@@ -15,7 +15,7 @@ export const LayoutHeader = styled(Box)`
   align-items: center;
   justify-content: stretch;
   flex-grow: 0;
-  padding: ${theme.spacing()}px ${theme.spacing()}px;
+  padding: ${theme.spacing(1, 2)};
 `;
 
 export const LayoutMiddleContainer = styled(Box)`
@@ -28,7 +28,6 @@ export const LayoutMiddleContainer = styled(Box)`
 export const LayoutContent = styled(Box)`
   display: flex;
   flex-direction: column;
-
   flex-grow: 1;
   margin: ${theme.spacing()}px auto 0;
   max-width: var(--max-width);

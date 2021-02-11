@@ -12,10 +12,6 @@ export const NavBar = styled(Box)`
   width: 100%;
   max-width: var(--max-width);
 
-  & > * {
-    font-size: ${theme.typography.h5.fontSize};
-  }
-
   & > * + * {
     margin-left: ${theme.spacing(2)}px;
 
@@ -32,4 +28,9 @@ interface INavBarLinkProps extends AnchorHTMLAttributes<unknown> {
 export const NavBarAnchor = styled(Anchor)<INavBarLinkProps>`
   color: ${({ current }) =>
     current === `true` ? theme.palette.grey[100] : `var(--gold)`};
+  font-size: ${theme.typography.h6.fontSize};
+
+  ${theme.breakpoints.up(`sm`)} {
+    font-size: ${theme.typography.h5.fontSize};
+  }
 `;

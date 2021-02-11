@@ -29,7 +29,7 @@ interface IImageContainerProps {
 
 const ImageContainer = styled.section<IImageContainerProps>`
   height: ${({ height }) => `${height}px`};
-  width: calc(100% - ${theme.spacing(4)}px);
+  width: 100%;
   margin: 0 auto ${theme.spacing(3)}px auto;
   max-width: ${({ maxWidth }) => `${maxWidth}px`};
   position: relative;

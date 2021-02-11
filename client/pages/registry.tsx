@@ -14,6 +14,8 @@ import { MasonryGrid } from 'components/masonryGrid';
 import { useMediaQuery } from '@material-ui/core';
 import styled from 'styled-components';
 import { theme } from 'theme';
+import { BreathingRoom } from 'components/breathingRoom';
+import { BreathingRoomSpacingEnum } from 'enums';
 
 export const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
@@ -49,16 +51,18 @@ export default function RegistryPage({
       <Head>
         <title>{title} | Registry</title>
       </Head>
-      <RegistryContainer>
-        <MasonryGrid
-          columns={mobile ? 1 : 2}
-          gap={theme.spacing(2)}
-          numberOfItems={gifts.length}
-          renderItem={(giftIndex: number): JSX.Element => (
-            <RegistryItem {...gifts[giftIndex]} />
-          )}
-        />
-      </RegistryContainer>
+      <BreathingRoom breathe={BreathingRoomSpacingEnum.HORIZONTAL}>
+        <RegistryContainer>
+          <MasonryGrid
+            columns={mobile ? 1 : 2}
+            gap={theme.spacing(2)}
+            numberOfItems={gifts.length}
+            renderItem={(giftIndex: number): JSX.Element => (
+              <RegistryItem {...gifts[giftIndex]} />
+            )}
+          />
+        </RegistryContainer>
+      </BreathingRoom>
     </>
   );
 }

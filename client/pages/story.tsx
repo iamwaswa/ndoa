@@ -5,8 +5,9 @@ import Head from 'next/head';
 import { SanityBlockContent } from 'components/blockContent';
 import SanityClient from '@sanity/client';
 import { Story } from 'types/database';
-import { TextPageWrapper } from 'components/textPageWrapper';
 import { buildImageUrl } from 'utils/buildImageUrl';
+import { BreathingRoom } from 'components/breathingRoom';
+import { BreathingRoomSpacingEnum } from 'enums';
 
 export default function StoryPage({
   content,
@@ -17,9 +18,9 @@ export default function StoryPage({
       <Head>
         <title>{title} | Story</title>
       </Head>
-      <TextPageWrapper>
+      <BreathingRoom breathe={BreathingRoomSpacingEnum.HORIZONTAL}>
         <SanityBlockContent content={content} />
-      </TextPageWrapper>
+      </BreathingRoom>
     </>
   );
 }

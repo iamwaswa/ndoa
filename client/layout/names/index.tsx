@@ -4,7 +4,7 @@ import { theme } from 'theme';
 
 const TitleText = styled(Typography)`
   font-family: var(--title-font);
-  font-size: ${theme.typography.h3.fontSize};
+  font-size: ${theme.typography.h4.fontSize};
   margin: ${theme.spacing()}px 0;
 
   ${theme.breakpoints.up(`sm`)} {
