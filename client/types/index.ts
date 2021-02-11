@@ -1,4 +1,4 @@
-import { SanityBlock, SanityKeyed } from './database';
+import { Item, SanityBlock, SanityKeyed } from './database';
 
 import { ProductNameEnum } from 'enums';
 import { ReactNode } from 'react';

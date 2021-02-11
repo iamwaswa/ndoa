@@ -27,6 +27,7 @@
     "@sanity/image-url": "^0.140.19",
     "@stripe/stripe-js": "^1.12.1",
     "bootstrap": "^4.6.0",
+    "masonry-layout": "^4.2.2",
     "next": "10.0.5",
     "next-sanity-image": "^1.0.1",
     "react": "17.0.1",

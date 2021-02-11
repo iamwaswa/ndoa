@@ -7,11 +7,13 @@ import { RegistryItem } from 'components/registryItem';
 import SanityClient from '@sanity/client';
 import { buildImageUrl } from 'utils/buildImageUrl';
 import { loadStripe } from '@stripe/stripe-js';
-import styled from 'styled-components';
-import { theme } from 'theme';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { MasonryGrid } from 'components/masonryGrid';
+import { useMediaQuery } from '@material-ui/core';
+import styled from 'styled-components';
+import { theme } from 'theme';
 
 export const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
@@ -20,23 +22,10 @@ export const stripePromise = loadStripe(
   }
 );
 
-interface IGridProps {
-  count: number;
-}
-
-const Grid = styled.div<IGridProps>`
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: repeat(${({ count }) => count}, 1fr);
-  grid-gap: ${theme.spacing(3)}px;
-  margin: ${theme.spacing()}px auto 0;
-  max-width: 1200px;
-  padding: 0 ${theme.spacing(2)}px ${theme.spacing(2)}px;
-
-  ${theme.breakpoints.up(`sm`)} {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(${({ count }) => Math.ceil(count / 2)}, 1fr);
-  }
+const RegistryContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: ${theme.spacing(1, 0, 2)};
 `;
 
 export default function RegistryPage({
@@ -46,6 +35,8 @@ export default function RegistryPage({
   InferGetServerSidePropsType<typeof getServerSideProps>
 >): JSX.Element {
   const router = useRouter();
+
+  const mobile = useMediaQuery(theme.breakpoints.down(`xs`));
 
   useEffect((): void => {
     if (router.query.success) {
@@ -58,11 +49,16 @@ export default function RegistryPage({
       <Head>
         <title>{title} | Registry</title>
       </Head>
-      <Grid count={gifts.length}>
-        {gifts.map(({ _key, ...gift }) => (
-          <RegistryItem key={_key} {...gift} />
-        ))}
-      </Grid>
+      <RegistryContainer>
+        <MasonryGrid
+          columns={mobile ? 1 : 2}
+          gap={theme.spacing(2)}
+          numberOfItems={gifts.length}
+          renderItem={(giftIndex: number): JSX.Element => (
+            <RegistryItem {...gifts[giftIndex]} />
+          )}
+        />
+      </RegistryContainer>
     </>
   );
 }
