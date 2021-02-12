@@ -105,6 +105,13 @@ export type Item = {
   name: string;
 
   /**
+   * Slug — `string`
+   *
+   *
+   */
+  slug: string;
+
+  /**
    * Price — `number`
    *
    *

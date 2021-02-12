@@ -7,7 +7,7 @@
   "scripts": {
     "start": "sanity start",
     "deploy": "sanity deploy",
-    "gen:types": "npx sanity-codegen && cd ../client && prettier --write types/database/index.ts && cd ../database",
+    "gen:types": "sanity-codegen && cd ../client && prettier --write types/database/index.ts && cd ../database",
     "install": "sanity install",
     "undeploy": "sanity undeploy",
     "test": "sanity check",
