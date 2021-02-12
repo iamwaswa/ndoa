@@ -1,6 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default function handler(_: NextApiRequest, res: NextApiResponse): void {
+  // * Client side render registry page
+  // * Have sanity real time listeners for the registry backend content
+
+  // * When a user clicks "Buy" -> record this in the device storage
+  // * When user regains focus on our site tab -> Show loading state
+  // * (Need to check how to detect the user has lost focus then regained)
+  // * Trigger this scrape function
+  // * After the function completes remove loading state
+
   // * Instantiate a headless browser session
   // * Go to  https://www.myregistry.com/wedding-registry/waswa-olunga-and-clare-anne-queenan-vancouver-bc/2719347/giftlist
   // * Search for the gifts container with id pnlGiftVisitorList
