@@ -31,6 +31,17 @@ export const itemSchema = {
       validation: Rule => Rule.required(),
     },
     {
+      codegen: { required: true },
+      name: `slug`,
+      title: `Slug`,
+      source: `name`,
+      type: `string`,
+      slugify(input: string): string {
+        return input.replace(/\s/g, ``).toLowerCase();
+      },
+      validation: Rule => Rule.required(),
+    },
+    {
       name: `price`,
       title: `Price`,
       type: `number`,
