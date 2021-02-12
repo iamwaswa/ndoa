@@ -1,18 +1,15 @@
-import Autocomplete, {
-  AutocompleteRenderInputParams,
-} from '@material-ui/lab/Autocomplete';
 import { ChangeEvent, useMemo } from 'react';
-import { FunctionType, SelectOption } from 'types';
-import {
-  SupportedCurrenciesDescriptionEnum,
-  SupportedCurrenciesEnum,
-  SupportedCurrenciesSymbolEnum,
-} from 'enums';
+import { Currency, FunctionType } from 'types';
 
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 import { Item } from 'types/database';
+import MenuItem from '@material-ui/core/MenuItem';
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { RegistryItemContribute } from './styles';
+import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
+import { currencies } from '@constants';
 import { useSubmitContributionContext } from 'context';
 
 export function Contribute({
@@ -24,9 +21,12 @@ export function Contribute({
   updateCurrency,
 }: Pick<Item, 'cashGift' | 'purchased'> & {
   amount: number;
-  currency: SupportedCurrenciesEnum;
+  currency: Currency;
   updateAmount: FunctionType<{ target: { value: string } }, void>;
-  updateCurrency: FunctionType<[ChangeEvent, SelectOption], void>;
+  updateCurrency: FunctionType<
+    [ChangeEvent<{ name?: string; value: unknown }>],
+    void
+  >;
 }): JSX.Element {
   const { submitting } = useSubmitContributionContext();
 
@@ -37,35 +37,23 @@ export function Contribute({
 
   return cashGift ? (
     <RegistryItemContribute disabled={disableActions}>
-      <Autocomplete
-        disableClearable={true}
-        options={Object.values(SupportedCurrenciesEnum).map(
-          (value: SupportedCurrenciesEnum) => ({
-            label: `${SupportedCurrenciesDescriptionEnum[value]}`,
-            value,
-          })
-        )}
-        value={{
-          label: `${SupportedCurrenciesSymbolEnum[currency]}`,
-          value: currency,
-        }}
-        getOptionLabel={(option: SelectOption): string => option.label}
-        getOptionSelected={(
-          option: SelectOption,
-          selected: SelectOption
-        ): boolean => option.value === selected.value}
-        renderInput={(params: AutocompleteRenderInputParams): JSX.Element => (
-          <TextField
-            {...params}
-            inputProps={{
-              ...params.inputProps,
-            }}
-            label="Currency"
-            variant="outlined"
-          />
-        )}
-        onChange={updateCurrency}
-      />
+      <FormControl variant="outlined">
+        <InputLabel id="currency">Currency</InputLabel>
+        <Select
+          labelId="currency"
+          label="Currency"
+          value={currency.name}
+          onChange={updateCurrency}
+        >
+          {currencies.map(
+            ({ description, name }: Currency): JSX.Element => (
+              <MenuItem key={name} value={name}>
+                {description}
+              </MenuItem>
+            )
+          )}
+        </Select>
+      </FormControl>
       <TextField
         label="Amount"
         type="number"

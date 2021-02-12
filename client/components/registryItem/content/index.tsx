@@ -1,4 +1,4 @@
-import { FunctionType, SelectOption } from 'types';
+import { Currency, FunctionType } from 'types';
 
 import { ChangeEvent } from 'react';
 import { Contribute } from './contribute';
@@ -7,7 +7,6 @@ import { Item } from 'types/database';
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { RegistryItemContent } from './styles';
 import { SanityBlockContent } from 'components/blockContent';
-import { SupportedCurrenciesEnum } from 'enums';
 
 export function Content({
   amount,
@@ -20,10 +19,13 @@ export function Content({
   updateCurrency,
 }: Pick<Item, 'cashGift' | 'description' | 'purchased'> & {
   amount: number;
-  currency: SupportedCurrenciesEnum;
+  currency: Currency;
   image: { id: string; url: string };
   updateAmount: FunctionType<{ target: { value: string } }, void>;
-  updateCurrency: FunctionType<[ChangeEvent, SelectOption], void>;
+  updateCurrency: FunctionType<
+    [ChangeEvent<{ name?: string; value: unknown }>],
+    void
+  >;
 }): JSX.Element {
   return (
     <RegistryItemContent>

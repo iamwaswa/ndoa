@@ -15,38 +15,28 @@ export enum ProductTitleEnum {
   weddingpictures = 'Wedding pictures fund',
 }
 
-export enum SupportedCurrenciesEnum {
-  AUSTRALIA = 'aud',
-  CANADA = 'cad',
-  GREAT_BRITAIN = 'gbp',
-  KENYA = 'kes',
-  UNITED_STATES = 'usd',
-  SOUTH_AFRICA = 'zar',
-  ZAMBIA = 'zmw',
-}
-
-export enum SupportedCurrenciesDescriptionEnum {
-  aud = 'A$ (Australian dollar)',
-  cad = 'CA$ (Canadian dollar)',
-  gbp = '£ (Pound sterling)',
-  kes = 'KES (Kenyan shilling)',
-  usd = '$ (United States dollar)',
-  zar = 'ZAR (South African rand)',
-  zmw = 'ZMW (Zambian kwacha)',
-}
-
-export enum SupportedCurrenciesSymbolEnum {
-  aud = 'A$',
-  cad = 'CA$',
-  gbp = '£',
-  kes = 'KES',
-  usd = '$',
-  zar = 'ZAR',
-  zmw = 'ZMW',
-}
-
 export enum BreathingRoomSpacingEnum {
   BOTH,
   HORIZONTAL,
   VERTICAL,
+}
+
+export enum CurrencyDescriptionEnum {
+  AUSTRALIA = 'A$ (Australian dollar)',
+  CANADA = 'CA$ (Canadian dollar)',
+  GREAT_BRITAIN = '£ (Pound sterling)',
+  KENYA = 'KES (Kenyan shilling)',
+  SOUTH_AFRICA = 'ZAR (South African rand)',
+  UNITED_STATES = '$ (United States dollar)',
+  ZAMBIA = 'ZMW (Zambian kwacha)',
+}
+
+export enum CurrencyNameEnum {
+  AUSTRALIA = 'aud',
+  CANADA = 'cad',
+  GREAT_BRITAIN = 'gbp',
+  KENYA = 'kes',
+  SOUTH_AFRICA = 'zar',
+  UNITED_STATES = 'usd',
+  ZAMBIA = 'zmw',
 }

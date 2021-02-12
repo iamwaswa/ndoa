@@ -1,19 +1,25 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { FunctionType, SelectOption } from 'types';
+import { Currency, FunctionType } from 'types';
 
-import { SupportedCurrenciesEnum } from 'enums';
+import { CurrencyNameEnum } from 'enums';
+import { currencies } from '@constants';
 
 interface IUseCashGiftAmount {
   amount: number;
   updateAmount: FunctionType<{ target: { value: string } }, void>;
-  currency: SupportedCurrenciesEnum;
-  updateCurrency: FunctionType<[ChangeEvent, SelectOption], void>;
+  currency: Currency;
+  updateCurrency: FunctionType<
+    [ChangeEvent<{ name?: string; value: unknown }>],
+    void
+  >;
 }
 
 export function useCashGiftAmount(): IUseCashGiftAmount {
   const [amount, setAmount] = useState<number>(15);
-  const [currency, setCurrency] = useState<SupportedCurrenciesEnum>(
-    SupportedCurrenciesEnum.CANADA
+  const [currency, setCurrency] = useState<Currency>(
+    currencies.find(
+      (currency: Currency): boolean => currency.name === CurrencyNameEnum.CANADA
+    )
   );
 
   useEffect((): void => {
@@ -24,9 +30,15 @@ export function useCashGiftAmount(): IUseCashGiftAmount {
     setAmount(Number(event.target.value));
   }
 
-  function updateCurrency(_: ChangeEvent, option: SelectOption): void {
-    if (isSupportedCurrency(option.value)) {
-      setCurrency(option.value);
+  function updateCurrency(
+    event: ChangeEvent<{ name?: string; value: unknown }>
+  ): void {
+    if (isSupportedCurrencyName(event.target.value)) {
+      setCurrency(
+        currencies.find(
+          ({ name }: Currency): boolean => name === event.target.value
+        )
+      );
     }
   }
 
@@ -38,23 +50,21 @@ export function useCashGiftAmount(): IUseCashGiftAmount {
   };
 }
 
-function isSupportedCurrency(
-  currency: unknown
-): currency is SupportedCurrenciesEnum {
-  return (Object.values(SupportedCurrenciesEnum) as Array<string>).includes(
-    currency as string
-  );
+const currencySymbols = Object.values(CurrencyNameEnum);
+
+function isSupportedCurrencyName(symbol: unknown): symbol is CurrencyNameEnum {
+  return currencySymbols.includes(symbol as CurrencyNameEnum);
 }
 
 function getMinimumAmountForCurrency(
   amount: number,
-  currency: SupportedCurrenciesEnum
+  { name }: Currency
 ): number {
-  switch (currency) {
-    case SupportedCurrenciesEnum.KENYA:
+  switch (name) {
+    case CurrencyNameEnum.KENYA:
       return Math.max(50, amount);
-    case SupportedCurrenciesEnum.SOUTH_AFRICA:
-    case SupportedCurrenciesEnum.ZAMBIA:
+    case CurrencyNameEnum.SOUTH_AFRICA:
+    case CurrencyNameEnum.ZAMBIA:
       return Math.max(10, amount);
     default:
       return Math.max(1, amount);

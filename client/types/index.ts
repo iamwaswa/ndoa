@@ -1,6 +1,10 @@
-import { Item, SanityBlock, SanityKeyed } from './database';
+import {
+  CurrencyDescriptionEnum,
+  CurrencyNameEnum,
+  ProductNameEnum,
+} from 'enums';
+import { SanityBlock, SanityKeyed } from './database';
 
-import { ProductNameEnum } from 'enums';
 import { ReactNode } from 'react';
 
 export type ChildrenProps = {
@@ -54,7 +58,7 @@ export type Product = {
   price: number;
 };
 
-export type SelectOption = {
-  label: string;
-  value: string;
+export type Currency = {
+  description: CurrencyDescriptionEnum;
+  name: CurrencyNameEnum;
 };

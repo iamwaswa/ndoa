@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { RegistryItemAction, RegistryItemButton } from './styles';
 
+import { Currency } from 'types';
 import { Item } from 'types/database';
-import { SupportedCurrenciesEnum } from 'enums';
 import { stripePromise } from 'pages/registry';
 import { toast } from 'react-toastify';
 import { useMemo } from 'react';
@@ -17,7 +17,7 @@ export function Action({
   purchased,
 }: Pick<Item, 'cashGift' | 'link' | 'name' | 'purchased'> & {
   amount: number;
-  currency: SupportedCurrenciesEnum;
+  currency: Currency;
 }): JSX.Element {
   const { submitting, toggleSubmitting } = useSubmitContributionContext();
 
@@ -33,7 +33,7 @@ export function Action({
       const { error, success } = await fetch(`/api/cash-gift`, {
         body: JSON.stringify({
           amount,
-          currency,
+          currency: currency.name,
           name: name.toLowerCase().replace(/\s/g, ``),
         }),
         method: `POST`,

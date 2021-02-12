@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { Registry } from 'types/database';
 import SanityClient from '@sanity/client';
-import { SanityDocument } from 'sanity-codegen';
 
 const client = SanityClient({
   dataset: process.env.SANITY_DATASET,
@@ -20,11 +20,24 @@ export default async function handler(
   } = JSON.parse(req.body);
 
   try {
-    const { _id } = await client.fetch<Pick<SanityDocument, '_id'>>(
+    const { _id, slugs } = await client.fetch<
+      Pick<Registry, '_id'> & { slugs: Array<string> }
+    >(
       `*[_type == 'registry'][0]{ 
-        _id 
+        _id,
+        'slugs':gifts[]{
+          slug
+        }
       }`
     );
+
+    const cashGiftToUpdate = slugs.find(
+      (slug: string): boolean => name === slug
+    );
+
+    if (!cashGiftToUpdate) {
+      res.status(422).json({ error: `Unknown cash gift name: ${name}` });
+    }
 
     client.patch(_id);
 
