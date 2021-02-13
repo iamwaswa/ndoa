@@ -1,21 +1,20 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { Item, Registry, SanityKeyed } from 'types/database';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { GiftRegistry, PageProps } from 'types';
 
-import Head from 'next/head';
-import { PageProps } from 'types';
-import { RegistryItem } from 'components/registryItem';
-import SanityClient from '@sanity/client';
-import { buildImageUrl } from 'utils/buildImageUrl';
-import { loadStripe } from '@stripe/stripe-js';
-import { toast } from 'react-toastify';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { MasonryGrid } from 'components/masonryGrid';
-import { useMediaQuery } from '@material-ui/core';
-import styled from 'styled-components';
-import { theme } from 'theme';
 import { BreathingRoom } from 'components/breathingRoom';
 import { BreathingRoomSpacingEnum } from 'enums';
+import Head from 'next/head';
+import { Loader } from 'components/loader';
+import { MasonryGrid } from 'components/masonryGrid';
+import { RegistryItem } from 'components/registryItem';
+import SanityClient from '@sanity/client';
+import { getRegistryAsync } from 'utils/getRegistryAsync';
+import { loadStripe } from '@stripe/stripe-js';
+import styled from 'styled-components';
+import { theme } from 'theme';
+import { useEffect } from 'react';
+import { useMediaQuery } from '@material-ui/core';
+import { useRegistryContext } from 'context/registry';
 
 export const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
@@ -31,20 +30,16 @@ const RegistryContainer = styled.div`
 `;
 
 export default function RegistryPage({
-  gifts,
+  initialGifts,
   title,
-}: PageProps<
-  InferGetServerSidePropsType<typeof getServerSideProps>
->): JSX.Element {
-  const router = useRouter();
-
+}: PageProps<InferGetStaticPropsType<typeof getStaticProps>>): JSX.Element {
   const mobile = useMediaQuery(theme.breakpoints.down(`xs`));
 
+  const { gifts, refreshing, fetchData } = useRegistryContext(initialGifts);
+
   useEffect((): void => {
-    if (router.query.success) {
-      toast.success(`Your contribution was successful!`);
-    }
-  }, [router]);
+    fetchData();
+  }, [fetchData]);
 
   return (
     <>
@@ -53,14 +48,16 @@ export default function RegistryPage({
       </Head>
       <BreathingRoom breathe={BreathingRoomSpacingEnum.HORIZONTAL}>
         <RegistryContainer>
-          <MasonryGrid
-            columns={mobile ? 1 : 2}
-            gap={theme.spacing(2)}
-            numberOfItems={gifts.length}
-            renderItem={(giftIndex: number): JSX.Element => (
-              <RegistryItem {...gifts[giftIndex]} />
-            )}
-          />
+          <Loader loading={refreshing} loadingText="Registry updating...">
+            <MasonryGrid
+              columns={mobile ? 1 : 2}
+              gap={theme.spacing(2)}
+              numberOfItems={gifts.length}
+              renderItem={(giftIndex: number): JSX.Element => (
+                <RegistryItem {...gifts[giftIndex]} />
+              )}
+            />
+          </Loader>
         </RegistryContainer>
       </BreathingRoom>
     </>
@@ -68,43 +65,21 @@ export default function RegistryPage({
 }
 
 interface IRegistryPageProps {
-  gifts: Array<
-    SanityKeyed<
-      Omit<Item, 'picture'> & {
-        image: {
-          id: string;
-          url: string;
-        };
-      }
-    >
-  >;
+  initialGifts: GiftRegistry;
 }
 
-export const getServerSideProps: GetServerSideProps<IRegistryPageProps> = async () => {
+export const getStaticProps: GetStaticProps<IRegistryPageProps> = async () => {
   const client = SanityClient({
     dataset: process.env.SANITY_DATASET,
     projectId: process.env.SANITY_PROJECT_ID,
     useCdn: false,
   });
 
-  const { gifts } = await client.fetch<Pick<Registry, 'gifts'>>(
-    `*[_type == 'registry'][0]{
-      gifts
-    }`
-  );
+  const initialGifts = await getRegistryAsync(client);
 
   return {
     props: {
-      gifts: gifts.map(({ picture, ...gift }) => ({
-        ...gift,
-        image: {
-          id: gift._key,
-          url: buildImageUrl(client, picture)
-            .maxHeight(200)
-            .maxWidth(275)
-            .url(),
-        },
-      })),
+      initialGifts,
     },
   };
 };

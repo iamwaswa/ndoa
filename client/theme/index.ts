@@ -6,6 +6,9 @@ export const theme = responsiveFontSizes(
       primary: {
         main: `#212738`,
       },
+      secondary: {
+        main: `#d6b069`,
+      },
     },
     typography: {
       fontFamily: `'Abhaya Libre', serif`,

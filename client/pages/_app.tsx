@@ -6,9 +6,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { GlobalStyles } from 'styles';
 import { Layout } from 'layout';
 import { ThemeProvider as MaterialUIThemeProvider } from '@material-ui/core/styles';
+import { RegistryContextProvider } from 'context/registry';
 import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components';
 import { StylesProvider } from '@material-ui/core/styles';
-import { SubmitContributionContextProvider } from 'context';
+import { SubmitContributionContextProvider } from 'context/submitContribution';
 import { ToastContainer } from 'react-toastify';
 import { theme } from 'theme';
 import { useEffect } from 'react';
@@ -41,9 +42,11 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             pauseOnHover={true}
           />
           <SubmitContributionContextProvider>
-            <Layout>
-              <Component {...pageProps} title="W&C" />
-            </Layout>
+            <RegistryContextProvider>
+              <Layout>
+                <Component {...pageProps} title="W&C" />
+              </Layout>
+            </RegistryContextProvider>
           </SubmitContributionContextProvider>
         </StyledComponentsThemeProvider>
       </MaterialUIThemeProvider>

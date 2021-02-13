@@ -10,7 +10,7 @@ import { RegistryItemContribute } from './styles';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import { currencies } from '@constants';
-import { useSubmitContributionContext } from 'context';
+import { useSubmitContributionContext } from 'context/submitContribution';
 
 export function Contribute({
   amount,

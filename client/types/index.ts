@@ -3,7 +3,7 @@ import {
   CurrencyNameEnum,
   ProductNameEnum,
 } from 'enums';
-import { SanityBlock, SanityKeyed } from './database';
+import { Item, SanityBlock, SanityKeyed } from './database';
 
 import { ReactNode } from 'react';
 
@@ -42,6 +42,17 @@ export type GiftRegistryItem = {
   contributed?: number;
   link?: string;
 };
+
+export type GiftRegistry = Array<
+  SanityKeyed<
+    Omit<Item, 'picture'> & {
+      image: {
+        id: string;
+        url: string;
+      };
+    }
+  >
+>;
 
 export type Content = Array<
   | SanityKeyed<SanityBlock>

@@ -1,6 +1,6 @@
 import { CountdownContainer, GapText, TimeContainer, TimeText } from './styles';
 
-import { useTimeToGo } from 'hooks';
+import { useTimeToGo } from 'hooks/timeToGo';
 
 interface ITimeProps {
   title: string;

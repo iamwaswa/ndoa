@@ -3,10 +3,11 @@ import { RegistryItemAction, RegistryItemButton } from './styles';
 
 import { Currency } from 'types';
 import { Item } from 'types/database';
+import { sessionStorageKey } from '@constants';
 import { stripePromise } from 'pages/registry';
 import { toast } from 'react-toastify';
 import { useMemo } from 'react';
-import { useSubmitContributionContext } from 'context';
+import { useSubmitContributionContext } from 'context/submitContribution';
 
 export function Action({
   amount,
@@ -60,6 +61,16 @@ export function Action({
     }
   }
 
+  function openLink() {
+    sessionStorage.setItem(sessionStorageKey, ``);
+
+    window.open(
+      link,
+      name,
+      `location,menubar,noopener,noreferrer,resizable,scrollbars,status,toolbar`
+    );
+  }
+
   return (
     <RegistryItemAction>
       {cashGift ? (
@@ -75,11 +86,8 @@ export function Action({
         <RegistryItemButton
           color="primary"
           disabled={disableActions}
-          href={link}
-          //@ts-ignore
-          rel="noopener noreferrer"
-          target="_blank"
           variant="extended"
+          onClick={openLink}
         >
           {purchased ? `Purchased!` : `Buy`}
         </RegistryItemButton>
