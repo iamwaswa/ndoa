@@ -3,18 +3,19 @@ import { GiftRegistry, PageProps } from 'types';
 
 import { BreathingRoom } from 'components/breathingRoom';
 import { BreathingRoomSpacingEnum } from 'enums';
+import { FetchData } from 'components/fetchData';
 import Head from 'next/head';
-import { Loader } from 'components/loader';
 import { MasonryGrid } from 'components/masonryGrid';
 import { RegistryItem } from 'components/registryItem';
 import SanityClient from '@sanity/client';
+import Typography from '@material-ui/core/Typography';
 import { getRegistryAsync } from 'utils/getRegistryAsync';
 import { loadStripe } from '@stripe/stripe-js';
 import styled from 'styled-components';
 import { theme } from 'theme';
-import { useEffect } from 'react';
 import { useMediaQuery } from '@material-ui/core';
-import { useRegistryContext } from 'context/registry';
+import { useQueryRegistry } from 'hooks/queryRegistry';
+import { useRegistryContributionSuccess } from 'hooks/registryContributionSuccess';
 
 export const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
@@ -35,11 +36,11 @@ export default function RegistryPage({
 }: PageProps<InferGetStaticPropsType<typeof getStaticProps>>): JSX.Element {
   const mobile = useMediaQuery(theme.breakpoints.down(`xs`));
 
-  const { gifts, refreshing, fetchData } = useRegistryContext(initialGifts);
+  useRegistryContributionSuccess();
 
-  useEffect((): void => {
-    fetchData();
-  }, [fetchData]);
+  const [gifts, queryRegistryError, refreshing] = useQueryRegistry(
+    initialGifts
+  );
 
   return (
     <>
@@ -48,16 +49,25 @@ export default function RegistryPage({
       </Head>
       <BreathingRoom breathe={BreathingRoomSpacingEnum.HORIZONTAL}>
         <RegistryContainer>
-          <Loader loading={refreshing} loadingText="Registry updating...">
-            <MasonryGrid
-              columns={mobile ? 1 : 2}
-              gap={theme.spacing(2)}
-              numberOfItems={gifts.length}
-              renderItem={(giftIndex: number): JSX.Element => (
-                <RegistryItem {...gifts[giftIndex]} />
-              )}
-            />
-          </Loader>
+          <FetchData
+            data={gifts}
+            error={queryRegistryError}
+            loading={refreshing}
+            loadingText="Registry updating..."
+            renderData={(data: GiftRegistry): JSX.Element => (
+              <MasonryGrid
+                columns={mobile ? 1 : 2}
+                gap={theme.spacing(2)}
+                numberOfItems={gifts.length}
+                renderItem={(giftIndex: number): JSX.Element => (
+                  <RegistryItem {...data[giftIndex]} />
+                )}
+              />
+            )}
+            renderError={(error: string): JSX.Element => (
+              <Typography>{error}</Typography>
+            )}
+          />
         </RegistryContainer>
       </BreathingRoom>
     </>
@@ -81,5 +91,6 @@ export const getStaticProps: GetStaticProps<IRegistryPageProps> = async () => {
     props: {
       initialGifts,
     },
+    revalidate: 60,
   };
 };

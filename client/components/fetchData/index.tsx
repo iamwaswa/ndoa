@@ -1,8 +1,8 @@
-import { ChildrenProps, FunctionType } from 'types';
 import styled, { keyframes } from 'styled-components';
 import { useEffect, useState } from 'react';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { FunctionType } from 'types';
 import Typography from '@material-ui/core/Typography';
 import { theme } from 'theme';
 
@@ -45,16 +45,23 @@ const Text = styled(Typography)`
   font-size: ${theme.typography.h5.fontSize};
 `;
 
-interface ILoaderProps extends ChildrenProps {
+interface IFetchDataProps<TData, TError> {
+  data: TData;
+  error: TError;
   loading: boolean;
   loadingText: string;
+  renderData: FunctionType<[TData], JSX.Element>;
+  renderError: FunctionType<[TError], JSX.Element>;
 }
 
-export function Loader({
-  children,
+export function FetchData<TData, TError>({
+  data,
+  error,
   loading,
   loadingText,
-}: ILoaderProps): JSX.Element | null {
+  renderData,
+  renderError,
+}: IFetchDataProps<TData, TError>): JSX.Element | null {
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
   useEffect((): FunctionType<void, void> => {
@@ -88,5 +95,9 @@ export function Loader({
     );
   }
 
-  return <ContentContainer animate={true}>{children}</ContentContainer>;
+  if (error) {
+    renderError(error);
+  }
+
+  return <ContentContainer animate={true}>{renderData(data)}</ContentContainer>;
 }

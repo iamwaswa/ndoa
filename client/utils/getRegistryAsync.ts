@@ -7,20 +7,27 @@ export async function getRegistryAsync(
   client: SanityClient
 ): Promise<GiftRegistry> {
   try {
-    const { gifts } = await client.fetch<Pick<Registry, 'gifts'>>(
+    const registry = await client.fetch<Pick<Registry, 'gifts'>>(
       `*[_type == 'registry'][0]{
         gifts
       }`
     );
 
-    return gifts.map(({ picture, ...gift }) => ({
-      ...gift,
-      image: {
-        id: gift._key,
-        url: buildImageUrl(client, picture).maxHeight(200).maxWidth(275).url(),
-      },
-    }));
+    return createGiftRegistry(client, registry);
   } catch (error) {
     throw new Error(error);
   }
+}
+
+export function createGiftRegistry(
+  client: SanityClient,
+  registry: Pick<Registry, 'gifts'>
+): GiftRegistry {
+  return registry.gifts.map(({ picture, ...gift }) => ({
+    ...gift,
+    image: {
+      id: gift._key,
+      url: buildImageUrl(client, picture).maxHeight(200).maxWidth(275).url(),
+    },
+  }));
 }

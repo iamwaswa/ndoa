@@ -1,18 +1,21 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { QueryClient, QueryClientProvider } from 'react-query';
+
 import { AppProps } from 'next/app';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { GlobalStyles } from 'styles';
 import { Layout } from 'layout';
 import { ThemeProvider as MaterialUIThemeProvider } from '@material-ui/core/styles';
-import { RegistryContextProvider } from 'context/registry';
 import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components';
 import { StylesProvider } from '@material-ui/core/styles';
 import { SubmitContributionContextProvider } from 'context/submitContribution';
 import { ToastContainer } from 'react-toastify';
 import { theme } from 'theme';
 import { useEffect } from 'react';
+
+const queryClient = new QueryClient();
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   useEffect((): void => {
@@ -42,11 +45,11 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             pauseOnHover={true}
           />
           <SubmitContributionContextProvider>
-            <RegistryContextProvider>
+            <QueryClientProvider client={queryClient}>
               <Layout>
                 <Component {...pageProps} title="W&C" />
               </Layout>
-            </RegistryContextProvider>
+            </QueryClientProvider>
           </SubmitContributionContextProvider>
         </StyledComponentsThemeProvider>
       </MaterialUIThemeProvider>
