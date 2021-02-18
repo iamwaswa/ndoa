@@ -12,7 +12,7 @@ export function useQueryRegistry(
     Error | undefined,
     GiftRegistry
   >(
-    `/api/get-registry`,
+    `/api/get-updated-registry`,
     async ({ queryKey: [url] }): Promise<GiftRegistry> => {
       const response = await fetch(url);
       const { error, success } = await response.json();

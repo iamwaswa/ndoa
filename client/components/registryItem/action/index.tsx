@@ -31,7 +31,7 @@ export function Action({
     toggleSubmitting();
 
     try {
-      const { error, success } = await fetch(`/api/cash-gift`, {
+      const { error, success } = await fetch(`/api/create-cash-gift`, {
         body: JSON.stringify({
           amount,
           currency: currency.name,

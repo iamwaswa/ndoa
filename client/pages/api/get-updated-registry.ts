@@ -2,6 +2,7 @@ import { CheerioElement, CheerioNode } from 'types';
 import { Item, Registry } from 'types/database';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { API } from 'utils/api';
 import SanityClient from '@sanity/client';
 import cheerio from 'cheerio';
 import { createGiftRegistry } from 'utils/getRegistryAsync';
@@ -17,6 +18,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
+  const api = new API(req);
+
+  if (!api.isGetRequest()) {
+    return res.status(405).json({ error: `Method not allowed!` });
+  }
+
   try {
     // * Fetch website as text
     const website = await fetch(
