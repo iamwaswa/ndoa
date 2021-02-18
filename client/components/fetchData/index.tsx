@@ -16,31 +16,6 @@ const LoaderContainer = styled.section`
   }
 `;
 
-const animateIn = keyframes`
-  from {
-    opacity: 0.2;
-    transform: translateY(25px);
-  }
-  
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-interface IContentContainerProps {
-  animate: boolean;
-}
-
-const ContentContainer = styled.section<IContentContainerProps>`
-  animation-name: ${({ animate }) => (animate ? animateIn : ``)};
-  animation-direction: normal;
-  animation-duration: 500ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in-out;
-`;
-
 const Text = styled(Typography)`
   font-size: ${theme.typography.h5.fontSize};
 `;
@@ -99,5 +74,5 @@ export function FetchData<TData, TError>({
     renderError(error);
   }
 
-  return <ContentContainer animate={true}>{renderData(data)}</ContentContainer>;
+  return <section>{renderData(data)}</section>;
 }

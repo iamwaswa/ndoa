@@ -8,7 +8,7 @@ import {
 import { ChildrenProps } from 'types';
 import { Countdown } from './countdown';
 import Fade from '@material-ui/core/Fade';
-import { Grow } from '@material-ui/core';
+import Grow from '@material-ui/core/Grow';
 import { Logo } from './logo';
 import { Names } from './names';
 import { Navigation } from './navigation';
@@ -31,7 +31,7 @@ export function Layout({ children }: ChildrenProps): JSX.Element {
           <Navigation />
         </LayoutHeader>
       </Grow>
-      <Fade key={router.asPath} in={true}>
+      <Fade key={router.asPath} in={true} timeout={500}>
         <LayoutContent as="section">{children}</LayoutContent>
       </Fade>
     </LayoutContainer>
