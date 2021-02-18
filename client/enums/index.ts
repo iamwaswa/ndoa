@@ -40,3 +40,13 @@ export enum CurrencyNameEnum {
   UNITED_STATES = 'usd',
   ZAMBIA = 'zmw',
 }
+
+export enum ExchangeRateCurrencyNameEnum {
+  AUSTRALIA = 'AUD',
+  CANADA = 'CAD',
+  GREAT_BRITAIN = 'GBP',
+  KENYA = 'KES',
+  SOUTH_AFRICA = 'ZAR',
+  UNITED_STATES = 'USD',
+  ZAMBIA = 'ZMW',
+}

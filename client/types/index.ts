@@ -1,6 +1,7 @@
 import {
   CurrencyDescriptionEnum,
   CurrencyNameEnum,
+  ExchangeRateCurrencyNameEnum,
   ProductNameEnum,
 } from 'enums';
 import { Item, SanityBlock, SanityKeyed } from './database';
@@ -83,4 +84,13 @@ export type CheerioElement = {
 
 export type CheerioNode = {
   data: string;
+};
+
+export type ExchangeRateCurrencyResponse = {
+  data: {
+    currency: `CAD`;
+    rates: {
+      [key in ExchangeRateCurrencyNameEnum]: string;
+    };
+  };
 };
