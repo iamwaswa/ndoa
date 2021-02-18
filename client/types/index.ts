@@ -73,3 +73,14 @@ export type Currency = {
   description: CurrencyDescriptionEnum;
   name: CurrencyNameEnum;
 };
+
+export type CheerioElement = {
+  children: Array<CheerioElement | CheerioNode>;
+  attribs: {
+    ispurchased: string;
+  };
+};
+
+export type CheerioNode = {
+  data: string;
+};

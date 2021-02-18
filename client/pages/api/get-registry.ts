@@ -1,3 +1,4 @@
+import { CheerioElement, CheerioNode } from 'types';
 import { Item, Registry } from 'types/database';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -8,10 +9,9 @@ import { createGiftRegistry } from 'utils/getRegistryAsync';
 const client = SanityClient({
   dataset: process.env.SANITY_DATASET,
   projectId: process.env.SANITY_PROJECT_ID,
+  token: process.env.SANITY_READ_WRITE_TOKEN,
   useCdn: false,
 });
-
-const giftTitles = [`calendar`, `cutlery`, `duvet`, `sheets`, `wine`, `wok`];
 
 export default async function handler(
   req: NextApiRequest,
@@ -27,30 +27,39 @@ export default async function handler(
     const $ = cheerio.load(website);
 
     // * Identify all gift containers
-    const giftContainers = $(`#pnlGiftVisitorList`)
-      .children(`.itemGiftVisitorList`)
-      .toArray();
+    const giftContainers: Array<CheerioElement> = ($(
+      `.itemGiftVisitorList`
+    ).toArray() as unknown) as Array<CheerioElement>;
+
+    // * Identify all gift titles
+    const giftTitles: Array<CheerioElement> = ($(
+      `.gift-title`
+    ).toArray() as unknown) as Array<CheerioElement>;
+
+    // * Fetch current registry slugs
+    const slugs = await client.fetch<Array<string>>(
+      `*[_type == 'registry'][0]{
+            'slugs': gifts[].slug
+          }.slugs`
+    );
 
     // * Determine purchased and unpurchased gifts
     const gifts = giftContainers.reduce<Map<string, boolean>>(
       (
         gifts: Map<string, boolean>,
-        container: unknown
+        container: CheerioElement,
+        index: number
       ): Map<string, boolean> => {
-        const giftTitle = (container as Element)
-          .getElementsByClassName(`gift-title`)[0]
-          .textContent.trim()
-          .toLowerCase();
+        const giftTitle = (giftTitles[index].children[0] as CheerioNode).data;
 
-        const currentGiftTitle = giftTitles.find((title: string): boolean =>
-          giftTitle.includes(title)
+        const matchingSlug = slugs.find((slug: string): boolean =>
+          giftTitle.toLowerCase().trim().includes(slug)
         );
 
-        if (currentGiftTitle) {
+        if (matchingSlug) {
           gifts.set(
-            currentGiftTitle,
-            (container as Element).getAttribute(`ispurchased`).toLowerCase() ===
-              `true`
+            matchingSlug,
+            container.attribs.ispurchased.toLowerCase() === `true`
           );
         }
 
