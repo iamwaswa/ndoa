@@ -10,7 +10,6 @@ import { buildImageUrl } from 'utils/buildImageUrl';
 import styled from 'styled-components';
 
 const ImageContainer = styled.div`
-  flex-grow: 1;
   position: relative;
   width: 100%;
   height: 100%;
