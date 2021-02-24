@@ -43,6 +43,22 @@ export interface Home extends SanityDocument {
 }
 
 /**
+ * Livestream
+ *
+ *
+ */
+export interface Livestream extends SanityDocument {
+  _type: 'livestream';
+
+  /**
+   * Text — `richText`
+   *
+   *
+   */
+  text: RichText;
+}
+
+/**
  * Registry
  *
  *
@@ -143,4 +159,4 @@ export type RichText = Array<
     }>
 >;
 
-export type Documents = Home | Registry | Story;
+export type Documents = Home | Livestream | Registry | Story;
