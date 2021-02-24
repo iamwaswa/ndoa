@@ -14,7 +14,6 @@ export const GlobalStyles = createGlobalStyle`
   body {
     background-color: var(--dark-blue);
     font-family: var(--base-font);
-    font-size: 16px;
     min-width: 320px;
   }
 

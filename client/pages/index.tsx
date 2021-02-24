@@ -104,5 +104,6 @@ export const getStaticProps: GetStaticProps<IHomePageProps> = async () => {
         .minWidth(320)
         .url(),
     },
+    revalidate: 60,
   };
 };

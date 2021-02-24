@@ -63,5 +63,6 @@ export const getStaticProps: GetStaticProps<IStoryPageProps> = async () => {
           : content;
       }),
     },
+    revalidate: 60,
   };
 };
