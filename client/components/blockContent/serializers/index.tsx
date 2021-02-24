@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Text } from 'styles/text';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
+import { theme } from 'theme';
 
 const Em = styled(Typography)`
   font-style: italic;
@@ -29,13 +30,11 @@ interface IImageContainerProps {
 }
 
 const ImageContainer = styled.section<IImageContainerProps>`
-  ${({ theme }) => `
-    height: ${({ height }) => `${height}px`};
-    width: 100%;
-    margin: 0 auto ${theme.spacing(3)}px auto;
-    max-width: ${({ maxWidth }) => `${maxWidth}px`};
-    position: relative;
-  `}
+  height: ${({ height }) => `${height}px`};
+  width: 100%;
+  margin: 0 auto ${theme.spacing(3)}px auto;
+  max-width: ${({ maxWidth }) => `${maxWidth}px`};
+  position: relative;
 `;
 
 interface IImage {

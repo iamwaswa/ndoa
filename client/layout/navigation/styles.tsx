@@ -2,6 +2,7 @@ import { Anchor } from 'styles/anchor';
 import { AnchorHTMLAttributes } from 'react';
 import Box from '@material-ui/core/Box';
 import styled from 'styled-components';
+import { theme } from 'theme';
 
 export const NavBar = styled(Box)`
   ${({ theme }) => `
@@ -29,14 +30,12 @@ interface INavBarLinkProps extends AnchorHTMLAttributes<unknown> {
 }
 
 export const NavBarAnchor = styled(Anchor)<INavBarLinkProps>`
-  ${({ theme }) => `
-    color: ${({ current }) => {
-      return current === `true` ? theme.palette.grey[100] : `var(--gold)`;
-    }};
-    font-size: ${theme.typography.h6.fontSize};
+  color: ${({ current }) => {
+    return current === `true` ? theme.palette.grey[100] : `var(--gold)`;
+  }};
+  font-size: ${theme.typography.h6.fontSize};
 
-    ${theme.breakpoints.up(`sm`)} {
-      font-size: ${theme.typography.h5.fontSize};
-    }
-  `}
+  ${theme.breakpoints.up(`sm`)} {
+    font-size: ${theme.typography.h5.fontSize};
+  }
 `;

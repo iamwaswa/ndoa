@@ -2,6 +2,7 @@ import { deepOrange, green, red } from '@material-ui/core/colors';
 
 import CardHeader from '@material-ui/core/CardHeader';
 import styled from 'styled-components';
+import { theme } from 'theme';
 
 export const RegistryItemHeader = styled(CardHeader)`
   ${({ theme }) => `
@@ -31,43 +32,40 @@ interface IProgressMeterProps {
 }
 
 export const RegistryItemProgressMeter = styled.div<IProgressMeterProps>`
-  ${({ theme }) => `
-    display: flex;
-    align-items: center;
-    background-color: var(--dark-blue);
-    border-radius: 20px;
-    padding: ${theme.spacing()}px ${theme.spacing(2)}px;
+  display: flex;
+  align-items: center;
+  background-color: var(--dark-blue);
+  border-radius: 20px;
+  padding: ${theme.spacing()}px ${theme.spacing(2)}px;
+  position: relative;
+
+  &:after {
+    background-color: ${({ progress }) => {
+      if (progress < 50) {
+        return red[500];
+      } else if (progress < 75) {
+        return deepOrange[500];
+      }
+
+      return green[500];
+    }};
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: ${({ progress }) => (progress >= 90 ? `20px` : 0)};
+    border-bottom-right-radius: ${({ progress }) =>
+      progress >= 90 ? `20px` : 0};
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: ${({ progress }) => `${progress < 6 ? 0 : progress}%`};
+  }
+
+  & > * {
+    color: ${theme.palette.grey[200]};
+    font-family: var(--title-font);
     position: relative;
-
-    &:after {
-      background-color: ${({ progress }) => {
-        if (progress < 50) {
-          return red[500];
-        } else if (progress < 75) {
-          return deepOrange[500];
-        }
-
-        return green[500];
-      }};
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
-      border-top-right-radius: ${({ progress }) =>
-        progress >= 90 ? `20px` : 0};
-      border-bottom-right-radius: ${({ progress }) =>
-        progress >= 90 ? `20px` : 0};
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      width: ${({ progress }) => `${progress < 6 ? 0 : progress}%`};
-    }
-
-    & > * {
-      color: ${theme.palette.grey[200]};
-      font-family: var(--title-font);
-      position: relative;
-      z-index: 1;
-    }
-  `}
+    z-index: 1;
+  }
 `;
