@@ -24,7 +24,7 @@ export function WelcomeCard(): JSX.Element {
   }, [name]);
 
   const onClose = useCallback((): void => {
-    if (typeof window !== undefined) {
+    if (typeof window !== `undefined`) {
       localStorage.setItem(showedWelcomeCardKey, `true`);
     }
 

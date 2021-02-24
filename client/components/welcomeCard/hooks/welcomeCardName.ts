@@ -7,14 +7,14 @@ export function useWelcomeCardName(): string {
 
   return useMemo((): string => {
     if (
-      typeof window !== undefined &&
+      typeof window !== `undefined` &&
       localStorage.getItem(showedWelcomeCardKey)
     ) {
       return ``;
     }
 
     if (query.name && isString(query.name)) {
-      return query.name.replace(/_/g, ` `);
+      return query.name.replace(/_/g, ` `).replace(/and/g, `&`);
     }
 
     return ``;
