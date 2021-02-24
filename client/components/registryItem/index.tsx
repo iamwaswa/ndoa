@@ -2,22 +2,21 @@ import { Action } from './action';
 import { Content } from './content';
 import { Header } from './header';
 import { Item } from 'types/database';
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { RegistryItemContainer } from './styles';
 import { useCashGiftAmount } from './hooks';
+
+interface IRegistryItemProps extends Omit<Item, 'picture'> {
+  image: { id: string; url: string };
+}
 
 export function RegistryItem({
   contribution,
   description,
+  goal,
   image,
-  cashGift,
-  link,
   name,
-  price,
-  purchased,
-}: Omit<Item, 'picture'> & {
-  image: { id: string; url: string };
-}): JSX.Element {
+  slug,
+}: IRegistryItemProps): JSX.Element {
   const {
     amount,
     currency,
@@ -29,30 +28,23 @@ export function RegistryItem({
     <>
       <RegistryItemContainer>
         <section className="item">
-          <Header
-            cashGift={cashGift}
-            contribution={contribution}
-            name={name}
-            price={price}
-          />
+          <Header contribution={contribution} goal={goal} name={name} />
           <Content
             amount={amount}
-            cashGift={cashGift}
             currency={currency}
             description={description}
             image={image}
-            purchased={purchased}
+            total={goal}
             updateAmount={updateAmount}
             updateCurrency={updateCurrency}
           />
         </section>
         <Action
           amount={amount}
-          cashGift={cashGift}
           currency={currency}
-          link={link}
           name={name}
-          purchased={purchased}
+          slug={slug}
+          total={goal}
         />
       </RegistryItemContainer>
     </>

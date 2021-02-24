@@ -51,6 +51,13 @@ export interface Registry extends SanityDocument {
   _type: 'registry';
 
   /**
+   * Text — `richText`
+   *
+   *
+   */
+  text: RichText;
+
+  /**
    * Gifts — `array`
    *
    *
@@ -76,13 +83,6 @@ export interface Story extends SanityDocument {
 
 export type Item = {
   _type: 'item';
-  /**
-   * This is a cash gift — `boolean`
-   *
-   *
-   */
-  cashGift: boolean;
-
   /**
    * Description — `array`
    *
@@ -112,20 +112,6 @@ export type Item = {
   slug: string;
 
   /**
-   * Price — `number`
-   *
-   *
-   */
-  price?: number;
-
-  /**
-   * This item has been purchased — `boolean`
-   *
-   *
-   */
-  purchased?: boolean;
-
-  /**
    * Contribution — `number`
    *
    *
@@ -133,11 +119,11 @@ export type Item = {
   contribution?: number;
 
   /**
-   * External link — `url`
+   * Goal — `number`
    *
    *
    */
-  link: string;
+  goal: number;
 };
 
 export type Picture = {

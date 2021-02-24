@@ -2,14 +2,6 @@ export const itemSchema = {
   fields: [
     {
       codegen: { required: true },
-      layout: `checkbox`,
-      name: `cashGift`,
-      title: `This is a cash gift`,
-      type: `boolean`,
-      validation: Rule => Rule.required(),
-    },
-    {
-      codegen: { required: true },
       name: `description`,
       title: `Description`,
       type: `array`,
@@ -36,21 +28,7 @@ export const itemSchema = {
       title: `Slug`,
       source: `name`,
       type: `string`,
-      slugify(input: string): string {
-        return input.replace(/\s/g, ``).toLowerCase();
-      },
       validation: Rule => Rule.required(),
-    },
-    {
-      name: `price`,
-      title: `Price`,
-      type: `number`,
-    },
-    {
-      layout: `checkbox`,
-      name: `purchased`,
-      title: `This item has been purchased`,
-      type: `boolean`,
     },
     {
       name: `contribution`,
@@ -59,9 +37,9 @@ export const itemSchema = {
     },
     {
       codegen: { required: true },
-      name: `link`,
-      title: `External link`,
-      type: `url`,
+      name: `goal`,
+      title: `Goal`,
+      type: `number`,
       validation: Rule => Rule.required(),
     },
   ],
@@ -72,26 +50,17 @@ export const itemSchema = {
     select: {
       title: `name`,
       picture: `picture`,
-      price: `price`,
-      cashGift: `cashGift`,
+      goal: `goal`,
       contribution: `contribution`,
-      purchased: `purchased`,
     },
-    prepare({ title, picture, price, cashGift, contribution, purchased }) {
-      const showLeftToPay = price !== undefined;
-
-      const cashGiftBalance =
-        cashGift && showLeftToPay ? price - contribution : 0;
+    prepare({ title, picture, contribution, goal }) {
+      const cashGiftBalance = goal - (contribution ?? 0);
 
       return {
         media: picture,
-        subtitle: showLeftToPay
-          ? cashGift
-            ? `$${cashGiftBalance} left to pay${
-                cashGiftBalance === 0 ? `!!!` : ``
-              }`
-            : `${purchased ? `Purchased!!!` : `$${price}`}`
-          : null,
+        subtitle: `$${cashGiftBalance} left to pay${
+          cashGiftBalance === 0 ? `!!!` : ``
+        }`,
         title,
       };
     },

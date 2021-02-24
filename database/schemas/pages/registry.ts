@@ -2,6 +2,13 @@ export const registryPageSchema = {
   fields: [
     {
       codegen: { required: true },
+      name: `text`,
+      title: `Text`,
+      type: `richText`,
+      validation: Rule => Rule.required(),
+    },
+    {
+      codegen: { required: true },
       of: [
         {
           type: `item`,

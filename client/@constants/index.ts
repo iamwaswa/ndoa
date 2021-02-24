@@ -32,5 +32,3 @@ export const currencies: Array<Currency> = [
     name: CurrencyNameEnum.ZAMBIA,
   },
 ];
-
-export const sessionStorageKey = `buy`;

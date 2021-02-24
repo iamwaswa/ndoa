@@ -3,7 +3,6 @@ import { Currency, FunctionType } from 'types';
 
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import { Item } from 'types/database';
 import MenuItem from '@material-ui/core/MenuItem';
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { RegistryItemContribute } from './styles';
@@ -12,30 +11,33 @@ import TextField from '@material-ui/core/TextField';
 import { currencies } from '@constants';
 import { useSubmitContributionContext } from 'context/submitContribution';
 
-export function Contribute({
-  amount,
-  currency,
-  cashGift,
-  purchased,
-  updateAmount,
-  updateCurrency,
-}: Pick<Item, 'cashGift' | 'purchased'> & {
+interface IContributeProps {
   amount: number;
   currency: Currency;
+  total: number;
   updateAmount: FunctionType<{ target: { value: string } }, void>;
   updateCurrency: FunctionType<
     [ChangeEvent<{ name?: string; value: unknown }>],
     void
   >;
-}): JSX.Element {
+}
+
+export function Contribute({
+  amount,
+  currency,
+  total,
+  updateAmount,
+  updateCurrency,
+}: IContributeProps): JSX.Element {
   const { submitting } = useSubmitContributionContext();
 
-  const disableActions = useMemo((): boolean => purchased || submitting, [
-    purchased,
+  const disableActions = useMemo((): boolean => amount >= total || submitting, [
+    amount,
     submitting,
+    total,
   ]);
 
-  return cashGift ? (
+  return (
     <RegistryItemContribute disabled={disableActions}>
       <FormControl variant="outlined">
         <InputLabel id="currency">Currency</InputLabel>
@@ -62,5 +64,5 @@ export function Contribute({
         onChange={updateAmount}
       />
     </RegistryItemContribute>
-  ) : null;
+  );
 }

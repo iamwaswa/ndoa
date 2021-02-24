@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { API } from 'utils/api';
-import { ProductTitleEnum } from 'enums';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY, {
@@ -19,7 +18,7 @@ export default async function handler(
       return res.status(405).json({ error: `Method not allowed!` });
     }
 
-    const { amount, currency, name } = JSON.parse(req.body);
+    const { amount, currency, name, slug } = JSON.parse(req.body);
 
     const session = await stripe.checkout.sessions.create({
       billing_address_collection: `required`,
@@ -28,11 +27,11 @@ export default async function handler(
         {
           amount: amount * 100,
           currency: currency,
-          name: ProductTitleEnum[name],
+          name,
           quantity: 1,
         },
       ],
-      metadata: { amount, currency, name },
+      metadata: { amount, currency, name, slug },
       mode: `payment`,
       submit_type: `pay`,
       success_url: `${process.env.BASE_URL}/registry?success=true`,

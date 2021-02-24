@@ -8,25 +8,27 @@ import { Item } from 'types/database';
 import { RegistryItemContent } from './styles';
 import { SanityBlockContent } from 'components/blockContent';
 
-export function Content({
-  amount,
-  currency,
-  description,
-  image,
-  cashGift,
-  purchased,
-  updateAmount,
-  updateCurrency,
-}: Pick<Item, 'cashGift' | 'description' | 'purchased'> & {
+interface IContentProps extends Pick<Item, 'description'> {
   amount: number;
   currency: Currency;
   image: { id: string; url: string };
+  total: number;
   updateAmount: FunctionType<{ target: { value: string } }, void>;
   updateCurrency: FunctionType<
     [ChangeEvent<{ name?: string; value: unknown }>],
     void
   >;
-}): JSX.Element {
+}
+
+export function Content({
+  amount,
+  currency,
+  description,
+  image,
+  total,
+  updateAmount,
+  updateCurrency,
+}: IContentProps): JSX.Element {
   return (
     <RegistryItemContent>
       <section className="content">
@@ -41,9 +43,8 @@ export function Content({
       </section>
       <Contribute
         amount={amount}
-        cashGift={cashGift}
         currency={currency}
-        purchased={purchased}
+        total={total}
         updateAmount={updateAmount}
         updateCurrency={updateCurrency}
       />

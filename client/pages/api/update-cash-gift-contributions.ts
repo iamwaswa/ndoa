@@ -25,7 +25,7 @@ export default async function handler(
   try {
     const {
       object: {
-        metadata: { amount, currency, name },
+        metadata: { amount, currency, name, slug },
       },
     } = JSON.parse(req.body);
 
@@ -44,7 +44,7 @@ export default async function handler(
           gifts: registry.gifts.map((gift: Item & { _key: string }): Item & {
             _key: string;
           } => {
-            if (gift.slug === name) {
+            if (gift.slug === slug) {
               gift.contribution += applyStripeFee(
                 Number(amount) * Number(data.rates.CAD)
               );

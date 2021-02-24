@@ -2,29 +2,32 @@
 import { RegistryItemAction, RegistryItemButton } from './styles';
 
 import { Currency } from 'types';
-import { Item } from 'types/database';
-import { sessionStorageKey } from '@constants';
 import { stripePromise } from 'pages/registry';
 import { toast } from 'react-toastify';
 import { useMemo } from 'react';
 import { useSubmitContributionContext } from 'context/submitContribution';
 
+interface IActionProps {
+  amount: number;
+  currency: Currency;
+  name: string;
+  slug: string;
+  total: number;
+}
+
 export function Action({
   amount,
   currency,
-  cashGift,
-  link,
   name,
-  purchased,
-}: Pick<Item, 'cashGift' | 'link' | 'name' | 'purchased'> & {
-  amount: number;
-  currency: Currency;
-}): JSX.Element {
+  slug,
+  total,
+}: IActionProps): JSX.Element {
   const { submitting, toggleSubmitting } = useSubmitContributionContext();
 
-  const disableActions = useMemo((): boolean => purchased || submitting, [
-    purchased,
+  const disableActions = useMemo((): boolean => amount >= total || submitting, [
+    amount,
     submitting,
+    total,
   ]);
 
   async function contributeToCashGift(): Promise<void> {
@@ -35,7 +38,8 @@ export function Action({
         body: JSON.stringify({
           amount,
           currency: currency.name,
-          name: name.toLowerCase().replace(/\s/g, ``),
+          name,
+          slug,
         }),
         method: `POST`,
       }).then((response) => response.json());
@@ -61,37 +65,16 @@ export function Action({
     }
   }
 
-  function openLink() {
-    sessionStorage.setItem(sessionStorageKey, ``);
-
-    window.open(
-      link,
-      name,
-      `location,menubar,noopener,noreferrer,resizable,scrollbars,status,toolbar`
-    );
-  }
-
   return (
     <RegistryItemAction>
-      {cashGift ? (
-        <RegistryItemButton
-          color="primary"
-          disabled={disableActions}
-          variant="extended"
-          onClick={contributeToCashGift}
-        >
-          {purchased ? `Fully funded!` : `Contribute`}
-        </RegistryItemButton>
-      ) : (
-        <RegistryItemButton
-          color="primary"
-          disabled={disableActions}
-          variant="extended"
-          onClick={openLink}
-        >
-          {purchased ? `Purchased!` : `Buy`}
-        </RegistryItemButton>
-      )}
+      <RegistryItemButton
+        color="primary"
+        disabled={disableActions}
+        variant="extended"
+        onClick={contributeToCashGift}
+      >
+        {disableActions ? `Fully funded!` : `Contribute`}
+      </RegistryItemButton>
     </RegistryItemAction>
   );
 }

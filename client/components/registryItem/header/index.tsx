@@ -3,17 +3,16 @@ import { RegistryItemHeader, RegistryItemProgressMeter } from './styles';
 
 import { Item } from 'types/database';
 import Typography from '@material-ui/core/Typography';
-import { usePurchasedPercentage } from './hooks';
+import { useContributedPercentage } from './hooks';
 
 export function Header({
   contribution,
-  cashGift,
   name,
-  price,
-}: Pick<Item, 'contribution' | 'cashGift' | 'name' | 'price'>): JSX.Element {
-  const purchasedPercentage = usePurchasedPercentage({
+  goal,
+}: Pick<Item, 'contribution' | 'name' | 'goal'>): JSX.Element {
+  const contributedPercentage = useContributedPercentage({
     contribution,
-    price,
+    goal,
   });
 
   return (
@@ -21,19 +20,16 @@ export function Header({
       title={
         <section className="title">
           <Typography>{name}</Typography>
-          {cashGift ? null : <Typography>CA${price}</Typography>}
         </section>
       }
       subheader={
-        cashGift && price !== undefined ? (
-          <RegistryItemProgressMeter progress={purchasedPercentage}>
-            <Typography>
-              {`${Math.floor(purchasedPercentage)}% contributed${
-                purchasedPercentage === 100 ? `!!!` : ``
-              }`}
-            </Typography>
-          </RegistryItemProgressMeter>
-        ) : null
+        <RegistryItemProgressMeter progress={contributedPercentage}>
+          <Typography>
+            {`${Math.floor(contributedPercentage)}% contributed${
+              contributedPercentage === 100 ? `!!!` : ``
+            }`}
+          </Typography>
+        </RegistryItemProgressMeter>
       }
     />
   );

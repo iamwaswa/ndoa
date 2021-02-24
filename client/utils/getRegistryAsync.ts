@@ -9,7 +9,8 @@ export async function getRegistryAsync(
   try {
     const registry = await client.fetch<Pick<Registry, 'gifts'>>(
       `*[_type == 'registry'][0]{
-        gifts
+        gifts,
+        text,
       }`
     );
 

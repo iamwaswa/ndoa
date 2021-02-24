@@ -1,15 +1,17 @@
-import { Item } from 'types/database';
 import { useMemo } from 'react';
 
-export function usePurchasedPercentage({
-  contribution,
-  price,
-}: Pick<Item, 'contribution' | 'price'>): number {
+interface IUseContributedPercentageArgs {
+  contribution?: number;
+  goal: number;
+}
+
+export function useContributedPercentage({
+  contribution = 0,
+  goal,
+}: IUseContributedPercentageArgs): number {
   const purchasedPercentage = useMemo<number>(() => {
-    return price === undefined
-      ? 0
-      : Math.min((contribution / price) * 100, 100);
-  }, [contribution, price]);
+    return Math.min((contribution / goal) * 100, 100);
+  }, [contribution, goal]);
 
   return purchasedPercentage;
 }
