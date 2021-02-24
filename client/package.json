@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "author": "Waswa Olunga <olungaw@gmail.com>",
+  "browserslist": [
+    "defaults"
+  ],
   "scripts": {
     "build": "next build",
     "lint": "eslint ./**/*.{ts,tsx}",

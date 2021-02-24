@@ -2,14 +2,14 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next';
 
 import Head from 'next/head';
 import { Home } from 'types/database';
-import ImageComponent from 'next/image';
+import Image from 'next/image';
 import { PageProps } from 'types';
 import SanityClient from '@sanity/client';
 import Typography from '@material-ui/core/Typography';
 import { buildImageUrl } from 'utils/buildImageUrl';
 import styled from 'styled-components';
 
-const Image = styled(ImageComponent)`
+const ImageContainer = styled.div`
   flex-grow: 1;
   position: relative;
   width: 100%;
@@ -43,7 +43,7 @@ const Text = styled(Typography)`
 export default function HomePage({
   width,
   height,
-  cover,
+  coverImageURL,
   title,
 }: PageProps<InferGetStaticPropsType<typeof getStaticProps>>): JSX.Element {
   return (
@@ -51,14 +51,16 @@ export default function HomePage({
       <Head>
         <title>{title} | Home</title>
       </Head>
-      <Image
-        layout="intrinsic"
-        width={width}
-        height={height}
-        priority={true}
-        quality={100}
-        src={cover}
-      />
+      <ImageContainer>
+        <Image
+          layout="intrinsic"
+          width={width}
+          height={height}
+          priority={true}
+          quality={100}
+          src={coverImageURL}
+        />
+      </ImageContainer>
       <TextContainer>
         <Text>
           April 24th, 2021 · 11:00<span>am</span> PST
@@ -74,7 +76,7 @@ export default function HomePage({
 interface IHomePageProps {
   width: number;
   height: number;
-  cover: string;
+  coverImageURL: string;
 }
 
 export const getStaticProps: GetStaticProps<IHomePageProps> = async () => {
@@ -97,7 +99,7 @@ export const getStaticProps: GetStaticProps<IHomePageProps> = async () => {
     props: {
       width,
       height,
-      cover: buildImageUrl(client, picture)
+      coverImageURL: buildImageUrl(client, picture)
         .width(width)
         .height(height)
         .minWidth(320)
