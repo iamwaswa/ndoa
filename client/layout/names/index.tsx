@@ -1,15 +1,20 @@
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
-import { theme } from 'theme';
 
 const TitleText = styled(Typography)`
-  font-family: var(--title-font);
-  font-size: ${theme.typography.h4.fontSize};
-  margin: ${theme.spacing()}px 0;
+  ${({ theme }) => `
+    font-family: var(--title-font);
+    font-size: ${theme.typography.h4.fontSize};
+    margin: ${theme.spacing()}px 0;
 
-  ${theme.breakpoints.up(`sm`)} {
-    font-size: ${theme.typography.h2.fontSize};
-  }
+    @media (min-width: 415px) {
+      font-size: ${theme.typography.h2.fontSize};
+    }
+
+    ${theme.breakpoints.up(`sm`)} {
+      font-size: ${theme.typography.h1.fontSize};
+    }
+  `}
 `;
 
 export function Names(): JSX.Element {

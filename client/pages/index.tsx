@@ -1,53 +1,49 @@
-import Box, { BoxProps } from '@material-ui/core/Box';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 
-import Carousel from 'react-bootstrap/Carousel';
-import { ComponentType } from 'react';
 import Head from 'next/head';
 import { Home } from 'types/database';
-import Image from 'next/image';
+import ImageComponent from 'next/image';
 import { PageProps } from 'types';
 import SanityClient from '@sanity/client';
+import Typography from '@material-ui/core/Typography';
 import { buildImageUrl } from 'utils/buildImageUrl';
 import styled from 'styled-components';
-import { theme } from 'theme';
 
-const Container = styled<ComponentType<BoxProps>>(Box)`
-  display: flex;
-  flex-direction: column;
+const Image = styled(ImageComponent)`
   flex-grow: 1;
   position: relative;
-  height: 100%;
   width: 100%;
+  height: 100%;
   margin: 0 auto;
+`;
 
-  ${theme.breakpoints.up(`md`)} {
-    margin-bottom: ${theme.spacing(2)}px;
-  }
+const TextContainer = styled.div`
+  ${({ theme }) => `
+    margin-top: ${theme.spacing(1.25)}px;
+  `}
+`;
 
-  .carousel.slide {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+const Text = styled(Typography)`
+  ${({ theme }) => `
+    font-family: var(--title-font);
+    font-size: ${theme.typography.h5.fontSize};
+    margin-bottom: ${theme.spacing()}px;
+    text-align: center;
 
-    .carousel-inner {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-
-      .carousel-item {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-      }
+    ${theme.breakpoints.up(`sm`)} {
+      font-size: ${theme.typography.h4.fontSize};
     }
-  }
+    
+    & > span {
+      font-size: ${theme.typography.h5.fontSize};
+    }
+  `}
 `;
 
 export default function HomePage({
-  images,
+  width,
+  height,
+  cover,
   title,
 }: PageProps<InferGetStaticPropsType<typeof getStaticProps>>): JSX.Element {
   return (
@@ -55,33 +51,30 @@ export default function HomePage({
       <Head>
         <title>{title} | Home</title>
       </Head>
-      <Container>
-        <Carousel>
-          {images.map(({ id, url }) => (
-            <Carousel.Item key={id}>
-              <Image
-                key={id}
-                layout="fill"
-                objectFit="cover"
-                priority={true}
-                quality={100}
-                src={url}
-              />
-            </Carousel.Item>
-          ))}
-        </Carousel>
-      </Container>
+      <Image
+        layout="intrinsic"
+        width={width}
+        height={height}
+        priority={true}
+        quality={100}
+        src={cover}
+      />
+      <TextContainer>
+        <Text>
+          April 24th, 2021 · 11:00<span>am</span> PST
+        </Text>
+        <Text>All Saints Parish</Text>
+        <Text>Coquitlam, BC</Text>
+        <Text>Canada</Text>
+      </TextContainer>
     </>
   );
 }
 
-type HomePageImage = {
-  id: string;
-  url: string;
-};
-
 interface IHomePageProps {
-  images: Array<HomePageImage>;
+  width: number;
+  height: number;
+  cover: string;
 }
 
 export const getStaticProps: GetStaticProps<IHomePageProps> = async () => {
@@ -91,20 +84,24 @@ export const getStaticProps: GetStaticProps<IHomePageProps> = async () => {
     useCdn: true,
   });
 
-  const { pictures } = await client.fetch<Pick<Home, 'pictures'>>(
+  const width = 960;
+  const height = (1 / 2) * width;
+
+  const { picture } = await client.fetch<Pick<Home, 'picture'>>(
     `*[_type == 'home'][0]{
-      pictures
+      picture
     }`
   );
 
   return {
     props: {
-      images: pictures.map(
-        (picture): HomePageImage => ({
-          id: picture._key,
-          url: buildImageUrl(client, picture).width(720).minWidth(320).url(),
-        })
-      ),
+      width,
+      height,
+      cover: buildImageUrl(client, picture)
+        .width(width)
+        .height(height)
+        .minWidth(320)
+        .url(),
     },
   };
 };

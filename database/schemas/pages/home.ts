@@ -2,14 +2,9 @@ export const homePageSchema = {
   fields: [
     {
       codegen: { required: true },
-      of: [
-        {
-          type: `picture`,
-        },
-      ],
-      name: `pictures`,
-      title: `Pictures`,
-      type: `array`,
+      name: `picture`,
+      title: `Cover picture`,
+      type: `picture`,
       validation: Rule => Rule.required(),
     },
   ],

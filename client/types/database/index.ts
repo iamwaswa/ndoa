@@ -35,11 +35,11 @@ export interface Home extends SanityDocument {
   _type: 'home';
 
   /**
-   * Pictures — `array`
+   * Cover picture — `picture`
    *
    *
    */
-  pictures: Array<SanityKeyed<Picture>>;
+  picture: Picture;
 }
 
 /**

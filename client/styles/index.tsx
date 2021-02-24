@@ -2,12 +2,12 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
   :root {
-    --max-width: 720px;
+    --max-width: 960px;
     --light-blue: #98bcdd;
     --dark-blue: #212738;
     --gold: #d6b069;
-    --title-font: 'Playfair Display', serif;
-    --base-font: 'Josefin Sans', sans-serif;
+    --title-font: 'Playfair Display', cursive;
+    --base-font: 'Josefin Sans', cursive;
   }
 
   html,

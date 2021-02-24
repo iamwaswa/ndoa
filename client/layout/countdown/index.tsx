@@ -17,7 +17,7 @@ function Time({ title, value }: ITimeProps): JSX.Element {
 }
 
 function Gap(): JSX.Element {
-  return <GapText>:</GapText>;
+  return <GapText> · </GapText>;
 }
 
 export function Countdown(): JSX.Element {
