@@ -32,3 +32,5 @@ export const currencies: Array<Currency> = [
     name: CurrencyNameEnum.ZAMBIA,
   },
 ];
+
+export const showedWelcomeCardKey = `showedWelcomeCard`;

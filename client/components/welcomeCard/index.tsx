@@ -1,29 +1,39 @@
+import { useCallback, useEffect, useState } from 'react';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { FunctionType } from 'types';
+import { showedWelcomeCardKey } from '@constants';
+import { useWelcomeCardName } from './hooks/welcomeCardName';
 
-interface IWelcomeCardProps {
-  show: boolean;
-  title: string;
-  onClose: FunctionType<unknown, void>;
-}
-
-export function WelcomeCard({
-  show,
-  title,
-  onClose,
-}: IWelcomeCardProps): JSX.Element {
+export function WelcomeCard(): JSX.Element {
   const theme = useTheme();
 
   const mobile = useMediaQuery(theme.breakpoints.down(`xs`));
 
+  const name = useWelcomeCardName();
+
+  const [show, setShow] = useState<boolean>(false);
+
+  useEffect((): void => {
+    if (name) {
+      setShow(true);
+    }
+  }, [name]);
+
+  const onClose = useCallback((): void => {
+    if (typeof window !== undefined) {
+      localStorage.setItem(showedWelcomeCardKey, `true`);
+    }
+
+    setShow(false);
+  }, []);
+
   return (
     <Dialog open={show} fullScreen={mobile} maxWidth="sm" onClose={onClose}>
-      <DialogTitle>Hello {title}!</DialogTitle>
+      <DialogTitle>Hello {name}!</DialogTitle>
       <DialogContent>
         <DialogContentText>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, ut
