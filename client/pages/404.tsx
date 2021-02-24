@@ -1,8 +1,8 @@
 import { BreathingRoom } from 'components/breathingRoom';
 import { BreathingRoomSpacingEnum } from 'enums';
 import Head from 'next/head';
-import { Text } from 'styles/text';
 import { PageProps } from 'types';
+import { Text } from 'styles/text';
 
 export default function NotFoundPage({ title }: PageProps): JSX.Element {
   return (

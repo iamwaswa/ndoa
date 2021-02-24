@@ -1,5 +1,6 @@
 import { Content, GiftRegistry, PageProps } from 'types';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { useMediaQuery, useTheme } from '@material-ui/core';
 
 import { BreathingRoom } from 'components/breathingRoom';
 import { BreathingRoomSpacingEnum } from 'enums';
@@ -12,8 +13,6 @@ import SanityClient from '@sanity/client';
 import { createGiftRegistry } from 'utils/getRegistryAsync';
 import { loadStripe } from '@stripe/stripe-js';
 import styled from 'styled-components';
-import { theme } from 'theme';
-import { useMediaQuery } from '@material-ui/core';
 import { useRegistryContributionSuccess } from 'hooks/registryContributionSuccess';
 
 export const stripePromise = loadStripe(
@@ -24,15 +23,19 @@ export const stripePromise = loadStripe(
 );
 
 const RegistryContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: ${theme.spacing(1, 0, 2)};
+  ${({ theme }) => `
+    display: flex;
+    justify-content: center;
+    padding: ${theme.spacing(1, 0, 2)};
+  `}
 `;
 
 export default function RegistryPage({
   content,
   title,
 }: PageProps<InferGetStaticPropsType<typeof getStaticProps>>): JSX.Element {
+  const theme = useTheme();
+
   const mobile = useMediaQuery(theme.breakpoints.down(`xs`));
 
   useRegistryContributionSuccess();

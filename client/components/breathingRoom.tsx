@@ -1,10 +1,9 @@
 import { BreathingRoomSpacingEnum } from 'enums';
-import styled from 'styled-components';
-import { theme } from 'theme';
 import { ChildrenProps } from 'types';
+import styled from 'styled-components';
 
 const BreathingRoomContainer = styled.div<Pick<IBreathingRoomProps, 'breathe'>>`
-  padding: ${({ breathe }) => {
+  padding: ${({ breathe, theme }) => {
     switch (breathe) {
       case BreathingRoomSpacingEnum.BOTH:
         return theme.spacing(2, 2);

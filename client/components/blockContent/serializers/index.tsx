@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { Text } from 'styles/text';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
-import { theme } from 'theme';
 
 const Em = styled(Typography)`
   font-style: italic;
@@ -15,7 +14,9 @@ const Strikethrough = styled(Typography)`
 `;
 
 const Strong = styled(Typography)`
-  font-weight: ${theme.typography.fontWeightBold};
+  ${({ theme }) => `
+    font-weight: ${theme.typography.fontWeightBold};
+  `}
 `;
 
 const Underline = styled(Typography)`
@@ -28,11 +29,13 @@ interface IImageContainerProps {
 }
 
 const ImageContainer = styled.section<IImageContainerProps>`
-  height: ${({ height }) => `${height}px`};
-  width: 100%;
-  margin: 0 auto ${theme.spacing(3)}px auto;
-  max-width: ${({ maxWidth }) => `${maxWidth}px`};
-  position: relative;
+  ${({ theme }) => `
+    height: ${({ height }) => `${height}px`};
+    width: 100%;
+    margin: 0 auto ${theme.spacing(3)}px auto;
+    max-width: ${({ maxWidth }) => `${maxWidth}px`};
+    position: relative;
+  `}
 `;
 
 interface IImage {

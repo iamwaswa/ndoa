@@ -1,8 +1,8 @@
+import { BreathingRoom } from 'components/breathingRoom';
+import { BreathingRoomSpacingEnum } from 'enums';
 import Head from 'next/head';
 import { PageProps } from 'types';
 import { Text } from 'styles/text';
-import { BreathingRoom } from 'components/breathingRoom';
-import { BreathingRoomSpacingEnum } from 'enums';
 
 export default function LivestreamPage({ title }: PageProps): JSX.Element {
   return (

@@ -1,13 +1,13 @@
 import { Content, PageProps } from 'types';
 
+import { BreathingRoom } from 'components/breathingRoom';
+import { BreathingRoomSpacingEnum } from 'enums';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { SanityBlockContent } from 'components/blockContent';
 import SanityClient from '@sanity/client';
 import { Story } from 'types/database';
 import { buildImageUrl } from 'utils/buildImageUrl';
-import { BreathingRoom } from 'components/breathingRoom';
-import { BreathingRoomSpacingEnum } from 'enums';
 
 export default function StoryPage({
   content,
