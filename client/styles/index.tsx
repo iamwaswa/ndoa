@@ -7,13 +7,14 @@ export const GlobalStyles = createGlobalStyle`
     --dark-blue: #212738;
     --gold: #d6b069;
     --title-font: 'Playfair Display', cursive;
-    --base-font: 'Josefin Sans', cursive;
+    --base-font: 'Josefin Sans', sans-serif;
   }
 
   html,
   body {
     background-color: var(--dark-blue);
     font-family: var(--base-font);
+    font-size: 16px;
     min-width: 320px;
   }
 
