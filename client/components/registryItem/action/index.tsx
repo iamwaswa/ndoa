@@ -73,7 +73,7 @@ export function Action({
         variant="extended"
         onClick={contributeToCashGift}
       >
-        {disableActions ? `Fully funded!` : `Contribute`}
+        {amount >= total ? `Fully funded!` : `Contribute`}
       </RegistryItemButton>
     </RegistryItemAction>
   );

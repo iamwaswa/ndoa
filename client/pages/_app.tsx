@@ -1,7 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
-
-import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { AppProps } from 'next/app';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,8 +11,6 @@ import { SubmitContributionContextProvider } from 'context/submitContribution';
 import { ToastContainer } from 'react-toastify';
 import { theme } from 'theme';
 import { useEffect } from 'react';
-
-const queryClient = new QueryClient();
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   useEffect((): void => {
@@ -45,11 +40,9 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             pauseOnHover={true}
           />
           <SubmitContributionContextProvider>
-            <QueryClientProvider client={queryClient}>
-              <Layout>
-                <Component {...pageProps} title="W&C" />
-              </Layout>
-            </QueryClientProvider>
+            <Layout>
+              <Component {...pageProps} title="W&C" />
+            </Layout>
           </SubmitContributionContextProvider>
         </StyledComponentsThemeProvider>
       </MaterialUIThemeProvider>
