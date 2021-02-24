@@ -8,6 +8,7 @@ import Head from 'next/head';
 import { MasonryGrid } from 'components/masonryGrid';
 import { Registry } from 'types/database';
 import { RegistryItem } from 'components/registryItem';
+import { RegistryItemButton } from 'components/registryItem/action/styles';
 import { SanityBlockContent } from 'components/blockContent';
 import SanityClient from '@sanity/client';
 import { createGiftRegistry } from 'utils/getRegistryAsync';
@@ -30,6 +31,14 @@ const RegistryContainer = styled.div`
   `}
 `;
 
+const RegistryAction = styled.div`
+  ${({ theme }) => `
+    display: flex;
+    justify-content: center;
+    margin: ${theme.spacing(1, 0, 4)};
+  `}
+`;
+
 export default function RegistryPage({
   content,
   title,
@@ -47,6 +56,16 @@ export default function RegistryPage({
       </Head>
       <BreathingRoom breathe={BreathingRoomSpacingEnum.HORIZONTAL}>
         <SanityBlockContent content={content.text} />
+        <RegistryAction>
+          <RegistryItemButton
+            color="secondary"
+            invert={true}
+            variant="extended"
+            onClick={goToGiftRegistry}
+          >
+            Go to gift registry
+          </RegistryItemButton>
+        </RegistryAction>
         <RegistryContainer>
           <MasonryGrid
             columns={mobile ? 1 : 2}
@@ -97,3 +116,11 @@ export const getStaticProps: GetStaticProps<IRegistryPageProps> = async () => {
     revalidate: 60,
   };
 };
+
+function goToGiftRegistry() {
+  window.open(
+    `https://www.myregistry.com/wedding-registry/waswa-olunga-and-clare-anne-queenan-vancouver-bc/2719347`,
+    `giftregistry`,
+    `location,menubar,noopener,noreferrer,resizable,scrollbars,status,toolbar`
+  );
+}
