@@ -1,3 +1,4 @@
+import styled, { css } from 'styled-components';
 import { useCallback, useEffect, useState } from 'react';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 
@@ -9,7 +10,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
 import Image from 'next/image';
 import { showedWelcomeCardKey } from '@constants';
-import styled from 'styled-components';
 import { useWelcomeCardName } from './hooks/welcomeCardName';
 
 const StyledDialog = styled(Dialog)`
@@ -32,19 +32,30 @@ interface IStyledDialogContentTextProps {
 const StyledDialogContentText = styled(
   DialogContentText
 )<IStyledDialogContentTextProps>`
-  ${({ styledFont, theme }) => `
+  ${({ styledFont, theme }) => css`
     color: var(--gold);
-    font-family: ${styledFont ? `var(--title-font)` : `var(--base-font)`};
-    font-size: ${
-      styledFont ? theme.typography.h4.fontSize : theme.typography.h5.fontSize
-    };
+    font-display: ${styledFont
+      ? `var(--title-font-display)`
+      : `var(--base-font-display)`};
+    font-family: ${styledFont
+      ? `var(--title-font-family)`
+      : `var(--base-font-family)`};
+    font-size: ${styledFont
+      ? theme.typography.h4.fontSize
+      : theme.typography.h5.fontSize};
+    font-style: ${styledFont
+      ? `var(--title-font-style)`
+      : `var(--base-font-style)`};
+    font-weight: ${styledFont
+      ? `var(--title-font-weight)`
+      : `var(--base-font-weight)`};
     margin: ${theme.spacing(0, 0, 2, 0)};
     text-align: center;
   `}
 `;
 
 const StyledDialogActions = styled(DialogActions)`
-  ${({ theme }) => `
+  ${({ theme }) => css`
     padding: ${theme.spacing(2, 0)};
     text-align: center;
     display: flex;

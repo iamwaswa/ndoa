@@ -1,17 +1,19 @@
+import styled, { css } from 'styled-components';
+
 import { Anchor } from 'styles/anchor';
 import { AnchorHTMLAttributes } from 'react';
 import Box from '@material-ui/core/Box';
-import styled from 'styled-components';
 import { theme } from 'theme';
 
 export const NavBar = styled(Box)`
-  ${({ theme }) => `
-    font-family: var(--title-font);
+  ${({ theme }) => css`
+    font-display: var(--title-font-display);
+    font-family: var(--title-font-family);
+    font-style: var(--title-font-style);
+    font-weight: var(--title-font-weight);
     display: flex;
     justify-content: center;
-    padding: ${theme.spacing(2)}px ${theme.spacing(2)}px 0 ${theme.spacing(
-    2
-  )}px;
+    padding: ${theme.spacing(2)}px ${theme.spacing(2)}px 0 ${theme.spacing(2)}px;
     width: 100%;
     max-width: var(--max-width);
 

@@ -1,9 +1,10 @@
+import styled, { css } from 'styled-components';
+
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import styled from 'styled-components';
 
 export const TimeContainer = styled(Box)`
-  ${({ theme }) => `
+  ${({ theme }) => css`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,11 +21,14 @@ export const TimeContainer = styled(Box)`
 `;
 
 export const TimeText = styled(Typography)`
-  font-family: var(--title-font);
+  font-display: var(--title-font-display);
+  font-family: var(--title-font-family);
+  font-style: var(--title-font-style);
+  font-weight: var(--title-font-weight);
 `;
 
 export const GapText = styled(TimeText)`
-  ${({ theme }) => `
+  ${({ theme }) => css`
     display: flex;
     justify-content: center;
     margin-top: ${theme.spacing(0.75)}px;
@@ -32,7 +36,7 @@ export const GapText = styled(TimeText)`
 `;
 
 export const CountdownContainer = styled(Box)`
-  ${({ theme }) => `
+  ${({ theme }) => css`
     display: grid;
     grid-template-columns: repeat(7, auto);
     grid-gap: ${theme.spacing()}px;

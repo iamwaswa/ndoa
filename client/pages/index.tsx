@@ -1,4 +1,5 @@
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import styled, { css } from 'styled-components';
 
 import Head from 'next/head';
 import { Home } from 'types/database';
@@ -7,7 +8,6 @@ import { PageProps } from 'types';
 import SanityClient from '@sanity/client';
 import Typography from '@material-ui/core/Typography';
 import { buildImageUrl } from 'utils/buildImageUrl';
-import styled from 'styled-components';
 
 const ImageContainer = styled.div`
   position: relative;
@@ -23,16 +23,19 @@ const TextContainer = styled.div`
 `;
 
 const Text = styled(Typography)`
-  ${({ theme }) => `
-    font-family: var(--title-font);
+  ${({ theme }) => css`
+    font-display: var(--title-font-display);
+    font-family: var(--title-font-family);
     font-size: ${theme.typography.h5.fontSize};
+    font-style: var(--title-font-style);
+    font-weight: var(--title-font-weight);
     margin-bottom: ${theme.spacing()}px;
     text-align: center;
 
     ${theme.breakpoints.up(`sm`)} {
       font-size: ${theme.typography.h4.fontSize};
     }
-    
+
     & > span {
       font-size: ${theme.typography.h5.fontSize};
     }

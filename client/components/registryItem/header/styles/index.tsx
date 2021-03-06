@@ -14,8 +14,10 @@ export const RegistryItemHeader = styled(CardHeader)`
       justify-content: space-between;
 
       & > * {
-        font-family: var(--title-font);
+        font-family: var(--title-font-family);
         font-size: ${theme.typography.h5.fontSize};
+        font-style: var(--title-font-style);
+        font-weight: var(--title-font-weight);
       }
     }
 

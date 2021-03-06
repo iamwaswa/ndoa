@@ -2,18 +2,34 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
   :root {
+    /* Viewport limits */
     --max-width: 960px;
+
+    /* Colors */
     --light-blue: #98bcdd;
     --dark-blue: #212738;
     --gold: #d6b069;
-    --title-font: 'Playfair Display', cursive;
-    --base-font: 'Abhaya Libre', sans-serif;
+
+    /* Base Font */
+    --base-font-display: swap;
+    --base-font-family: 'Abhaya Libre', sans-serif;
+    --base-font-style: normal;
+    --base-font-weight: 400;
+    
+    /* Title Font */
+    --title-font-display: swap;
+    --title-font-family: 'Playfair Display', cursive;
+    --title-font-style: italic;
+    --title-font-weight: 400;
   }
 
   html,
   body {
     background-color: var(--dark-blue);
-    font-family: var(--base-font);
+    font-display: var(--base-font-display);
+    font-family: var(--base-font-family);
+    font-style: var(--base-font-style);
+    font-weight: var(--base-font-weight);
     min-width: 320px;
   }
 

@@ -1,10 +1,14 @@
+import styled, { css } from 'styled-components';
+
 import Typography from '@material-ui/core/Typography';
-import styled from 'styled-components';
 
 const TitleText = styled(Typography)`
-  ${({ theme }) => `
-    font-family: var(--title-font);
+  ${({ theme }) => css`
+    font-display: var(--title-font-display);
+    font-family: var(--title-font-family);
     font-size: ${theme.typography.h4.fontSize};
+    font-style: var(--title-font-style);
+    font-weight: var(--title-font-weight);
     margin: ${theme.spacing()}px 0;
 
     @media (min-width: 415px) {
