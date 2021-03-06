@@ -12,6 +12,21 @@ interface ILinkProps extends ChildrenProps {
   };
 }
 
+const StyledAnchor = styled(Anchor)`
+  ${({ color }) => {
+    if (color) {
+      return `
+        color: ${color};
+      
+        &:hover,
+        &:focus {
+          color: ${color};
+        }
+      `;
+    }
+  }}
+`;
+
 const Em = styled(Typography)`
   font-style: italic;
 `;
@@ -53,44 +68,57 @@ interface IImage {
   };
 }
 
-export const serializers = {
-  marks: {
-    em({ children }: ChildrenProps): JSX.Element {
-      return <Em as="span">{children}</Em>;
+interface ISerializersConfig {
+  linkColor?: string;
+}
+
+export function serializers({
+  linkColor,
+}: ISerializersConfig): Record<string, unknown> {
+  return {
+    marks: {
+      em({ children }: ChildrenProps): JSX.Element {
+        return <Em as="span">{children}</Em>;
+      },
+      link({ children, mark }: ILinkProps): JSX.Element {
+        return (
+          <StyledAnchor
+            color={linkColor}
+            href={mark.href}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {children}
+          </StyledAnchor>
+        );
+      },
+      strong({ children }: ChildrenProps): JSX.Element {
+        return <Strong as="span">{children}</Strong>;
+      },
+      underline({ children }: ChildrenProps): JSX.Element {
+        return <Underline as="span">{children}</Underline>;
+      },
+      [`strike-through`]: ({ children }: ChildrenProps): JSX.Element => {
+        return <Strikethrough as="span">{children}</Strikethrough>;
+      },
     },
-    link({ children, mark }: ILinkProps): JSX.Element {
-      return (
-        <Anchor href={mark.href} rel="noopener noreferrer" target="_blank">
-          {children}
-        </Anchor>
-      );
+    types: {
+      block({ children }: ChildrenProps): JSX.Element {
+        return <Text>{children}</Text>;
+      },
+      image({ node }: IImage): JSX.Element {
+        return (
+          <ImageContainer height={node.height} maxWidth={node.maxWidth}>
+            <Image
+              layout="fill"
+              objectFit="cover"
+              priority={true}
+              quality={100}
+              src={node.url}
+            />
+          </ImageContainer>
+        );
+      },
     },
-    strong({ children }: ChildrenProps): JSX.Element {
-      return <Strong as="span">{children}</Strong>;
-    },
-    underline({ children }: ChildrenProps): JSX.Element {
-      return <Underline as="span">{children}</Underline>;
-    },
-    [`strike-through`]: ({ children }: ChildrenProps): JSX.Element => {
-      return <Strikethrough as="span">{children}</Strikethrough>;
-    },
-  },
-  types: {
-    block({ children }: ChildrenProps): JSX.Element {
-      return <Text>{children}</Text>;
-    },
-    image({ node }: IImage): JSX.Element {
-      return (
-        <ImageContainer height={node.height} maxWidth={node.maxWidth}>
-          <Image
-            layout="fill"
-            objectFit="cover"
-            priority={true}
-            quality={100}
-            src={node.url}
-          />
-        </ImageContainer>
-      );
-    },
-  },
-};
+  };
+}

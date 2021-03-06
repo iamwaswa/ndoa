@@ -39,7 +39,7 @@ export function Content({
           priority={true}
           src={image.url}
         />
-        <SanityBlockContent content={description} />
+        <SanityBlockContent content={description} linkColor="#ffffff" />
       </section>
       <Contribute
         amount={amount}
