@@ -6,6 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import { theme } from 'theme';
 
+interface ILinkProps extends ChildrenProps {
+  mark: {
+    href: string;
+  };
+}
+
 const Em = styled(Typography)`
   font-style: italic;
 `;
@@ -52,9 +58,9 @@ export const serializers = {
     em({ children }: ChildrenProps): JSX.Element {
       return <Em as="span">{children}</Em>;
     },
-    link({ children, ...props }: ChildrenProps): JSX.Element {
+    link({ children, mark }: ILinkProps): JSX.Element {
       return (
-        <Anchor {...props} rel="noopener noreferrer" target="_blank">
+        <Anchor href={mark.href} rel="noopener noreferrer" target="_blank">
           {children}
         </Anchor>
       );
