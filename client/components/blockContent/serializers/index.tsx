@@ -1,6 +1,7 @@
 import { Anchor } from 'styles/anchor';
 import { ChildrenProps } from 'types';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Text } from 'styles/text';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
@@ -79,7 +80,13 @@ export function serializers({
         return <Em as="span">{children}</Em>;
       },
       link({ children, mark }: ILinkProps): JSX.Element {
-        return (
+        return mark.href?.startsWith(`/`) ? (
+          <Link href={mark.href}>
+            <StyledAnchor href={mark.href} color={linkColor}>
+              {children}
+            </StyledAnchor>
+          </Link>
+        ) : (
           <StyledAnchor
             color={linkColor}
             href={mark.href}
