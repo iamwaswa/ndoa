@@ -46,12 +46,10 @@ const Underline = styled(Typography)`
 `;
 
 interface IImageContainerProps {
-  height: number;
   maxWidth: number;
 }
 
 const ImageContainer = styled.section<IImageContainerProps>`
-  height: ${({ height }) => `${height}px`};
   width: 100%;
   margin: 0 auto ${theme.spacing(3)}px auto;
   max-width: ${({ maxWidth }) => `${maxWidth}px`};
@@ -108,12 +106,13 @@ export function serializers({
       },
       image({ node }: IImage): JSX.Element {
         return (
-          <ImageContainer height={node.height} maxWidth={node.maxWidth}>
+          <ImageContainer maxWidth={node.maxWidth}>
             <Image
-              layout="fill"
-              objectFit="cover"
+              layout="intrinsic"
               priority={true}
               quality={100}
+              height={node.height}
+              width={node.maxWidth}
               src={node.url}
             />
           </ImageContainer>
