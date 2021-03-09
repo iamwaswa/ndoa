@@ -36,7 +36,7 @@ export const getStaticProps: GetStaticProps<ICreditsPageProps> = async () => {
   });
 
   const { text } = await client.fetch<Pick<Credits, 'text'>>(
-    `*[_type == 'livestream'][0]{
+    `*[_type == 'credits'][0]{
       text,
     }`
   );

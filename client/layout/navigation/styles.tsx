@@ -1,43 +1,52 @@
 import styled, { css } from 'styled-components';
 
-import { Anchor } from 'styles/anchor';
-import { AnchorHTMLAttributes } from 'react';
-import Box from '@material-ui/core/Box';
-import { theme } from 'theme';
+import { AnchorStyles } from 'styles/anchor';
+import AppBar from '@material-ui/core/AppBar';
+import Tab from '@material-ui/core/Tab';
 
-export const NavBar = styled(Box)`
+export const NavBar = styled(AppBar)`
   ${({ theme }) => css`
-    font-display: var(--title-font-display);
-    font-family: var(--title-font-family);
-    font-style: var(--title-font-style);
-    font-weight: var(--title-font-weight);
-    display: flex;
-    justify-content: center;
-    padding: ${theme.spacing(2)}px ${theme.spacing(2)}px 0 ${theme.spacing(2)}px;
-    width: 100%;
+    background-color: inherit;
+    box-shadow: none;
     max-width: var(--max-width);
+    padding: ${theme.spacing(2, 2, 0)};
 
-    & > * + * {
-      margin-left: ${theme.spacing(2)}px;
+    & div.MuiButtonBase-root.MuiTabScrollButton-root.MuiTabs-scrollButtons {
+      color: var(--gold);
+    }
 
-      ${theme.breakpoints.up(`sm`)} {
-        margin-left: ${theme.spacing(10)}px;
-      }
+    & .MuiTabs-indicator {
+      display: none;
+    }
+
+    & div.MuiTabs-flexContainer {
+      margin: 0 auto;
+      width: fit-content;
     }
   `}
 `;
 
-interface INavBarLinkProps extends AnchorHTMLAttributes<unknown> {
-  current: string;
+interface INavBarTabProps {
+  current: boolean;
 }
 
-export const NavBarAnchor = styled(Anchor)<INavBarLinkProps>`
-  color: ${({ current }) => {
-    return current === `true` ? theme.palette.grey[100] : `var(--gold)`;
-  }};
-  font-size: ${theme.typography.h6.fontSize};
+export const NavBarTab = styled(Tab)<INavBarTabProps>`
+  ${AnchorStyles}
 
-  ${theme.breakpoints.up(`sm`)} {
-    font-size: ${theme.typography.h5.fontSize};
-  }
+  ${({ current, theme }) => css`
+    color: ${current ? theme.palette.grey[100] : `var(--gold)`};
+    font-display: var(--title-font-display);
+    font-family: var(--title-font-family);
+    font-style: var(--title-font-style);
+    font-weight: var(--title-font-weight);
+    font-size: ${theme.typography.h6.fontSize};
+    min-width: fit-content;
+    opacity: 1;
+    padding: ${theme.spacing(0, 2)};
+    text-transform: none;
+
+    ${theme.breakpoints.up(`sm`)} {
+      font-size: ${theme.typography.h5.fontSize};
+    }
+  `}
 `;

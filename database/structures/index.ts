@@ -1,4 +1,4 @@
-import { GrBook, GrGift, GrHome, GrVideo } from 'react-icons/gr';
+import { GrBook, GrGift, GrHome, GrLike, GrVideo } from 'react-icons/gr';
 
 import { IconType } from 'react-icons';
 import StructureBuilder from '@sanity/desk-tool/structure-builder';
@@ -34,6 +34,12 @@ const pages: Array<Page> = [
     Icon: GrVideo,
     schemaType: `livestream`,
     title: `Livestream`,
+  },
+  {
+    documentId: `credits`,
+    Icon: GrLike,
+    schemaType: `credits`,
+    title: `Credits`,
   },
 ];
 

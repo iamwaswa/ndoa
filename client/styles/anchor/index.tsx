@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Anchor = styled.a`
+export const AnchorStyles = css`
   color: var(--light-blue);
   cursor: pointer;
   position: relative;
@@ -15,7 +15,7 @@ export const Anchor = styled.a`
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -2px;
+    bottom: 0;
     opacity: 0;
     transform: translateX(-10px);
     transition: all 300ms ease-in-out;
@@ -34,4 +34,8 @@ export const Anchor = styled.a`
     opacity: 1;
     transform: translateX(0);
   }
+`;
+
+export const Anchor = styled.a`
+  ${AnchorStyles};
 `;
