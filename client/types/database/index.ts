@@ -27,6 +27,22 @@ export type {
 };
 
 /**
+ * Credits
+ *
+ *
+ */
+export interface Credits extends SanityDocument {
+  _type: 'credits';
+
+  /**
+   * Text — `richText`
+   *
+   *
+   */
+  text: RichText;
+}
+
+/**
  * Home
  *
  *
@@ -159,4 +175,4 @@ export type RichText = Array<
     }>
 >;
 
-export type Documents = Home | Livestream | Registry | Story;
+export type Documents = Credits | Home | Livestream | Registry | Story;

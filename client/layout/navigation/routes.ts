@@ -17,4 +17,8 @@ export const routes: Array<ApplicationRoute> = [
     href: `/livestream`,
     text: `Livestream`,
   },
+  {
+    href: `/credits`,
+    text: `Credits`,
+  },
 ];

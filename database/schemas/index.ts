@@ -1,4 +1,5 @@
 import createSchema from 'part:@sanity/base/schema-creator';
+import { creditsPageSchema } from './pages/credits';
 import { homePageSchema } from './pages/home';
 import { itemSchema } from './item';
 import { livestreamPageSchema } from './pages/livestream';
@@ -11,6 +12,7 @@ import { storyPageSchema } from './pages/story';
 export default createSchema({
   name: 'default',
   types: schemaTypes.concat([
+    creditsPageSchema,
     homePageSchema,
     itemSchema,
     livestreamPageSchema,
