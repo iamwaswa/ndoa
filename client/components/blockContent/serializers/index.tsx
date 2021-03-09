@@ -1,4 +1,5 @@
 import { Anchor } from 'styles/anchor';
+import { BlockStyleEnum } from 'enums';
 import { ChildrenProps } from 'types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -67,6 +68,12 @@ interface IImage {
   };
 }
 
+interface IBlockProps extends ChildrenProps {
+  node: {
+    style?: BlockStyleEnum;
+  };
+}
+
 interface ISerializersConfig {
   linkColor?: string;
 }
@@ -108,8 +115,22 @@ export function serializers({
       },
     },
     types: {
-      block({ children }: ChildrenProps): JSX.Element {
-        return <Text>{children}</Text>;
+      block({
+        children,
+        node: { style = BlockStyleEnum.normal },
+      }: IBlockProps): JSX.Element {
+        return (
+          <Text
+            variant={
+              style === BlockStyleEnum.normal ||
+              style === BlockStyleEnum.blockquote
+                ? `h6`
+                : style
+            }
+          >
+            {children}
+          </Text>
+        );
       },
       image({ node }: IImage): JSX.Element {
         return (
