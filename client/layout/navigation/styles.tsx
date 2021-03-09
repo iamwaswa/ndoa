@@ -22,6 +22,10 @@ export const NavBar = styled(AppBar)`
     & div.MuiTabs-flexContainer {
       margin: 0 auto;
       width: fit-content;
+
+      & > * + * {
+        margin-left: ${theme.spacing(1)}px;
+      }
     }
   `}
 `;
