@@ -1,13 +1,13 @@
 import { ChangeEvent, useMemo } from 'react';
 import { Currency, FunctionType } from 'types';
+import {
+  RegistryItemContribute,
+  StyledInput,
+  StyledLabel,
+  StyledSelect,
+} from './styles';
 
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { RegistryItemContribute } from './styles';
-import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
 import { currencies } from '@constants';
 import { useSubmitContributionContext } from 'context/submitContribution';
 
@@ -37,32 +37,39 @@ export function Contribute({
     total,
   ]);
 
+  // * Necessary to avoid eslint a11y error no-onchange
+  function handleBur(): void {
+    return;
+  }
+
   return (
     <RegistryItemContribute disabled={disableActions}>
-      <FormControl variant="outlined">
-        <InputLabel id="currency">Currency</InputLabel>
-        <Select
-          labelId="currency"
-          label="Currency"
+      <FormControl>
+        <StyledLabel htmlFor="currency">Currency</StyledLabel>
+        <StyledSelect
+          id="currency"
           value={currency.name}
+          onBlur={handleBur}
           onChange={updateCurrency}
         >
           {currencies.map(
             ({ description, name }: Currency): JSX.Element => (
-              <MenuItem key={name} value={name}>
+              <option key={name} value={name}>
                 {description}
-              </MenuItem>
+              </option>
             )
           )}
-        </Select>
+        </StyledSelect>
       </FormControl>
-      <TextField
-        label="Amount"
-        type="number"
-        variant="outlined"
-        value={amount}
-        onChange={updateAmount}
-      />
+      <FormControl>
+        <StyledLabel htmlFor="amount">Amount</StyledLabel>
+        <StyledInput
+          id="amount"
+          type="number"
+          value={amount}
+          onChange={updateAmount}
+        />
+      </FormControl>
     </RegistryItemContribute>
   );
 }
