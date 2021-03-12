@@ -68,6 +68,21 @@ const StyledDialogActions = styled(DialogActions)`
   `}
 `;
 
+const StyledFab = styled(Fab)`
+  ${({ theme }) => css`
+    background-color: var(--gold);
+    border-radius: ${theme.spacing(3)}px;
+    color: var(--dark-blue);
+    font-display: var(--title-font-display);
+    font-family: var(--title-font-family);
+    font-size: ${theme.typography.h6.fontSize};
+    font-style: var(--title-font-style);
+    font-weight: var(--title-font-weight);
+    padding: ${theme.spacing(0, 2)};
+    text-transform: initial;
+  `}
+`;
+
 export function WelcomeCard(): JSX.Element {
   const theme = useTheme();
 
@@ -114,9 +129,9 @@ export function WelcomeCard(): JSX.Element {
         </StyledDialogContentText>
       </DialogContent>
       <StyledDialogActions>
-        <Fab color="secondary" variant="extended" onClick={handleClose}>
+        <StyledFab color="secondary" variant="extended" onClick={handleClose}>
           Proceed to Website
-        </Fab>
+        </StyledFab>
       </StyledDialogActions>
     </StyledDialog>
   );
