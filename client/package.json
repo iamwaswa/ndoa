@@ -13,9 +13,9 @@
     "prettier": "prettier --write ./**/*.{ts,tsx}",
     "check": "npm run lint && npm run prettier",
     "format": "npm run lint:fix && npm run prettier",
-    "start:debug": "NODE_OPTIONS='--inspect' next dev --port 8080",
-    "start:dev": "next dev --port 8080",
-    "start:prod": "next start"
+    "debug": "NODE_OPTIONS='--inspect' next dev --port 8080",
+    "start": "next dev --port 8080",
+    "serve": "next start"
   },
   "husky": {
     "hooks": {

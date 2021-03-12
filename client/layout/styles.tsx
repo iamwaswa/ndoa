@@ -1,15 +1,15 @@
+import styled, { css } from 'styled-components';
+
 import Box from '@material-ui/core/Box';
-import styled from 'styled-components';
 
 export const LayoutContainer = styled(Box)`
   color: var(--gold);
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 `;
 
 export const LayoutHeader = styled(Box)`
-  ${({ theme }) => `
+  ${({ theme }) => css`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,7 +20,7 @@ export const LayoutHeader = styled(Box)`
 `;
 
 export const LayoutMiddleContainer = styled(Box)`
-  ${({ theme }) => `
+  ${({ theme }) => css`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,7 +29,7 @@ export const LayoutMiddleContainer = styled(Box)`
 `;
 
 export const LayoutContent = styled(Box)`
-  ${({ theme }) => `
+  ${({ theme }) => css`
     display: flex;
     flex-direction: column;
     flex-grow: 1;
