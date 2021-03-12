@@ -34,11 +34,21 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   a {
-    color: inherit;
+    color: var(--light-blue);
     text-decoration: none;
+    position: relative;
+
+    &:after {
+      content: '';
+      border-bottom: 3px solid var(--light-blue);
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
     
     &:hover {
-      color: inherit;
+      color: var(--light-blue);
       text-decoration: none;
     }
   }
