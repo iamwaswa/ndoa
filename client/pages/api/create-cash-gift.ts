@@ -34,7 +34,7 @@ export default async function handler(
       metadata: { amount, currency, name, slug },
       mode: `payment`,
       submit_type: `pay`,
-      success_url: `${process.env.BASE_URL}/registry?success=true&currency=${currency}&amount=${amount}`,
+      success_url: `${process.env.BASE_URL}/registry?success=true&slug=${slug}&currency=${currency}&amount=${amount}`,
       cancel_url: `${process.env.BASE_URL}/registry`,
     });
 

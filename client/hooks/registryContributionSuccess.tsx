@@ -57,11 +57,20 @@ function SuccessfulContributionMessage({
         You successfully contributed:
       </StyledTypography>
       <StyledAmountTypography gutterBottom={true}>
-        {currencyNameToSymbol(currency as CurrencyNameEnum)} {amount}
+        <span aria-label="celebration" rightMargin={true} role="img">
+          🥳
+        </span>{' '}
+        {currencyNameToSymbol(currency as CurrencyNameEnum)} {amount}{' '}
+        <span aria-label="smirk" leftMargin={true} role="img">
+          😏
+        </span>
       </StyledAmountTypography>
       <StyledTypography gutterBottom={true}>
         Once your payment has been processed the contribution bar for the item
-        will get updated
+        will get updated.
+      </StyledTypography>
+      <StyledTypography gutterBottom={true}>
+        You will shortly receive a receipt in the email your provided.
       </StyledTypography>
     </section>
   );
