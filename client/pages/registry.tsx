@@ -1,9 +1,11 @@
 import { Content, GiftRegistry, PageProps } from 'types';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { useEffect, useState } from 'react';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 
 import { BreathingRoom } from 'components/breathingRoom';
 import { BreathingRoomSpacingEnum } from 'enums';
+import Grow from '@material-ui/core/Grow';
 import Head from 'next/head';
 import { MasonryGrid } from 'components/masonryGrid';
 import { Registry } from 'types/database';
@@ -34,8 +36,21 @@ const RegistryContainer = styled.div`
 const RegistryAction = styled.div`
   ${({ theme }) => `
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin: ${theme.spacing(1, 0, 4)};
+
+    & > * + * {
+      margin: ${theme.spacing(2, 0, 0)};
+    }
+    
+    @media (min-width: 400px) {
+      flex-direction: row;
+      
+      & > * + * {
+        margin: ${theme.spacing(0, 0, 0, 2)};
+      }
+    }
   `}
 `;
 
@@ -48,6 +63,21 @@ export default function RegistryPage({
   const mobile = useMediaQuery(theme.breakpoints.down(`xs`));
 
   useRegistryContributionSuccess();
+
+  const [showCashGifts, setShowCashGifts] = useState<boolean>(false);
+
+  function setShowingCashGifts(): void {
+    setShowCashGifts(true);
+  }
+
+  useEffect((): void => {
+    if (showCashGifts) {
+      window.scrollBy({
+        behavior: `smooth`,
+        top: 200,
+      });
+    }
+  }, [showCashGifts]);
 
   return (
     <>
@@ -65,17 +95,29 @@ export default function RegistryPage({
           >
             Go to gift registry
           </RegistryItemButton>
+          <RegistryItemButton
+            color="secondary"
+            invert={true}
+            variant="extended"
+            onClick={setShowingCashGifts}
+          >
+            Show cash gifts
+          </RegistryItemButton>
         </RegistryAction>
-        <RegistryContainer>
-          <MasonryGrid
-            columns={mobile ? 1 : 2}
-            gap={theme.spacing(2)}
-            numberOfItems={content.gifts.length}
-            renderItem={(giftIndex: number): JSX.Element => (
-              <RegistryItem {...content.gifts[giftIndex]} />
-            )}
-          />
-        </RegistryContainer>
+        {showCashGifts ? (
+          <Grow in={true}>
+            <RegistryContainer>
+              <MasonryGrid
+                columns={mobile ? 1 : 2}
+                gap={theme.spacing(2)}
+                numberOfItems={content.gifts.length}
+                renderItem={(giftIndex: number): JSX.Element => (
+                  <RegistryItem {...content.gifts[giftIndex]} />
+                )}
+              />
+            </RegistryContainer>
+          </Grow>
+        ) : null}
       </BreathingRoom>
     </>
   );
