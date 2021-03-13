@@ -27,8 +27,18 @@ export enum CurrencyDescriptionEnum {
   GREAT_BRITAIN = '£ (Pound sterling)',
   KENYA = 'KES (Kenyan shilling)',
   SOUTH_AFRICA = 'ZAR (South African rand)',
-  UNITED_STATES = '$ (United States dollar)',
+  UNITED_STATES = 'US$ (United States dollar)',
   ZAMBIA = 'ZMW (Zambian kwacha)',
+}
+
+export enum CurrencySymbol {
+  AUSTRALIA = 'A$',
+  CANADA = 'CA$',
+  GREAT_BRITAIN = '£',
+  KENYA = 'KES',
+  SOUTH_AFRICA = 'ZAR',
+  UNITED_STATES = 'US$',
+  ZAMBIA = 'ZMW',
 }
 
 export enum CurrencyNameEnum {
