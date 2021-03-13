@@ -9,7 +9,8 @@ import { RegistryItemContent } from './styles';
 import { SanityBlockContent } from 'components/blockContent';
 
 interface IContentProps extends Pick<Item, 'description'> {
-  amount: number;
+  amount: string;
+  contribution: number;
   currency: Currency;
   image: { id: string; url: string };
   total: number;
@@ -22,6 +23,7 @@ interface IContentProps extends Pick<Item, 'description'> {
 
 export function Content({
   amount,
+  contribution,
   currency,
   description,
   image,
@@ -43,6 +45,7 @@ export function Content({
       </section>
       <Contribute
         amount={amount}
+        contribution={contribution}
         currency={currency}
         total={total}
         updateAmount={updateAmount}

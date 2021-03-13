@@ -8,7 +8,8 @@ import { useMemo } from 'react';
 import { useSubmitContributionContext } from 'context/submitContribution';
 
 interface IActionProps {
-  amount: number;
+  amount: string;
+  contribution: number;
   currency: Currency;
   name: string;
   slug: string;
@@ -17,6 +18,7 @@ interface IActionProps {
 
 export function Action({
   amount,
+  contribution,
   currency,
   name,
   slug,
@@ -24,11 +26,11 @@ export function Action({
 }: IActionProps): JSX.Element {
   const { submitting, toggleSubmitting } = useSubmitContributionContext();
 
-  const disableActions = useMemo((): boolean => amount >= total || submitting, [
-    amount,
-    submitting,
-    total,
-  ]);
+  const disableActions = useMemo(
+    (): boolean =>
+      contribution >= total || submitting || !amount || amount === `.`,
+    [amount, contribution, submitting, total]
+  );
 
   async function contributeToCashGift(): Promise<void> {
     toggleSubmitting();
@@ -36,7 +38,7 @@ export function Action({
     try {
       const { error, success } = await fetch(`/api/create-cash-gift`, {
         body: JSON.stringify({
-          amount,
+          amount: Number(amount),
           currency: currency.name,
           name,
           slug,
@@ -73,7 +75,7 @@ export function Action({
         variant="extended"
         onClick={contributeToCashGift}
       >
-        {amount >= total ? `Fully funded!` : `Contribute`}
+        {contribution >= total ? `Fully funded!` : `Contribute`}
       </RegistryItemButton>
     </RegistryItemAction>
   );

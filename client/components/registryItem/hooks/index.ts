@@ -1,11 +1,11 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { Currency, FunctionType } from 'types';
 
 import { CurrencyNameEnum } from 'enums';
 import { currencies } from '@constants';
 
 interface IUseCashGiftAmount {
-  amount: number;
+  amount: string;
   updateAmount: FunctionType<{ target: { value: string } }, void>;
   currency: Currency;
   updateCurrency: FunctionType<
@@ -15,19 +15,22 @@ interface IUseCashGiftAmount {
 }
 
 export function useCashGiftAmount(): IUseCashGiftAmount {
-  const [amount, setAmount] = useState<number>(15);
+  const validMoney = useRef<RegExp>(/^[\d]+$|^[\d]+\.[\d]*$|^\.[\d]*$/);
+  const [amount, setAmount] = useState<string>(`15`);
   const [currency, setCurrency] = useState<Currency>(
     currencies.find(
       (currency: Currency): boolean => currency.name === CurrencyNameEnum.CANADA
     )
   );
 
-  useEffect((): void => {
-    setAmount(getMinimumAmountForCurrency(amount, currency));
-  }, [amount, currency]);
-
   function updateAmount(event: { target: { value: string } }): void {
-    setAmount(Number(event.target.value));
+    if (event.target.value) {
+      if (validMoney.current.test(event.target.value)) {
+        setAmount(event.target.value);
+      }
+    } else {
+      setAmount(event.target.value);
+    }
   }
 
   function updateCurrency(
@@ -41,6 +44,10 @@ export function useCashGiftAmount(): IUseCashGiftAmount {
       );
     }
   }
+
+  useEffect((): void => {
+    setAmount(getMinimumAmountForCurrency(currency).toString());
+  }, [currency]);
 
   return {
     amount,
@@ -56,17 +63,14 @@ function isSupportedCurrencyName(symbol: unknown): symbol is CurrencyNameEnum {
   return currencySymbols.includes(symbol as CurrencyNameEnum);
 }
 
-function getMinimumAmountForCurrency(
-  amount: number,
-  { name }: Currency
-): number {
+function getMinimumAmountForCurrency({ name }: Currency): number {
   switch (name) {
     case CurrencyNameEnum.KENYA:
-      return Math.max(50, amount);
+      return 50;
     case CurrencyNameEnum.SOUTH_AFRICA:
     case CurrencyNameEnum.ZAMBIA:
-      return Math.max(10, amount);
+      return 10;
     default:
-      return Math.max(1, amount);
+      return 15;
   }
 }

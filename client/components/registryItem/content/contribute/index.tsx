@@ -12,7 +12,8 @@ import { currencies } from '@constants';
 import { useSubmitContributionContext } from 'context/submitContribution';
 
 interface IContributeProps {
-  amount: number;
+  amount: string;
+  contribution: number;
   currency: Currency;
   total: number;
   updateAmount: FunctionType<{ target: { value: string } }, void>;
@@ -24,6 +25,7 @@ interface IContributeProps {
 
 export function Contribute({
   amount,
+  contribution,
   currency,
   total,
   updateAmount,
@@ -31,16 +33,10 @@ export function Contribute({
 }: IContributeProps): JSX.Element {
   const { submitting } = useSubmitContributionContext();
 
-  const disableActions = useMemo((): boolean => amount >= total || submitting, [
-    amount,
-    submitting,
-    total,
-  ]);
-
-  // * Necessary to avoid eslint a11y error no-onchange
-  function handleBur(): void {
-    return;
-  }
+  const disableActions = useMemo(
+    (): boolean => contribution >= total || submitting,
+    [contribution, submitting, total]
+  );
 
   return (
     <RegistryItemContribute disabled={disableActions}>
@@ -49,7 +45,6 @@ export function Contribute({
         <StyledSelect
           id="currency"
           value={currency.name}
-          onBlur={handleBur}
           onChange={updateCurrency}
         >
           {currencies.map(
@@ -65,7 +60,7 @@ export function Contribute({
         <StyledLabel htmlFor="amount">Amount</StyledLabel>
         <StyledInput
           id="amount"
-          type="number"
+          type="text"
           value={amount}
           onChange={updateAmount}
         />

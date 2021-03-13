@@ -31,6 +31,7 @@ export function RegistryItem({
           <Header contribution={contribution} goal={goal} name={name} />
           <Content
             amount={amount}
+            contribution={contribution}
             currency={currency}
             description={description}
             image={image}
@@ -41,6 +42,7 @@ export function RegistryItem({
         </section>
         <Action
           amount={amount}
+          contribution={contribution}
           currency={currency}
           name={name}
           slug={slug}
