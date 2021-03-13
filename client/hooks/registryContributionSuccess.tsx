@@ -57,11 +57,11 @@ function SuccessfulContributionMessage({
         You successfully contributed:
       </StyledTypography>
       <StyledAmountTypography gutterBottom={true}>
-        <span aria-label="celebration" rightMargin={true} role="img">
+        <span aria-label="celebration" role="img">
           🥳
         </span>{' '}
         {currencyNameToSymbol(currency as CurrencyNameEnum)} {amount}{' '}
-        <span aria-label="smirk" leftMargin={true} role="img">
+        <span aria-label="smirk" role="img">
           😏
         </span>
       </StyledAmountTypography>
