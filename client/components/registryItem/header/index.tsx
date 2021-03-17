@@ -25,7 +25,7 @@ export function Header({
       subheader={
         <RegistryItemProgressMeter progress={contributedPercentage}>
           <Typography>
-            {`${Math.min(contributedPercentage, 100)}% contributed${
+            {`${Math.min(contributedPercentage, 100).toFixed(1)}% contributed${
               Math.min(contributedPercentage, 100) === 100 ? `!!!` : ``
             }`}
           </Typography>
