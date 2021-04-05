@@ -1,4 +1,10 @@
-import { CountdownContainer, GapText, TimeContainer, TimeText } from './styles';
+import {
+  CountdownContainer,
+  GapText,
+  TimeContainer,
+  TimeText,
+  ViewWeddingText,
+} from './styles';
 
 import { useTimeToGo } from 'hooks/timeToGo';
 
@@ -21,17 +27,25 @@ function Gap(): JSX.Element {
 }
 
 export function Countdown(): JSX.Element {
-  const { days, hours, minutes, seconds } = useTimeToGo();
+  const [{ days, hours, minutes, seconds }, weddingLive] = useTimeToGo();
 
   return (
-    <CountdownContainer>
-      <Time title="Days" value={days} />
-      <Gap />
-      <Time title="Hours" value={hours} />
-      <Gap />
-      <Time title="Minutes" value={minutes} />
-      <Gap />
-      <Time title="Seconds" value={seconds} />
+    <CountdownContainer weddingLive={weddingLive}>
+      {weddingLive ? (
+        <ViewWeddingText>
+          View the wedding on the livestream page!
+        </ViewWeddingText>
+      ) : (
+        <>
+          <Time title="Days" value={days} />
+          <Gap />
+          <Time title="Hours" value={hours} />
+          <Gap />
+          <Time title="Minutes" value={minutes} />
+          <Gap />
+          <Time title="Seconds" value={seconds} />
+        </>
+      )}
     </CountdownContainer>
   );
 }
