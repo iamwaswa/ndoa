@@ -12,6 +12,10 @@ export const currencies: Array<Currency> = [
     name: CurrencyNameEnum.CANADA,
   },
   {
+    description: CurrencyDescriptionEnum.CHINA,
+    name: CurrencyNameEnum.CHINA,
+  },
+  {
     description: CurrencyDescriptionEnum.GREAT_BRITAIN,
     name: CurrencyNameEnum.GREAT_BRITAIN,
   },

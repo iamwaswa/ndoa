@@ -24,6 +24,7 @@ export enum BreathingRoomSpacingEnum {
 export enum CurrencyDescriptionEnum {
   AUSTRALIA = 'A$ (Australian dollar)',
   CANADA = 'CA$ (Canadian dollar)',
+  CHINA = 'CN¥ (Chinese yuan)',
   GREAT_BRITAIN = '£ (Pound sterling)',
   KENYA = 'KES (Kenyan shilling)',
   SOUTH_AFRICA = 'ZAR (South African rand)',
@@ -34,6 +35,7 @@ export enum CurrencyDescriptionEnum {
 export enum CurrencySymbol {
   AUSTRALIA = 'A$',
   CANADA = 'CA$',
+  CHINA = 'CN¥',
   GREAT_BRITAIN = '£',
   KENYA = 'KES',
   SOUTH_AFRICA = 'ZAR',
@@ -44,6 +46,7 @@ export enum CurrencySymbol {
 export enum CurrencyNameEnum {
   AUSTRALIA = 'aud',
   CANADA = 'cad',
+  CHINA = 'cny',
   GREAT_BRITAIN = 'gbp',
   KENYA = 'kes',
   SOUTH_AFRICA = 'zar',
@@ -54,6 +57,7 @@ export enum CurrencyNameEnum {
 export enum ExchangeRateCurrencyNameEnum {
   AUSTRALIA = 'AUD',
   CANADA = 'CAD',
+  CHINA = 'CNY',
   GREAT_BRITAIN = 'GBP',
   KENYA = 'KES',
   SOUTH_AFRICA = 'ZAR',
