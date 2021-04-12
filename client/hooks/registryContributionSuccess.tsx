@@ -84,6 +84,9 @@ function currencyNameToSymbol(name: CurrencyNameEnum): CurrencySymbol {
     case CurrencyNameEnum.CANADA: {
       return CurrencySymbol.CANADA;
     }
+    case CurrencyNameEnum.CHINA: {
+      return CurrencySymbol.CHINA;
+    }
     case CurrencyNameEnum.GREAT_BRITAIN: {
       return CurrencySymbol.GREAT_BRITAIN;
     }

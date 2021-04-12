@@ -2,39 +2,15 @@ import { CurrencyDescriptionEnum, CurrencyNameEnum } from 'enums';
 
 import { Currency } from 'types';
 
-export const currencies: Array<Currency> = [
-  {
-    description: CurrencyDescriptionEnum.AUSTRALIA,
-    name: CurrencyNameEnum.AUSTRALIA,
-  },
-  {
-    description: CurrencyDescriptionEnum.CANADA,
-    name: CurrencyNameEnum.CANADA,
-  },
-  {
-    description: CurrencyDescriptionEnum.CHINA,
-    name: CurrencyNameEnum.CHINA,
-  },
-  {
-    description: CurrencyDescriptionEnum.GREAT_BRITAIN,
-    name: CurrencyNameEnum.GREAT_BRITAIN,
-  },
-  {
-    description: CurrencyDescriptionEnum.KENYA,
-    name: CurrencyNameEnum.KENYA,
-  },
-  {
-    description: CurrencyDescriptionEnum.SOUTH_AFRICA,
-    name: CurrencyNameEnum.SOUTH_AFRICA,
-  },
-  {
-    description: CurrencyDescriptionEnum.UNITED_STATES,
-    name: CurrencyNameEnum.UNITED_STATES,
-  },
-  {
-    description: CurrencyDescriptionEnum.ZAMBIA,
-    name: CurrencyNameEnum.ZAMBIA,
-  },
-];
+const currencyDescriptions = Object.values(CurrencyDescriptionEnum);
+
+const currencyNames = Object.values(CurrencyNameEnum);
+
+export const currencies: Array<Currency> = currencyDescriptions.map(
+  (description, index): Currency => ({
+    description,
+    name: currencyNames[index],
+  })
+);
 
 export const showedWelcomeCardKey = `showedWelcomeCard`;
