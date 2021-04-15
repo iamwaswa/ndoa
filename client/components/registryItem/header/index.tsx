@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { RegistryItemHeader, RegistryItemProgressMeter } from './styles';
-
+import { useMemo } from 'react';
 import { Item } from 'types/database';
 import Typography from '@material-ui/core/Typography';
 import { useContributedPercentage } from './hooks';
@@ -14,6 +14,8 @@ export function Header({
     contribution,
     goal,
   });
+  
+  const percentageContributed = useMemo(() => Math.min(contributedPercentage, 100), [contributedPercentage]);
 
   return (
     <RegistryItemHeader
@@ -25,8 +27,8 @@ export function Header({
       subheader={
         <RegistryItemProgressMeter progress={contributedPercentage}>
           <Typography>
-            {`${Math.min(contributedPercentage, 100).toFixed(1)}% contributed${
-              Math.min(contributedPercentage, 100) === 100 ? `!!!` : ``
+            {`${percentageContributed % 10 === 0 ? percentageContributed : percentageContributed.toFixed(1)}% contributed${
+              Math.min(100, percentageContributed) === 100 ? `!!!` : ``
             }`}
           </Typography>
         </RegistryItemProgressMeter>
