@@ -1,9 +1,7 @@
 import { FunctionType, TimeToGo } from 'types';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 export function useTimeToGo(): [TimeToGo, boolean] {
-  const [weddingLive, setWeddingLive] = useState<boolean>(false);
-
   const weddingDateTime = useRef<number>(Date.UTC(2021, 3, 24, 18, 0, 0, 0));
 
   const dayInMilliseconds = useRef<number>(1000 * 60 * 60 * 24);
@@ -30,10 +28,6 @@ export function useTimeToGo(): [TimeToGo, boolean] {
       weddingDateTime.current - currentTime
     );
 
-    if (!millisecondsToWedding) {
-      setWeddingLive(true);
-    }
-
     return {
       days: Math.floor(millisecondsToWedding / dayInMilliseconds.current),
       hours: Math.floor(
@@ -53,7 +47,20 @@ export function useTimeToGo(): [TimeToGo, boolean] {
 
   const [time, setTime] = useState<TimeToGo>(calculateTime());
 
+  const weddingLive = useMemo<boolean>((): boolean => {
+    return (
+      time.days === 0 &&
+      time.hours === 0 &&
+      time.minutes === 0 &&
+      time.seconds === 0
+    );
+  }, [time]);
+
   useEffect(() => {
+    if (weddingLive) {
+      return;
+    }
+
     const currentInterval = setInterval(() => {
       setTime(calculateTime());
     }, 1000);
@@ -61,7 +68,7 @@ export function useTimeToGo(): [TimeToGo, boolean] {
     return (): void => {
       clearInterval(currentInterval);
     };
-  }, [calculateTime]);
+  }, [weddingLive, calculateTime]);
 
   return [time, weddingLive];
 }
